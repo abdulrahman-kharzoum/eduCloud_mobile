@@ -1,5 +1,8 @@
 import 'dart:math';
-
+import 'package:educloud_mobile/models/model.dart';
+import 'package:educloud_mobile/providers/Model_provider.dart';
+import 'package:educloud_mobile/styles/app_colors.dart';
+import 'package:space_fixer/space_fixer.dart';
 import 'package:educloud_mobile/providers/onboarding_proivder.dart';
 import 'package:educloud_mobile/screens/login.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +20,9 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final controller = PageController();
+  final userNameController = TextEditingController();
+  final passwordController = TextEditingController();
+  // final controller = PageController(viewportFraction: 0.9999);
 
   @override
   Widget build(BuildContext context) {
@@ -24,141 +30,414 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
     return SafeArea(
       child: Scaffold(
-          body: Container(
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 80),
-              child: Consumer<OnboardingProvider>(
-                builder: (context, onprove, child) {
-                  return Stack(
+        body: Padding(
+          padding: const EdgeInsets.only(bottom: 80),
+          child: Consumer<OnboardingProvider>(
+            builder: (context, onprove, child) {
+              return Stack(
+                children: [
+                  PageView(
+                    allowImplicitScrolling: true,
+                    physics: AlwaysScrollableScrollPhysics(),
+                    onPageChanged: (index) {
+                      if (index == 2) {
+                        onprove.islastpage_true();
+                      } else {
+                        onprove.islastpage_false();
+                      }
+                    },
+                    controller: controller,
                     children: [
-                      Expanded(
-                        flex: 1,
-                        child: PageView(
-                          onPageChanged: (index) {
-                            if (index == 2) {
-                              onprove.islastpage_true();
-                            } else {
-                              onprove.islastpage_false();
-                            }
-                          },
-                          controller: controller,
-                          children: [
-                            buildPage(
-                              color: Colors.white,
-                              urlImage: 'images/onboardingScreen/1.jpeg',
-                              title: 'Page 1',
-                              subtitle: 'Hello world',
-                              size: size,
-                            ),
-                            buildPage(
-                              color: Colors.white,
-                              urlImage: 'images/onboardingScreen/2.jpeg',
-                              title: 'Page 2',
-                              subtitle: 'Hello world',
-                              size: size,
-                            ),
-                            buildPage(
-                              color: Colors.white,
-                              urlImage: 'images/onboardingScreen/3.jpg',
-                              title: 'Page 3',
-                              subtitle: 'Hello world',
-                              size: size,
-                            ),
-                          ],
-                        ),
+                      buildPage(
+                        color: Colors.white,
+                        urlImage: 'images/onboardingScreen/1.jpeg',
+                        title: 'Page 1',
+                        subtitle: 'Hello world',
+                        size: size,
                       ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        heightFactor: 37.5,
-                        child: Container(
-                          child: SmoothPageIndicator(
-                            controller: controller,
-                            count: 3,
-                            effect: WormEffect(
-                                spacing: 16,
-                                dotColor: Colors.black26,
-                                activeDotColor: Colors.teal.shade700),
-                            onDotClicked: (index) => controller.animateToPage(
-                                index,
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.easeIn),
+                      buildPage(
+                        color: Colors.white,
+                        urlImage: 'images/onboardingScreen/2.jpeg',
+                        title: 'Page 2',
+                        subtitle: 'Hello world',
+                        size: size,
+                      ),
+                      buildPage(
+                        color: Colors.white,
+                        urlImage: 'images/onboardingScreen/3.jpg',
+                        title: 'Page 3',
+                        subtitle: 'Hello world',
+                        size: size,
+                      ),
+                    ],
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    heightFactor: 37.5,
+                    child: SmoothPageIndicator(
+                      controller: controller,
+                      count: 3,
+                      effect: WormEffect(
+                          spacing: 16,
+                          dotColor: Colors.black26,
+                          activeDotColor: Colors.teal.shade700),
+                      onDotClicked: (index) => controller.animateToPage(index,
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeIn),
+                    ),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+        bottomSheet: context.watch<OnboardingProvider>().isLastPage
+            ? CustomPaint(
+                size: Size(size.width,
+                    (size.width * 0.4696132596685083 - 30).toDouble()),
+                painter: RPSCustomPainter(),
+                child: Container(
+                  height: 150,
+                  width: double.infinity,
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          final prefs = await SharedPreferences.getInstance();
+                          prefs.setBool('showLogin', true);
+
+                          Model _model = new Model();
+                          _model.passwordController = passwordController;
+                          _model.userNameController = userNameController;
+
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            // barrierColor: Colors.transparent,
+                            backgroundColor: Colors.transparent,
+                            context: context,
+                            builder: (context) => buildSheet(size, _model),
+                          );
+                        },
+                        child: SizedBox(
+                          height: 100,
+                          width: double.infinity,
+                          child: Center(
+                            child: Text(
+                              'Sign In',
+                              style: TextStyle(
+                                color: AppColors.secondaryColor,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
                         ),
                       ),
                     ],
-                  );
-                },
+                  ),
+                ),
+              )
+            : CustomPaint(
+                size: Size(size.width,
+                    (size.width * 0.4696132596685083 - 30).toDouble()),
+                painter: RPSCustomPainter(),
+                child: Container(
+                  height: 150,
+                  width: double.infinity,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 50,
+                      ),
+                      InkWell(
+                        onTap: () => controller.nextPage(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut),
+                        child: Container(
+                          height: 100,
+                          width: double.infinity,
+                          child: Center(
+                            child: Text(
+                              'Next',
+                              style: TextStyle(
+                                color: AppColors.secondaryColor,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
-          bottomSheet: context.watch<OnboardingProvider>().isLastPage
-              ? GestureDetector(
-                  onTap: () async {
-                    final prefs = await SharedPreferences.getInstance();
-                    prefs.setBool('showLogin', true);
-
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                    );
-                  },
-                  child: CustomPaint(
-                    size: Size(size.width,
-                        (size.width * 0.4696132596685083 - 30).toDouble()),
-                    painter: RPSCustomPainter(),
-                    child: Container(
-                      height: 150,
-                      width: double.infinity,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 50,
-                          ),
-                          Text(
-                            'Sgin In',
-                            style: TextStyle(
-                              color: Colors.deepPurple,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
-              : GestureDetector(
-                  onTap: () => controller.nextPage(
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeInOut),
-                  child: CustomPaint(
-                    size: Size(size.width,
-                        (size.width * 0.4696132596685083 - 30).toDouble()),
-                    painter: RPSCustomPainter(),
-                    child: Container(
-                      height: 150,
-                      width: double.infinity,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 50,
-                          ),
-                          Text(
-                            'Next',
-                            style: TextStyle(
-                              color: Colors.deepPurple,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )),
+      ),
     );
   }
+
+  Widget makeDismissible({required Widget child}) => GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => Navigator.of(context).pop(),
+        child: GestureDetector(
+          onTap: () {},
+          child: child,
+        ),
+      );
+  Widget buildSheet(Size size, Model _model) => makeDismissible(
+        child: DraggableScrollableSheet(
+          initialChildSize: 0.7,
+          builder: (context, scrollController) => Scaffold(
+            backgroundColor: Colors.transparent,
+            body: ListView(
+              physics: NeverScrollableScrollPhysics(),
+              // mainAxisAlignment: MainAxisAlignment.end,
+              // mainAxisSize: MainAxisSize.min,
+              children: [
+                CustomPaint(
+                  size: Size(size.width,
+                      (size.width * 0.4696132596685083 - 30).toDouble()),
+                  painter: RPSCustomPainter(),
+                  child: Container(
+                    height: 150,
+                    width: double.infinity,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 50,
+                        ),
+                        Container(
+                          height: 100,
+                          width: double.infinity,
+                          child: Center(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: 50,
+                                ),
+                                Text(
+                                  'Sign In',
+                                  style: TextStyle(
+                                    color: AppColors.secondaryColor,
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Divider(
+                                  color: Colors.white,
+                                  height: 2,
+                                  thickness: 2,
+                                  indent: (size.width / 2) - 40,
+                                  endIndent: (size.width / 2) - 40,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SpaceFixerHorizontalLine(
+                  context: context,
+                  overflowHeight: 3,
+                  overflowColor: AppColors.primaryColor,
+                ),
+                Container(
+                    padding: EdgeInsets.only(top: 25),
+                    height: 400,
+                    color: AppColors.primaryColor,
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(50, 10, 50, 16),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            child: TextFormField(
+                              controller: _model.userNameController,
+                              autofocus: true,
+                              autofillHints: [AutofillHints.name],
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                hintText: 'Enter Name',
+                                hintStyle: TextStyle(
+                                  fontFamily: 'Plus Jakarta Sans',
+                                  color: Color(0xFF101213),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xFFE0E3E7),
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xFF4B39EF),
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xFFFF5963),
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xFFFF5963),
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                filled: true,
+                                fillColor: Colors.white,
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 30.0, horizontal: 20.0),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(32.0)),
+                              ),
+                              style: TextStyle(
+                                fontFamily: 'Plus Jakarta Sans',
+                                color: Color(0xFF101213),
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              keyboardType: TextInputType.name,
+                              // validator: _model.emailAddressControllerValidator.asValidator(context),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Consumer<ModelProvider>(
+                            builder: (context, value, child) => Container(
+                              width: double.infinity,
+                              child: TextFormField(
+                                obscureText: !value.model.passwordVisibility,
+                                controller: _model.passwordController,
+                                autofocus: true,
+                                autofillHints: [AutofillHints.name],
+
+                                decoration: InputDecoration(
+                                  hintText: 'Enter Password',
+                                  hintStyle: TextStyle(
+                                    fontFamily: 'Plus Jakarta Sans',
+                                    color: Color(0xFF101213),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE0E3E7),
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFF4B39EF),
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFFF5963),
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFFF5963),
+                                      width: 2,
+                                    ),
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 30.0, horizontal: 20.0),
+                                  suffixIcon: Consumer<ModelProvider>(
+                                    builder: (context, value, child) => InkWell(
+                                      onTap: () {
+                                        value.model.passwordVisibility
+                                            ? value.setFalse_PasswordVisible()
+                                            : value.setTrue_PasswordVisible();
+                                      },
+                                      focusNode: FocusNode(skipTraversal: true),
+                                      child: Selector<ModelProvider,
+                                          ModelProvider>(
+                                        selector: (_, modelProvider) =>
+                                            modelProvider,
+                                        builder: (context, value, child) =>
+                                            Icon(
+                                          (value.model.passwordVisibility)
+                                              ? Icons.visibility_outlined
+                                              : Icons.visibility_off_outlined,
+                                          color: Color(0xFF57636C),
+                                          size: 24,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  border: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(32.0)),
+                                ),
+
+                                style: TextStyle(
+                                  fontFamily: 'Plus Jakarta Sans',
+                                  color: Color(0xFF101213),
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                                keyboardType: TextInputType.name,
+                                // validator: _model
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Material(
+                            color: AppColors.secondaryColor,
+                            borderRadius: BorderRadius.circular(50),
+                            child: InkWell(
+                              onTap: () {},
+                              borderRadius: BorderRadius.circular(50),
+                              child: Container(
+                                width: 200,
+                                height: 50,
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'SIGN IN',
+                                  style: TextStyle(
+                                    fontFamily: 'Plus Jakarta Sans',
+                                    color: AppColors.primaryColor,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+              ],
+            ),
+          ),
+        ),
+      );
 }
 
 Widget buildPage({
@@ -181,13 +460,17 @@ Widget buildPage({
               width: double.infinity,
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 220,
-              width: double.infinity,
+          Container(
+            // height: 220,
+            width: double.infinity,
+            child: Align(
+              alignment: Alignment.center,
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
+                  SizedBox(
+                    height: 310,
+                  ),
                   Text(
                     title,
                     style: TextStyle(
@@ -216,7 +499,7 @@ class RPSCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint0 = Paint()
-      ..color = const Color.fromARGB(255, 33, 150, 243)
+      ..color = AppColors.primaryColor
       ..style = PaintingStyle.fill
       ..strokeWidth = 1.0;
 

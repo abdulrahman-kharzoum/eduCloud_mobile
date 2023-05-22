@@ -1,3 +1,4 @@
+import 'package:educloud_mobile/providers/Model_provider.dart';
 import 'package:educloud_mobile/providers/base_provider.dart';
 import 'package:educloud_mobile/providers/onboarding_proivder.dart';
 import 'package:educloud_mobile/screens/login.dart';
@@ -16,6 +17,7 @@ Future main() async {
       ChangeNotifierProvider<BaseProvider>(create: (_) => BaseProvider()),
       ChangeNotifierProvider<OnboardingProvider>(
           create: (_) => OnboardingProvider()),
+      ChangeNotifierProvider<ModelProvider>(create: (_) => ModelProvider()),
     ], child: MyApp(showLogin: showLogin)),
   );
 }
@@ -33,6 +35,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      // theme: ThemeData(
+      //   //   bottomSheetTheme: BottomSheetThemeData(
+      //   // backgroundColor: Colors.black.withOpacity(0),
+      // )),
       home: showLogin
           ? LoginScreen()
           : OnboardingScreen(), //: OnboardingScreen(),

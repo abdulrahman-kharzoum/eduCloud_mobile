@@ -1,5 +1,4 @@
 import 'package:educloud_mobile/providers/base_provider.dart';
-import 'package:flutter/material.dart';
 
 class OnboardingProvider extends BaseProvider {
   bool _isLastPage = false;
