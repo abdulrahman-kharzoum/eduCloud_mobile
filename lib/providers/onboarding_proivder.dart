@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 class OnboardingProvider extends BaseProvider {
   int _currentImageIndex = 0;
-  int _currentTextIndex = 0;
+
   final _controller = PageController();
   List<String> _imagePaths = [
     'images/onboardingScreen/1.jpeg',
@@ -34,9 +34,13 @@ class OnboardingProvider extends BaseProvider {
 
   OnboardingProvider() {
     Timer.periodic(Duration(seconds: 4), (timer) {
-      _currentImageIndex = (_currentImageIndex + 1) % _imagePaths.length;
       _controller.nextPage(
           duration: const Duration(microseconds: 500), curve: Curves.easeInOut);
+      if (_currentImageIndex == _imagePaths.length - 1) {
+        _controller.jumpToPage(0);
+      }
+      _currentImageIndex = (_currentImageIndex + 1) % _imagePaths.length;
+
       // _currentTextIndex = (_currentTextIndex + 1) % _text.length;
       notifyListeners();
     });
@@ -58,6 +62,6 @@ class OnboardingProvider extends BaseProvider {
         speed: Duration(milliseconds: 100),
       );
   PageController get controller => _controller;
+  int get index => _currentImageIndex;
   String get currentImagePath => _imagePaths[_currentImageIndex];
-  // String get currentTextIndex => _text[_currentTextIndex];
 }

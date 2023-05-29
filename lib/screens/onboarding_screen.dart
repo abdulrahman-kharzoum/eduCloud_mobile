@@ -21,6 +21,7 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  final controller = PageController();
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
   @override
@@ -32,90 +33,71 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Column(
+        body: Stack(
           children: [
-            ClipPath(
-              clipper: ImageClipPathBetter(),
-              child: Consumer<OnboardingProvider>(
-                builder: (context, imageProvider, _) {
-                  //print(imageProvider.size);
-                  return AnimatedSwitcher(
-                    duration: Duration(milliseconds: 500),
-                    child: Image.asset(
-                      imageProvider.currentImagePath,
-                      key: ValueKey(imageProvider.currentImagePath),
-                      fit: BoxFit.cover,
-                      height: imageProvider.size.height / 1.7,
-                      width: imageProvider.size.width,
+            SizedBox(
+              height: 1,
+            ),
+            Consumer<OnboardingProvider>(
+              builder: (context, value, child) => PageView(
+                allowImplicitScrolling: false,
+                controller: value.controller,
+                physics: NeverScrollableScrollPhysics(),
+                children: [
+                  Consumer<OnboardingProvider>(
+                    builder: (context, value, child) => buildPage(
+                      key: ValueKey(6),
+                      urlImage: value.currentImagePath,
+                      index: value.index,
+                      title: value.textWidgets,
+                      subtitle: value.subtextsWidgets,
+                      size: value.size,
                     ),
-                  );
-                },
+                  ),
+                  Consumer<OnboardingProvider>(
+                    builder: (context, value, child) => buildPage(
+                      key: ValueKey(6),
+                      urlImage: value.currentImagePath,
+                      index: value.index,
+                      title: value.textWidgets,
+                      subtitle: value.subtextsWidgets,
+                      size: value.size,
+                    ),
+                  ),
+                  Consumer<OnboardingProvider>(
+                    builder: (context, value, child) => buildPage(
+                      key: ValueKey(6),
+                      urlImage: value.currentImagePath,
+                      index: value.index,
+                      title: value.textWidgets,
+                      subtitle: value.subtextsWidgets,
+                      size: value.size,
+                    ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(
-              height: 15,
-            ),
-            // Consumer<OnboardingProvider>(
-            //   builder: (context, value, child) => AnimatedTextKit(
-            //     repeatForever: true,
-
-            //     pause: Duration(milliseconds: 2000),
-            //     // isRepeatingAnimation: false,
-            //     animatedTexts: [
-            //       value.textWidgets,
-            //       // ScaleAnimatedText('text'),
-            //     ],
-            //   ),
-            // ),
-            Consumer<OnboardingProvider>(
-              builder: (context, value, _) {
-                //print(imageProvider.size);
-                return AnimatedSwitcher(
-                  duration: Duration(milliseconds: 500),
-                  child: AnimatedTextKit(
-                    repeatForever: true,
-                    key: ValueKey(value.currentImagePath),
-                    pause: Duration(milliseconds: 2000),
-                    // isRepeatingAnimation: false,
-                    animatedTexts: [
-                      value.textWidgets,
-
-                      // ScaleAnimatedText('text'),
-                    ],
+            Align(
+              heightFactor: 30,
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: 19,
+                child: Consumer<OnboardingProvider>(
+                  builder: (context, value, child) => SmoothPageIndicator(
+                    controller: value.controller,
+                    count: 3,
+                    effect: SwapEffect(
+                      activeDotColor: AppColors.primaryColor,
+                      dotColor: AppColors.textColor,
+                      dotHeight: 20,
+                      dotWidth: 20,
+                      spacing: 10,
+                      // verticalOffset: 50,
+                    ),
                   ),
-                );
-              },
+                ),
+              ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            Consumer<OnboardingProvider>(
-              builder: (context, value, _) {
-                //print(imageProvider.size);
-                return AnimatedSwitcher(
-                  duration: Duration(milliseconds: 500),
-                  child: AnimatedTextKit(
-                    repeatForever: true,
-                    key: ValueKey(value.currentImagePath),
-                    pause: Duration(milliseconds: 2000),
-                    // isRepeatingAnimation: false,
-                    animatedTexts: [
-                      value.subtextsWidgets,
-
-                      // ScaleAnimatedText('text'),
-                    ],
-                  ),
-                );
-              },
-            ),
-            SizedBox(
-              height: 25,
-            ),
-
-            Consumer<OnboardingProvider>(
-              builder: (context, value, child) => SmoothPageIndicator(
-                  effect: WormEffect(), controller: value.controller, count: 3),
-            )
           ],
         ),
         bottomSheet: CustomPaint(
@@ -185,8 +167,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             backgroundColor: Colors.transparent,
             body: ListView(
               physics: NeverScrollableScrollPhysics(),
-              // mainAxisAlignment: MainAxisAlignment.end,
-              // mainAxisSize: MainAxisSize.min,
               children: [
                 CustomPaint(
                   size: Size(size.width,
@@ -431,20 +411,63 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       );
 }
 
-Widget buildImage({
+Widget buildPage({
   required Key? key,
   required String urlImage,
-  required String title,
-  required String subtitle,
+  required int index,
+  required TypewriterAnimatedText title,
+  required TypewriterAnimatedText subtitle,
   required Size size,
   // required Size size,
 }) =>
-    ClipPath(
-      clipper: ImageClipPathBetter(),
-      child: Image(
-        image: AssetImage(urlImage),
-        fit: BoxFit.fitHeight,
-        // height: size.height / 1.7,
-        // width: size.width,
-      ),
+    Column(
+      children: [
+        ClipPath(
+          clipper: ImageClipPathBetter(),
+          child: AnimatedSwitcher(
+            duration: Duration(milliseconds: 500),
+            child: Image.asset(
+              urlImage,
+              key: ValueKey(index),
+              fit: BoxFit.cover,
+              height: size.height / 1.7,
+              width: size.width,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        AnimatedSwitcher(
+          duration: Duration(milliseconds: 500),
+          child: AnimatedTextKit(
+            repeatForever: true,
+            key: ValueKey(index),
+            pause: Duration(milliseconds: 2000),
+            // isRepeatingAnimation: false,
+            animatedTexts: [
+              title,
+
+              // ScaleAnimatedText('text'),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        AnimatedSwitcher(
+          duration: Duration(milliseconds: 500),
+          child: AnimatedTextKit(
+            repeatForever: true,
+            key: ValueKey(index),
+            pause: Duration(milliseconds: 2000),
+            // isRepeatingAnimation: false,
+            animatedTexts: [
+              subtitle,
+
+              // ScaleAnimatedText('text'),
+            ],
+          ),
+        ),
+      ],
     );
