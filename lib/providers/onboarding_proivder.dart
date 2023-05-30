@@ -5,11 +5,19 @@ import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingProvider extends BaseProvider {
   int _currentImageIndex = 0;
 
-  final _controller = PageController();
+  PageController _controller = PageController();
+  PageController get controller => this._controller;
+
+  void setcontroller(PageController value) {
+    this._controller = value;
+    // notifyListeners();
+  }
+
   List<String> _imagePaths = [
     'images/onboardingScreen/1.jpeg',
     'images/onboardingScreen/2.jpeg',
@@ -27,21 +35,46 @@ class OnboardingProvider extends BaseProvider {
   ];
   late TypewriterAnimatedText _textsWidgets;
   late TypewriterAnimatedText _subtextsWidgets;
+  // int currentPage = 0;
+  // int totalPageCount = 3;
+  // PageController _controller = PageController();
+  // IndicatorEffect _effect = JumpingDotEffect(
+  //   activeDotColor: AppColors.primaryColor,
+  //   dotColor: AppColors.textColor,
+  //   offset: 50,
+  //   verticalOffset: 50,
+  // );
+
   void stSize(Size ssize) {
     size = ssize;
     notifyListeners();
   }
 
+  int getCurrentPageIndex() {
+    final double currentPage =
+        _controller.page ?? _controller.initialPage.toDouble();
+    return currentPage.round();
+  }
+
   OnboardingProvider() {
     Timer.periodic(Duration(seconds: 4), (timer) {
-      _controller.nextPage(
-          duration: const Duration(microseconds: 500), curve: Curves.easeInOut);
-      if (_currentImageIndex == _imagePaths.length - 1) {
-        _controller.jumpToPage(0);
-      }
       _currentImageIndex = (_currentImageIndex + 1) % _imagePaths.length;
+      // print(getCurrentPageIndex());
+      if (getCurrentPageIndex() == 2) {
+        // _controller.jumpToPage(0);
+        _controller.animateToPage(
+          0,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.easeInOut,
+        );
+      } else {
+        _controller.nextPage(
+            duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+      }
 
-      // _currentTextIndex = (_currentTextIndex + 1) % _text.length;
+      // currentPage = nextPage();
+      // _controller = PageController(initialPage: currentPage);
+
       notifyListeners();
     });
   }
@@ -61,7 +94,9 @@ class OnboardingProvider extends BaseProvider {
         // scalingFactor: 4,
         speed: Duration(milliseconds: 100),
       );
-  PageController get controller => _controller;
+  // PageController get controller => _controller;
   int get index => _currentImageIndex;
+  // IndicatorEffect get effect => _effect;
+  // PageController get controller => _controller;
   String get currentImagePath => _imagePaths[_currentImageIndex];
 }
