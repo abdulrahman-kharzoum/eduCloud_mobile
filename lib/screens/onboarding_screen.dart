@@ -25,6 +25,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   PageController _controller = PageController();
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
+  FocusNode nameNode = FocusNode();
+  FocusNode passNode = FocusNode();
   @override
   void initState() {
     super.initState();
@@ -54,7 +56,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
             SizedBox(
-              height: 15,
+              height: 0,
             ),
             Consumer<OnboardingProvider>(
               builder: (context, value, _) {
@@ -93,7 +95,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               },
             ),
             SizedBox(
-              height: 18,
+              height: 15,
             ),
             Consumer<OnboardingProvider>(
               builder: (context, value, child) => SmoothPageIndicator(
@@ -101,7 +103,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   activeDotColor: AppColors.primaryColor,
                   dotColor: AppColors.textColor,
                   offset: 20,
-                  jumpScale: 3,
+                  jumpScale: 4,
                   // verticalOffset: 10,
                 ),
                 controller: value.controller,
@@ -119,13 +121,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     controller: value.controller,
                     children: [
                       Container(
-                        color: Colors.red,
+                        color: Colors.white,
                       ),
                       Container(
-                        color: Colors.blue,
+                        color: Colors.white,
                       ),
                       Container(
-                        color: Colors.yellow,
+                        color: Colors.white,
                       ),
                     ],
                   );
@@ -146,33 +148,35 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 const SizedBox(
                   height: 50,
                 ),
-                InkWell(
-                  onTap: () async {
-                    // final prefs = await SharedPreferences.getInstance();
-                    // prefs.setBool('showLogin', true);
+                Consumer<OnboardingProvider>(
+                  builder: (context, value, child) => InkWell(
+                    onTap: () async {
+                      // final prefs = await SharedPreferences.getInstance();
+                      // prefs.setBool('showLogin', true);
 
-                    // Model _model = new Model();
-                    // _model.passwordController = passwordController;
-                    // _model.userNameController = userNameController;
+                      Model _model = new Model();
+                      _model.passwordController = passwordController;
+                      _model.userNameController = userNameController;
 
-                    // showModalBottomSheet(
-                    //   isScrollControlled: true,
-                    //   // barrierColor: Colors.transparent,
-                    //   backgroundColor: Colors.transparent,
-                    //   context: context,
-                    //   builder: (context) => buildSheet(size, _model),
-                    // );
-                  },
-                  child: SizedBox(
-                    height: 100,
-                    width: double.infinity,
-                    child: Center(
-                      child: Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: AppColors.secondaryColor,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                        // barrierColor: Colors.transparent,
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (context) => buildSheet(value.size, _model),
+                      );
+                    },
+                    child: SizedBox(
+                      height: 100,
+                      width: double.infinity,
+                      child: Center(
+                        child: Text(
+                          'Sign In',
+                          style: TextStyle(
+                            color: AppColors.secondaryColor,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -194,147 +198,89 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           child: child,
         ),
       );
-  Widget buildSheet(Size size, Model _model) => makeDismissible(
-        child: DraggableScrollableSheet(
-          initialChildSize: 0.7,
-          builder: (context, scrollController) => Scaffold(
-            backgroundColor: Colors.transparent,
-            body: ListView(
-              physics: NeverScrollableScrollPhysics(),
-              // mainAxisAlignment: MainAxisAlignment.end,
-              // mainAxisSize: MainAxisSize.min,
-              children: [
-                CustomPaint(
-                  size: Size(size.width,
-                      (size.width * 0.4696132596685083 - 30).toDouble()),
-                  painter: RPSCustomPainter(),
-                  child: Container(
-                    height: 150,
-                    width: double.infinity,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 50,
-                        ),
-                        Container(
-                          height: 100,
-                          width: double.infinity,
-                          child: Center(
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 50,
-                                ),
-                                Text(
-                                  'Sign In',
-                                  style: TextStyle(
-                                    color: AppColors.secondaryColor,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Divider(
-                                  color: Colors.white,
-                                  height: 2,
-                                  thickness: 2,
-                                  indent: (size.width / 2) - 40,
-                                  endIndent: (size.width / 2) - 40,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SpaceFixerHorizontalLine(
-                  context: context,
-                  overflowHeight: 3,
-                  overflowColor: AppColors.primaryColor,
-                ),
-                Container(
-                    padding: EdgeInsets.only(top: 25),
-                    height: 400,
-                    color: AppColors.primaryColor,
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(50, 10, 50, 16),
+  Widget buildSheet(Size size, Model _model) => Scaffold(
+        backgroundColor: Colors.transparent,
+        resizeToAvoidBottomInset: true,
+        body: makeDismissible(
+          child: DraggableScrollableSheet(
+            initialChildSize: 0.67,
+            builder: (context, scrollController) => Scaffold(
+              backgroundColor: Colors.transparent,
+              body: ListView(
+                physics: AlwaysScrollableScrollPhysics(),
+                children: [
+                  CustomPaint(
+                    size: Size(size.width,
+                        (size.width * 0.4696132596685083 - 30).toDouble()),
+                    painter: RPSCustomPainter(),
+                    child: Container(
+                      height: 150,
+                      width: double.infinity,
                       child: Column(
                         children: [
+                          SizedBox(
+                            height: 50,
+                          ),
                           Container(
+                            height: 100,
                             width: double.infinity,
-                            child: TextFormField(
-                              controller: _model.userNameController,
-                              autofocus: true,
-                              autofillHints: [AutofillHints.name],
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                hintText: 'Enter Name',
-                                hintStyle: TextStyle(
-                                  fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF101213),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFFE0E3E7),
-                                    width: 2,
+                            child: Center(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 50,
                                   ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFF4B39EF),
-                                    width: 2,
+                                  Text(
+                                    'Sign In',
+                                    style: TextStyle(
+                                      color: AppColors.secondaryColor,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFFFF5963),
-                                    width: 2,
+                                  Divider(
+                                    color: Colors.white,
+                                    height: 2,
+                                    thickness: 2,
+                                    indent: (size.width / 2) - 40,
+                                    endIndent: (size.width / 2) - 40,
                                   ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFFFF5963),
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                filled: true,
-                                fillColor: Colors.white,
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 30.0, horizontal: 20.0),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(32.0)),
+                                ],
                               ),
-                              style: TextStyle(
-                                fontFamily: 'Plus Jakarta Sans',
-                                color: Color(0xFF101213),
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              keyboardType: TextInputType.name,
-                              // validator: _model.emailAddressControllerValidator.asValidator(context),
                             ),
                           ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Consumer<ModelProvider>(
-                            builder: (context, value, child) => Container(
+                        ],
+                      ),
+                    ),
+                  ),
+                  SpaceFixerHorizontalLine(
+                    context: context,
+                    overflowHeight: 3,
+                    overflowColor: AppColors.primaryColor,
+                  ),
+                  Container(
+                      padding: EdgeInsets.only(top: 25),
+                      height: 400,
+                      color: AppColors.primaryColor,
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(50, 10, 50, 16),
+                        child: Column(
+                          children: [
+                            Container(
                               width: double.infinity,
                               child: TextFormField(
-                                obscureText: !value.model.passwordVisibility,
-                                controller: _model.passwordController,
-                                autofocus: true,
+                                controller: _model.userNameController,
+                                focusNode: nameNode,
+                                autofocus: false,
+                                cursorColor: AppColors.primaryColor,
                                 autofillHints: [AutofillHints.name],
-
+                                obscureText: false,
+                                textInputAction: TextInputAction.next,
+                                onFieldSubmitted: (value) {
+                                  FocusScope.of(context).requestFocus(passNode);
+                                },
                                 decoration: InputDecoration(
-                                  hintText: 'Enter Password',
+                                  hintText: 'Enter Name',
                                   hintStyle: TextStyle(
                                     fontFamily: 'Plus Jakarta Sans',
                                     color: Color(0xFF101213),
@@ -373,34 +319,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   fillColor: Colors.white,
                                   contentPadding: const EdgeInsets.symmetric(
                                       vertical: 30.0, horizontal: 20.0),
-                                  suffixIcon: Consumer<ModelProvider>(
-                                    builder: (context, value, child) => InkWell(
-                                      onTap: () {
-                                        value.model.passwordVisibility
-                                            ? value.setFalse_PasswordVisible()
-                                            : value.setTrue_PasswordVisible();
-                                      },
-                                      focusNode: FocusNode(skipTraversal: true),
-                                      child: Selector<ModelProvider,
-                                          ModelProvider>(
-                                        selector: (_, modelProvider) =>
-                                            modelProvider,
-                                        builder: (context, value, child) =>
-                                            Icon(
-                                          (value.model.passwordVisibility)
-                                              ? Icons.visibility_outlined
-                                              : Icons.visibility_off_outlined,
-                                          color: Color(0xFF57636C),
-                                          size: 24,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
                                   border: OutlineInputBorder(
                                       borderRadius:
                                           BorderRadius.circular(32.0)),
                                 ),
-
                                 style: TextStyle(
                                   fontFamily: 'Plus Jakarta Sans',
                                   color: Color(0xFF101213),
@@ -408,39 +330,133 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   fontWeight: FontWeight.w500,
                                 ),
                                 keyboardType: TextInputType.name,
-                                // validator: _model
+                                // validator: _model.emailAddressControllerValidator.asValidator(context),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Material(
-                            color: AppColors.secondaryColor,
-                            borderRadius: BorderRadius.circular(50),
-                            child: InkWell(
-                              onTap: () {},
-                              borderRadius: BorderRadius.circular(50),
-                              child: Container(
-                                width: 200,
-                                height: 50,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  'SIGN IN',
+                            SizedBox(
+                              height: 30,
+                            ),
+                            Consumer<ModelProvider>(
+                              builder: (context, value, child) => Container(
+                                width: double.infinity,
+                                child: TextFormField(
+                                  obscureText: !value.model.passwordVisibility,
+                                  controller: _model.passwordController,
+                                  autofocus: false,
+                                  autofillHints: [AutofillHints.password],
+                                  focusNode: passNode,
+                                  textInputAction: TextInputAction.done,
+                                  decoration: InputDecoration(
+                                    hintText: 'Enter Password',
+                                    hintStyle: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                      color: Color(0xFF101213),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFE0E3E7),
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFF4B39EF),
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFFF5963),
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFFF5963),
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 30.0, horizontal: 20.0),
+                                    suffixIcon: Consumer<ModelProvider>(
+                                      builder: (context, value, child) =>
+                                          InkWell(
+                                        onTap: () {
+                                          value.model.passwordVisibility
+                                              ? value.setFalse_PasswordVisible()
+                                              : value.setTrue_PasswordVisible();
+                                        },
+                                        focusNode:
+                                            FocusNode(skipTraversal: true),
+                                        child: Selector<ModelProvider,
+                                            ModelProvider>(
+                                          selector: (_, modelProvider) =>
+                                              modelProvider,
+                                          builder: (context, value, child) =>
+                                              Icon(
+                                            (value.model.passwordVisibility)
+                                                ? Icons.visibility_outlined
+                                                : Icons.visibility_off_outlined,
+                                            color: Color(0xFF57636C),
+                                            size: 24,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(32.0)),
+                                  ),
+
                                   style: TextStyle(
                                     fontFamily: 'Plus Jakarta Sans',
-                                    color: AppColors.primaryColor,
+                                    color: Color(0xFF101213),
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500,
+                                  ),
+                                  keyboardType: TextInputType.name,
+                                  // validator: _model
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Material(
+                              color: AppColors.secondaryColor,
+                              borderRadius: BorderRadius.circular(50),
+                              child: InkWell(
+                                onTap: () {},
+                                borderRadius: BorderRadius.circular(50),
+                                child: Container(
+                                  width: 200,
+                                  height: 50,
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'SIGN IN',
+                                    style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                      color: AppColors.primaryColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    )),
-              ],
+                          ],
+                        ),
+                      )),
+                ],
+              ),
             ),
           ),
         ),
