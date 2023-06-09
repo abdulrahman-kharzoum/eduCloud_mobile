@@ -10,7 +10,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class OnboardingProvider extends BaseProvider {
   int _currentImageIndex = 0;
 
-  PageController _controller = PageController();
+  late PageController _controller;
   PageController get controller => this._controller;
 
   void setcontroller(PageController value) {
@@ -35,42 +35,43 @@ class OnboardingProvider extends BaseProvider {
   ];
   late TypewriterAnimatedText _textsWidgets;
   late TypewriterAnimatedText _subtextsWidgets;
-  // int currentPage = 0;
-  // int totalPageCount = 3;
-  // PageController _controller = PageController();
-  // IndicatorEffect _effect = JumpingDotEffect(
-  //   activeDotColor: AppColors.primaryColor,
-  //   dotColor: AppColors.textColor,
-  //   offset: 50,
-  //   verticalOffset: 50,
-  // );
-
+  late Timer timer;
   void stSize(Size ssize) {
     size = ssize;
     notifyListeners();
   }
 
-  int getCurrentPageIndex() {
-    final double currentPage =
-        _controller.page ?? _controller.initialPage.toDouble();
-    return currentPage.round();
+  @override
+  void dispose() {
+    _controller?.dispose();
+    timer.cancel();
+    super.dispose();
+  }
+
+  int getCurrentPageIndex(PageController controller) {
+    final int? currentPage = controller.page?.toInt();
+
+    return currentPage!;
+  }
+
+  void changeController() {
+    if (getCurrentPageIndex(_controller) == 2) {
+      // _controller.jumpToPage(0);
+      _controller.animateToPage(
+        0,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      _controller.nextPage(
+          duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+    }
   }
 
   OnboardingProvider() {
-    Timer.periodic(Duration(seconds: 4), (timer) {
+    timer = Timer.periodic(Duration(seconds: 4), (timer) {
       _currentImageIndex = (_currentImageIndex + 1) % _imagePaths.length;
-      // print(getCurrentPageIndex());
-      if (getCurrentPageIndex() == 2) {
-        // _controller.jumpToPage(0);
-        _controller.animateToPage(
-          0,
-          duration: Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        );
-      } else {
-        _controller.nextPage(
-            duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
-      }
+      changeController();
 
       // currentPage = nextPage();
       // _controller = PageController(initialPage: currentPage);
