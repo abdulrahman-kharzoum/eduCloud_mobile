@@ -6,7 +6,22 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text("Home")),
+      body: Column(
+        children: [
+          Center(child: Text("Home")),
+          Row(
+            children: [
+              Container(
+                height: 10,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Colors.amberAccent),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
