@@ -17,4 +17,10 @@ class AppColors {
     const Color.fromRGBO(55, 92, 154, 1),
     Color.fromRGBO(34, 62, 109, 1),
   ];
+  static Color lightBlue = const Color.fromRGBO(173, 230, 254, 1);
+  static Color mainColor = const Color.fromRGBO(34, 62, 109, 1);
+  /* static List<Color> gradientColors = [
+    const Color(0xff23b6e6),
+    const Color(0xff02d39a),
+  ];*/
 }
