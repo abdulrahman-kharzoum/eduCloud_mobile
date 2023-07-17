@@ -14,19 +14,16 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp(
-    
     await EasyLocalization(
-      path: 'assets/translations/',
-      supportedLocales: const [
-        Locale('en'),
-        Locale('ar'),
-      ],
-      fallbackLocale: const Locale('en'),
-      assetLoader: const CodegenLoader(),
-      child: MyApp()),
-    
+        path: 'assets/translations/',
+        supportedLocales: const [
+          Locale('en'),
+          Locale('ar'),
+        ],
+        fallbackLocale: const Locale('en'),
+        assetLoader: const CodegenLoader(),
+        child: MyApp()),
   );
-  
 }
 
 class MyApp extends StatelessWidget {
@@ -36,27 +33,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return 
-     MultiProvider(providers: [
-      ChangeNotifierProvider<BaseProvider>(create: (_) => BaseProvider()),
-      ChangeNotifierProvider<OnboardingProvider>(
-          create: (_) => OnboardingProvider()),
-      ChangeNotifierProvider<ModelProvider>(create: (_) => ModelProvider()),],
-
-    child: MaterialApp(
-      
-
-        debugShowCheckedModeBanner: false,
-      navigatorKey: nav,
-        routes: {
-          settingsScreen.routeName: (context) => const settingsScreen(),
-          HomeScreen.routeName: (context) => HomeScreen(),
-        locale: context.locale,
-        home: HomeScreen(),
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-          useMaterial3: true,
-        ),
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        theme: ThemeData(
-        title: 'Flutter Demo',
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<BaseProvider>(create: (_) => BaseProvider()),
+        ChangeNotifierProvider<OnboardingProvider>(
+            create: (_) => OnboardingProvider()),
+        ChangeNotifierProvider<ModelProvider>(create: (_) => ModelProvider()),
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          supportedLocales: context.supportedLocales,
+          localizationsDelegates: context.localizationDelegates,
+          locale: context.locale,
+          home: HomeScreen(),
+          routes: {
+            settingsScreen.routeName: (context) => const settingsScreen(),
+            HomeScreen.routeName: (context) => HomeScreen(),
+          }),
+    );
+  }
+}
