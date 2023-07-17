@@ -28,10 +28,12 @@ class ProfileScreen extends StatelessWidget {
         body: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               GradientAppBar(),
               Container(
+                padding: EdgeInsets.only(
+                  top: 10,
+                ),
                 child: Center(
                   child:
                       Text('Student Name', style: AppTextStyles.textTitleStyle),
@@ -46,12 +48,12 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 15,
+                height: 20,
               ),
               Center(
                 child: Padding(
                   padding:
-                      const EdgeInsets.only(left: 15, right: 15, bottom: 10),
+                      const EdgeInsets.only(left: 15, right: 15, bottom: 25),
                   child: Container(
                       decoration: BoxDecoration(
                         color: AppColors.secondaryColor,
@@ -82,7 +84,9 @@ class ProfileScreen extends StatelessWidget {
                   },
                 ),
               ),
-              Common_Button("Subject Info"),
+              Padding(
+                  padding: EdgeInsets.only(top: 25),
+                  child: Center(child: Common_Button("Subject Info"))),
             ],
           ),
         ),
