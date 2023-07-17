@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:educloud_mobile/screens/onboarding_screen.dart';
 import 'package:educloud_mobile/screens/settings_screen.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/widgets/head_profile_widget.dart';
@@ -138,12 +139,22 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 40,
           ),
-          const circleIconWidget(
-            color: Color.fromRGBO(97, 91, 254, 1),
-            widget: Icon(
-              Icons.logout,
-              color: Colors.white,
-              size: 25,
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OnboardingScreen(),
+                ),
+              );
+            },
+            child: const circleIconWidget(
+              color: Color.fromRGBO(97, 91, 254, 1),
+              widget: Icon(
+                Icons.logout,
+                color: Colors.white,
+                size: 25,
+              ),
             ),
           ),
         ],

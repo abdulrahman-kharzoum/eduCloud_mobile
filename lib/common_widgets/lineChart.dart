@@ -74,7 +74,7 @@ class LineChartWidget extends StatelessWidget {
               Container(
                 color: Colors.white,
                 child: AspectRatio(
-                  aspectRatio: 2,
+                  aspectRatio: 2.7,
                   child: LineChart(
                     LineChartData(
                       maxX: 7,

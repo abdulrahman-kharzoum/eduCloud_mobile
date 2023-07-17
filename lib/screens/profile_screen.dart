@@ -25,100 +25,12 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_outlined,
-              color: AppColors.iconColor,
-              size: 20,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HomeScreen(),
-                ),
-              );
-            },
-          ),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
-                    ),
-                  );
-                },
-                icon: Icon(
-                  Icons.home,
-                  color: AppColors.iconColor,
-                  size: 20,
-                ))
-          ],
-          elevation: 0,
-          backgroundColor: AppColors.ProfileColor,
-        ),
         body: SingleChildScrollView(
           physics: AlwaysScrollableScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Stack(
-                children: [
-                  Consumer<BaseProvider>(
-                    builder: (context, value, child) => CustomPaint(
-                      size: Size(value.size.width,
-                          (value.size.width * 0.5046851016059932).toDouble()),
-                      painter: RPSCustomPainterAppBar(),
-                      child: Container(
-                        height: 120,
-                      ),
-                    ),
-                  ),
-                  Consumer<BaseProvider>(
-                    builder: (context, value, child) => Column(
-                      children: [
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Align(
-                          // heightFactor: 1.4,
-                          alignment: Alignment.center,
-                          child: Container(
-                            height: 170,
-                            width: 170,
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 4, color: Colors.white),
-                              boxShadow: [
-                                BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.1),
-                                ),
-                              ],
-                              shape: BoxShape.circle,
-                              // image: DecorationImage(
-                              //   fit: BoxFit.cover,
-                              //   image: NetworkImage(
-                              //       "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80"),
-                              // ),
-                            ),
-                            child: CircleAvatar(
-                              radius: 150 / 2,
-                              //   backgroundColor: Colors.grey.shade800,
-                              backgroundImage: NetworkImage(
-                                "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80",
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+              GradientAppBar(),
               Container(
                 child: Center(
                   child:
@@ -263,5 +175,198 @@ class RPSCustomPainterAppBar extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
+  }
+}
+
+class RPSCustomPainterProfile extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Layer 1
+    size = Size(size.width + 10, size.height);
+    Paint paint_fill_0 = Paint()
+      ..color = const Color.fromARGB(255, 64, 72, 130)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = size.width * 0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+    Path path_0 = Path();
+    path_0.moveTo(size.width * 0.9977064, size.height * 0.0960000);
+    path_0.lineTo(0, size.height * 0.1000000);
+    path_0.lineTo(0, size.height);
+    path_0.lineTo(size.width * 0.9977064, size.height * 0.5760000);
+    path_0.lineTo(size.width * 0.9977064, size.height * 0.0960000);
+    path_0.close();
+
+    canvas.drawPath(path_0, paint_fill_0);
+
+    // Layer 1
+
+    Paint paint_stroke_0 = Paint()
+      ..color = const Color.fromARGB(255, 33, 150, 243)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = size.width * 0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+    canvas.drawPath(path_0, paint_stroke_0);
+
+    // Layer 1 Copy
+
+    Paint paint_fill_1 = Paint()
+      ..color = const Color.fromARGB(255, 34, 62, 109)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = size.width * 0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+    paint_fill_1.shader = ui.Gradient.linear(
+        Offset(size.width * 0.50, 0),
+        Offset(size.width * 0.50, size.height * 0.90),
+        [Color(0xff23406f), Color(0xff4583d8)],
+        [0.00, 1.00]);
+
+    Path path_1 = Path();
+    path_1.moveTo(size.width * 0.9977064, 0);
+    path_1.lineTo(0, size.height * 0.0040000);
+    path_1.lineTo(0, size.height * 0.9040000);
+    path_1.lineTo(size.width * 0.9977064, size.height * 0.4800000);
+    path_1.lineTo(size.width * 0.9977064, 0);
+    path_1.close();
+
+    canvas.drawPath(path_1, paint_fill_1);
+
+    // Layer 1 Copy
+
+    Paint paint_stroke_1 = Paint()
+      ..color = const Color.fromARGB(255, 33, 150, 243)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = size.width * 0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+    canvas.drawPath(path_1, paint_stroke_1);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
+class GradientAppBar extends StatelessWidget {
+  final double barHeight = 200.0;
+
+  GradientAppBar();
+
+  @override
+  Widget build(BuildContext context) {
+    final double statusbarHeight = MediaQuery.of(context).padding.top;
+
+    return Container(
+      padding: EdgeInsets.only(top: statusbarHeight),
+      height: statusbarHeight + barHeight,
+      child: Stack(
+        children: [
+          Consumer<BaseProvider>(
+            builder: (context, value, child) => Positioned(
+              height: 200,
+              width: 500,
+              bottom: 5,
+              right: 1,
+              child: CustomPaint(
+                size: Size(value.size.width,
+                    (value.size.width * 0.5046851016059932).toDouble()),
+                painter: RPSCustomPainterProfile(),
+                child: Container(
+                  height: 175,
+                ),
+              ),
+            ),
+          ),
+          Consumer<BaseProvider>(
+            builder: (context, value, child) => Column(
+              children: [
+                SizedBox(
+                  height: 50,
+                ),
+                Align(
+                  // heightFactor: 1.4,
+                  alignment: Alignment.center,
+                  child: Container(
+                    height: 150,
+                    width: 150,
+                    decoration: BoxDecoration(
+                      border: Border.all(width: 4, color: Colors.white),
+                      boxShadow: [
+                        BoxShadow(
+                          spreadRadius: 2,
+                          blurRadius: 10,
+                          color: Colors.black.withOpacity(0.1),
+                        ),
+                      ],
+                      shape: BoxShape.circle,
+                      // image: DecorationImage(
+                      //   fit: BoxFit.cover,
+                      //   image: NetworkImage(
+                      //       "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80"),
+                      // ),
+                    ),
+                    child: CircleAvatar(
+                      radius: 150 / 2,
+                      //   backgroundColor: Colors.grey.shade800,
+                      backgroundImage: NetworkImage(
+                        "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80",
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeScreen(),
+                    ),
+                  );
+                },
+                child: Icon(
+                  size: 35,
+                  Icons.home,
+                  color: AppColors.secondaryColor,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ProfileScreen(),
+                    ),
+                  );
+                },
+                child: Icon(
+                  size: 35,
+                  Icons.arrow_back,
+                  color: AppColors.secondaryColor,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

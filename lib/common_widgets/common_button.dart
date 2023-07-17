@@ -11,9 +11,7 @@ class Common_Button extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 5, bottom: 5),
       child: ElevatedButton(
-        onPressed: () {
-          debugPrint('ElevatedButton Clicked');
-        },
+        onPressed: () {},
         child: Ink(
           decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -22,12 +20,13 @@ class Common_Button extends StatelessWidget {
                   colors: AppColors.gradientColorsButtom),
               borderRadius: BorderRadius.circular(20)),
           child: Container(
-            width: 300,
-            height: 50,
+            width: 250,
+            height: 45,
             alignment: Alignment.center,
             child: Text(
               text,
-              style: AppTextStyles.textTitleStyle.copyWith(color: Colors.white),
+              style: AppTextStyles.textTitleStyle
+                  .copyWith(color: Colors.white, fontSize: 16),
             ),
           ),
         ),
