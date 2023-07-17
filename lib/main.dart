@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: context.supportedLocales,
           localizationsDelegates: context.localizationDelegates,
           locale: context.locale,
-          home: HomeScreen(),
+          home: SplashScreen(),
           routes: {
             settingsScreen.routeName: (context) => const settingsScreen(),
             HomeScreen.routeName: (context) => HomeScreen(),
