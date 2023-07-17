@@ -137,3 +137,57 @@ class Background extends CustomPainter {
     return true;
   }
 }
+
+class RPSCustomPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    size = Size(size.width + 10, size.height + 25);
+    // Layer 1
+
+    Paint paint_fill_0 = Paint()
+      ..color = const Color.fromARGB(220, 34, 62, 109)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = size.width * 0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+    paint_fill_0.shader = ui.Gradient.linear(
+        Offset(size.width * 0.50, size.height * 0.50),
+        Offset(size.width * 0.50, size.height * 0.50),
+        [Color.fromRGBO(34, 62, 109, 1), Color.fromRGBO(59, 103, 176, 1)],
+        [0.00, 1.00]);
+
+    Path path_0 = Path();
+    path_0.moveTo(0, size.height * 0.0017704);
+    path_0.lineTo(size.width * 0.0000000, size.height * 0.9982750);
+    path_0.lineTo(size.width * 0.9988774, size.height * 0.5886518);
+    path_0.lineTo(size.width * 0.9988774, size.height * -0.0003178);
+    path_0.lineTo(0, size.height * 0.0017704);
+    path_0.close();
+
+    canvas.drawPath(path_0, paint_fill_0);
+
+    // Layer 1 Copy
+
+    Paint paint_fill_1 = Paint()
+      ..color = const Color.fromARGB(255, 34, 62, 109)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = size.width * 0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+
+    Path path_1 = Path();
+    path_1.moveTo(size.width * -0.0011226, size.height * -0.0708611);
+    path_1.lineTo(size.width * -0.0011226, size.height * 0.9256435);
+    path_1.lineTo(size.width * 0.9977548, size.height * 0.5160470);
+    path_1.lineTo(size.width * 0.9977548, size.height * -0.0729493);
+    path_1.lineTo(size.width * -0.0011226, size.height * -0.0708611);
+    path_1.close();
+
+    canvas.drawPath(path_1, paint_fill_1);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return true;
+  }
+}

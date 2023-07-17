@@ -13,6 +13,7 @@ class LineChartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      // height: 265,
       padding: EdgeInsets.only(left: 2, right: 2),
       margin: EdgeInsets.only(left: 2, right: 2),
       decoration: BoxDecoration(
@@ -41,14 +42,15 @@ class LineChartWidget extends StatelessWidget {
                 height: 10,
               ),
               Container(
+                height: 35,
                 width: 200,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
+                  borderRadius: BorderRadius.circular(5),
                   boxShadow: const [
                     BoxShadow(
                       blurStyle: BlurStyle.outer,
                       spreadRadius: 0,
-                      blurRadius: 9,
+                      blurRadius: 4,
                       color: Colors.grey,
                     ),
                   ],
@@ -56,7 +58,10 @@ class LineChartWidget extends StatelessWidget {
                 child: Center(
                   child: Text(
                     title,
-                    style: AppTextStyles.textTitleStyle,
+                    style: AppTextStyles.textTitleStyle.copyWith(
+                        fontSize: 16,
+                        color: Colors.black,
+                        fontWeight: FontWeight.normal),
                   ),
                 ),
               ),
@@ -82,14 +87,14 @@ class LineChartWidget extends StatelessWidget {
                         show: false,
                         getDrawingHorizontalLine: ((value) {
                           return FlLine(
-                            color: AppColors.secondaryColor,
+                            color: AppColors.primaryColor,
                             strokeWidth: 1,
                           );
                         }),
                         drawVerticalLine: false,
                         getDrawingVerticalLine: ((value) {
                           return FlLine(
-                            color: AppColors.secondaryColor,
+                            color: AppColors.primaryColor,
                             strokeWidth: 1,
                           );
                         }),
@@ -102,18 +107,18 @@ class LineChartWidget extends StatelessWidget {
                       lineBarsData: [
                         LineChartBarData(
                           barWidth: 3,
-                          color: Colors.white,
+                          color: AppColors.appColor,
 
                           spots: points
                               .map((point) => FlSpot(point.x, point.y))
                               .toList(),
                           isCurved: true,
 
-                          gradient: LinearGradient(
-                            colors: AppColors.gradientColors,
-                            begin: Alignment.bottomLeft,
-                            end: Alignment.topRight,
-                          ),
+                          // gradient: LinearGradient(
+                          //   colors: AppColors.gradientColors,
+                          //   begin: Alignment.topCenter,
+                          //   end: Alignment.bottomCenter,
+                          // ),
                           // color: AppColors.primaryColor,
 
                           dotData: FlDotData(
@@ -121,11 +126,11 @@ class LineChartWidget extends StatelessWidget {
                           ),
 
                           belowBarData: BarAreaData(
-                            color: Colors.white,
+                            // color: Colors.red,
                             show: true,
                             gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.topRight,
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
                                 tileMode: TileMode.clamp,
                                 colors: AppColors.gradientColors
                                     .map((color) => color.withOpacity(0.4))

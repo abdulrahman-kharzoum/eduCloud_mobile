@@ -1,6 +1,8 @@
 import 'package:educloud_mobile/common_widgets/BackgroundPaint.dart';
+import 'package:educloud_mobile/common_widgets/common_button.dart';
 import 'package:educloud_mobile/common_widgets/lineChart.dart';
 import 'package:educloud_mobile/models/marksPoints.dart';
+import 'package:educloud_mobile/models/user.dart';
 import 'package:educloud_mobile/providers/base_provider.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
@@ -11,11 +13,16 @@ import 'package:provider/provider.dart';
 import 'dart:ui' as ui;
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  User user = User(
+      phone_number: "+963981233473",
+      grade_section: "grad 8 / section 2 ",
+      fatherName: "Ahmad moshen",
+      motherName: "Sara ahmad",
+      Address: "39 Iroquios Street Owosso, MI 48867 ");
+  ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    double bg_width = 500;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -53,77 +60,77 @@ class ProfileScreen extends StatelessWidget {
           elevation: 0,
           backgroundColor: AppColors.ProfileColor,
         ),
-        body: CustomPaint(
-          size: Size(
-              bg_width,
-              (bg_width * 2.1434668500180276)
-                  .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-
-          painter: Background(),
+        body: SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Stack(
                 children: [
                   Consumer<BaseProvider>(
                     builder: (context, value, child) => CustomPaint(
                       size: Size(value.size.width,
-                          (value.size.width * 0.5549495668058684).toDouble()),
+                          (value.size.width * 0.5046851016059932).toDouble()),
                       painter: RPSCustomPainterAppBar(),
-                      // child: Container(
-                      //   height: 150,
-                      //   width: 30,
-                      //   // child: ,
-                      //   // color: Colors.brown,
-                      // ),
+                      child: Container(
+                        height: 120,
+                      ),
                     ),
                   ),
                   Consumer<BaseProvider>(
-                    builder: (context, value, child) => Align(
-                      alignment: Alignment.bottomCenter,
-                      // right: value.size.width / 2,
-                      child: Container(
-                        height: 170,
-                        width: 170,
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 4, color: Colors.white),
-                          boxShadow: [
-                            BoxShadow(
-                              spreadRadius: 2,
-                              blurRadius: 10,
-                              color: Colors.black.withOpacity(0.1),
-                            ),
-                          ],
-                          shape: BoxShape.circle,
-                          // image: DecorationImage(
-                          //   fit: BoxFit.cover,
-                          //   image: NetworkImage(
-                          //       "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80"),
-                          // ),
+                    builder: (context, value, child) => Column(
+                      children: [
+                        SizedBox(
+                          height: 5,
                         ),
-                        child: CircleAvatar(
-                          radius: 150 / 2,
-                          //   backgroundColor: Colors.grey.shade800,
-                          backgroundImage: NetworkImage(
-                            "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80",
+                        Align(
+                          // heightFactor: 1.4,
+                          alignment: Alignment.center,
+                          child: Container(
+                            height: 170,
+                            width: 170,
+                            decoration: BoxDecoration(
+                              border: Border.all(width: 4, color: Colors.white),
+                              boxShadow: [
+                                BoxShadow(
+                                  spreadRadius: 2,
+                                  blurRadius: 10,
+                                  color: Colors.black.withOpacity(0.1),
+                                ),
+                              ],
+                              shape: BoxShape.circle,
+                              // image: DecorationImage(
+                              //   fit: BoxFit.cover,
+                              //   image: NetworkImage(
+                              //       "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80"),
+                              // ),
+                            ),
+                            child: CircleAvatar(
+                              radius: 150 / 2,
+                              //   backgroundColor: Colors.grey.shade800,
+                              backgroundImage: NetworkImage(
+                                "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80",
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 ],
               ),
               Container(
-                padding: EdgeInsets.only(top: 15),
                 child: Center(
                   child:
                       Text('Student Name', style: AppTextStyles.textTitleStyle),
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 5),
+                // padding: EdgeInsets.only(top: 5),
                 child: Center(
                   child: Text('Grade Number',
-                      style: AppTextStyles.textSubTitleStyle),
+                      style: AppTextStyles.textSubTitleStyle
+                          .copyWith(fontSize: 14)),
                 ),
               ),
               SizedBox(
@@ -131,7 +138,8 @@ class ProfileScreen extends StatelessWidget {
               ),
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  padding:
+                      const EdgeInsets.only(left: 15, right: 15, bottom: 10),
                   child: Container(
                       decoration: BoxDecoration(
                         color: AppColors.secondaryColor,
@@ -147,38 +155,22 @@ class ProfileScreen extends StatelessWidget {
                       child: LineChartWidget(marksPoints, 'Student Situation')),
                 ),
               ),
-              // Container(
-              //   height: 250,
-              //   // width: 400,
-              //   // color: AppColors.secondaryColor,
-              //   decoration: BoxDecoration(
-              //       borderRadius: BorderRadius.circular(5),
-              //       color: AppColors.primaryColor),
-              //   child: LineChart(
-              //     LineChartData(
-              //       minX: 0,
-              //       maxX: 11,
-              //       maxY: 6,
-              //       minY: 0,
-              //       gridData: FlGridData(
-              //         show: true,
-              //       ),
-              //       lineBarsData: [
-              //         LineChartBarData(
-              //           spots: [
-              //             FlSpot(0, 3),
-              //             FlSpot(2.6, 2),
-              //             FlSpot(4.9, 5),
-              //             FlSpot(6.8, 2.5),
-              //             FlSpot(8, 4),
-              //             FlSpot(9.5, 3),
-              //             FlSpot(11, 4),
-              //           ],
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
+              Container(
+                height: 320,
+                child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: 5, // Replace with your actual item count
+                  itemBuilder: (BuildContext context, int index) {
+                    return Card(
+                      elevation: 1,
+                      shadowColor: Colors.grey,
+                      color: AppColors.InfoCardColor,
+                      child: user.info_cards[index],
+                    );
+                  },
+                ),
+              ),
+              Common_Button("Subject Info"),
             ],
           ),
         ),
@@ -187,45 +179,85 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-//Add this CustomPaint widget to the Widget Tree
-// CustomPaint(
-//     size: Size(WIDTH, (WIDTH*0.5549495668058684).toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-//     painter: RPSCustomPainter(),
-// )
+class InfoCard extends StatelessWidget {
+  String lead_title;
+  String trail_title;
+  IconData icon;
+  InfoCard(this.lead_title, this.trail_title, this.icon, {super.key});
 
-//Copy this CustomPainter code to the Bottom of the File
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      trailing: Container(
+        width: 150,
+        child: Text(
+          trail_title,
+          softWrap: true,
+          style: AppTextStyles.textTitleStyle.copyWith(fontSize: 16),
+        ),
+      ),
+      leading: Icon(
+        icon,
+        color: AppColors.primaryColor,
+      ),
+      title: Text(
+        lead_title,
+        style: AppTextStyles.textTitleStyle.copyWith(fontSize: 16),
+      ), // Replace with your actual item title
+      // Replace with your actual item description
+      onTap: () {
+        // Handle item tap
+      },
+    );
+  }
+}
+
 class RPSCustomPainterAppBar extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
+    size = Size(size.width + 10, size.height + 25);
+    // Layer 1
+
+    Paint paint_fill_0 = Paint()
+      ..color = const Color.fromARGB(220, 34, 62, 109)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = size.width * 0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
+    paint_fill_0.shader = ui.Gradient.linear(
+        Offset(size.width * 0.50, size.height * 0.50),
+        Offset(size.width * 0.50, size.height * 0.50),
+        [Color.fromRGBO(34, 62, 109, 1), Color.fromRGBO(59, 103, 176, 1)],
+        [0.00, 1.00]);
+
     Path path_0 = Path();
-    path_0.moveTo(size.width * 3.686432, size.height * 0.05538983);
-    path_0.lineTo(size.width * 3.686432, size.height * 0.9506754);
-    path_0.lineTo(size.width * 4.644798, size.height * 0.5507569);
-    path_0.lineTo(size.width * 4.644798, size.height * 0.05538983);
+    path_0.moveTo(0, size.height * 0.0017704);
+    path_0.lineTo(size.width * 0.0000000, size.height * 0.9982750);
+    path_0.lineTo(size.width * 0.9988774, size.height * 0.5886518);
+    path_0.lineTo(size.width * 0.9988774, size.height * -0.0003178);
+    path_0.lineTo(0, size.height * 0.0017704);
     path_0.close();
 
-    Paint paint_0_fill = Paint()..style = PaintingStyle.fill;
-    paint_0_fill.shader = ui.Gradient.linear(
-        Offset(size.width * 0.5000000, 0),
-        Offset(size.width * 0.5000000, size.height * 0.01000000),
-        [Color(0xff223e6d).withOpacity(1), Color(0xff3b67b0).withOpacity(1)],
-        [0, 1]);
-    canvas.drawPath(path_0, paint_0_fill);
+    canvas.drawPath(path_0, paint_fill_0);
+
+    // Layer 1 Copy
+
+    Paint paint_fill_1 = Paint()
+      ..color = const Color.fromARGB(255, 34, 62, 109)
+      ..style = PaintingStyle.fill
+      ..strokeWidth = size.width * 0.00
+      ..strokeCap = StrokeCap.butt
+      ..strokeJoin = StrokeJoin.miter;
 
     Path path_1 = Path();
-    path_1.moveTo(size.width * 3.686432, size.height * 0.05538983);
-    path_1.lineTo(size.width * 3.686432, size.height * 0.9506754);
-    path_1.lineTo(size.width * 4.644798, size.height * 0.5507569);
-    path_1.lineTo(size.width * 4.644798, size.height * 0.05538983);
+    path_1.moveTo(size.width * -0.0011226, size.height * -0.0708611);
+    path_1.lineTo(size.width * -0.0011226, size.height * 0.9256435);
+    path_1.lineTo(size.width * 0.9977548, size.height * 0.5160470);
+    path_1.lineTo(size.width * 0.9977548, size.height * -0.0729493);
+    path_1.lineTo(size.width * -0.0011226, size.height * -0.0708611);
     path_1.close();
 
-    Paint paint_1_fill = Paint()..style = PaintingStyle.fill;
-    paint_1_fill.shader = ui.Gradient.linear(
-        Offset(size.width * 0.5000000, 0),
-        Offset(size.width * 0.5000000, size.height * 0.01000000),
-        [Color(0xff223e6d).withOpacity(1), Color(0xff3b67b0).withOpacity(1)],
-        [0, 1]);
-    canvas.drawPath(path_1, paint_1_fill);
+    canvas.drawPath(path_1, paint_fill_1);
   }
 
   @override
