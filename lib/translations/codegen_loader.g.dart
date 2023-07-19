@@ -25,7 +25,18 @@ class CodegenLoader extends AssetLoader {
     "homepage": "الصفحة الرئيسية",
     "messages&notifications": "الرسائل و الإشعارات",
     "logout": "تسجيل الخروج",
-    "calender": "التقويم"
+    "calender": "التقويم",
+    "school": "المدرسة",
+    "bus": "الحافلة",
+    "donations": "التبرعات",
+    "spy": "ل.س",
+    "stillhavetopay": "تبقى لك لتدفعه",
+    "totalprice": "المبلغ الكامل",
+    "total": "المبلغ الكلي المدفوع",
+    "lastpriceyoupaied": "آخر مبلغ تم دفعه",
+    "receiptnumbers": "رقم الفاتورة",
+    "date": "التاريخ",
+    "price": "المبلغ"
   };
   static const Map<String, dynamic> en = {
     "settings": "Settings",
@@ -38,7 +49,18 @@ class CodegenLoader extends AssetLoader {
     "homepage": "Home page",
     "messages&notifications": "Messages & Notifications",
     "logout": "Log out",
-    "calender": "Calender"
+    "calender": "Calender",
+    "school": "School",
+    "bus": "Bus",
+    "donations": "Donations",
+    "spy": "SPY",
+    "stillhavetopay": "Still have to pay",
+    "totalprice": "Total price",
+    "total": "TOTAL",
+    "lastpriceyoupaied": "LAST PRICE YOU PAIED",
+    "receiptnumbers": "Receipt numbers",
+    "date": "Date",
+    "price": "Price"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "ar": ar,

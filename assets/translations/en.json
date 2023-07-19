@@ -9,5 +9,16 @@
     "homepage": "Home page",
     "messages&notifications": "Messages & Notifications",
     "logout": "Log out",
-    "calender": "Calender"
+    "calender": "Calender",
+    "school": "School",
+    "bus": "Bus",
+    "donations": "Donations",
+    "spy": "SPY",
+    "stillhavetopay": "Still have to pay",
+    "totalprice": "Total price",
+    "total": "TOTAL",
+    "lastpriceyoupaied": "LAST PRICE YOU PAIED",
+    "receiptnumbers": "Receipt numbers",
+    "date": "Date",
+    "price": "Price"   
 }

@@ -9,5 +9,16 @@
     "homepage": "الصفحة الرئيسية",
     "messages&notifications": "الرسائل و الإشعارات",
     "logout": "تسجيل الخروج",
-    "calender": "التقويم"
+    "calender": "التقويم",
+    "school": "المدرسة",
+    "bus": "الحافلة",
+    "donations": "التبرعات",
+    "spy": "ل.س",
+    "stillhavetopay": "تبقى لك لتدفعه",
+    "totalprice": "المبلغ الكامل",
+    "total": "المبلغ الكلي المدفوع",
+    "lastpriceyoupaied": "آخر مبلغ تم دفعه",
+    "receiptnumbers": "رقم الفاتورة",
+    "date": "التاريخ",
+    "price": "المبلغ"     
 }

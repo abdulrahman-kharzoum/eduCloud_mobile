@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:educloud_mobile/common_widgets/backgroundPaint.dart';
+import 'package:educloud_mobile/screens/installments_screen.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:educloud_mobile/widgets/app_drawer.dart';
@@ -98,12 +99,16 @@ class HomeScreen extends StatelessWidget {
                       widgetP: SvgPicture.asset('assets/svg/student.svg',
                           fit: BoxFit.fill),
                     ),
-                    topicWidget(
-                      screenHight: screenHight,
-                      screenWidth: screenWidth,
-                      topicTitle: LocaleKeys.expensesinstallments.tr(),
-                      widgetP: SvgPicture.asset('assets/svg/mony.svg',
-                          fit: BoxFit.fill),
+                    GestureDetector(
+                      onTap: () => Navigator.of(context)
+                          .pushNamed(installmentsScreen.routeName),
+                      child: topicWidget(
+                        screenHight: screenHight,
+                        screenWidth: screenWidth,
+                        topicTitle: LocaleKeys.expensesinstallments.tr(),
+                        widgetP: SvgPicture.asset('assets/svg/mony.svg',
+                            fit: BoxFit.fill),
+                      ),
                     ),
                   ],
                 ),
@@ -124,12 +129,14 @@ class HomeScreen extends StatelessWidget {
                       widgetP: SvgPicture.asset('assets/svg/bus.svg',
                           fit: BoxFit.fill),
                     ),
-                    topicWidget(
-                      screenHight: screenHight,
-                      screenWidth: screenWidth,
-                      topicTitle: LocaleKeys.suggestionscomplaints.tr(),
-                      widgetP: SvgPicture.asset('assets/svg/complaint.svg',
-                          fit: BoxFit.fill),
+                    GestureDetector(
+                      child: topicWidget(
+                        screenHight: screenHight,
+                        screenWidth: screenWidth,
+                        topicTitle: LocaleKeys.suggestionscomplaints.tr(),
+                        widgetP: SvgPicture.asset('assets/svg/complaint.svg',
+                            fit: BoxFit.fill),
+                      ),
                     ),
                   ],
                 ),
