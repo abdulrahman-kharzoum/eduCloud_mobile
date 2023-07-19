@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/providers/Model_provider.dart';
 import 'package:educloud_mobile/providers/base_provider.dart';
 import 'package:educloud_mobile/providers/onboarding_proivder.dart';
+import 'package:educloud_mobile/providers/user_provider.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/settings_screen.dart';
 import 'package:educloud_mobile/screens/splash_screen.dart';
@@ -39,6 +40,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<OnboardingProvider>(
             create: (_) => OnboardingProvider()),
         ChangeNotifierProvider<ModelProvider>(create: (_) => ModelProvider()),
+        ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

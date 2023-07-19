@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:educloud_mobile/providers/base_provider.dart';
+import 'package:educloud_mobile/services/user_services.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +11,20 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 class OnboardingProvider extends BaseProvider {
   int _currentImageIndex = 0;
 
+  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
+
   late PageController _controller;
   PageController get controller => this._controller;
 
   void setcontroller(PageController value) {
     this._controller = value;
     // notifyListeners();
+  }
+
+  AutovalidateMode get autovalidateMode => _autovalidateMode;
+  void autovalidateModetrue() {
+    this._autovalidateMode = AutovalidateMode.always;
+    notifyListeners();
   }
 
   List<String> _imagePaths = [

@@ -1,3 +1,4 @@
+import 'package:educloud_mobile/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -22,33 +23,43 @@ class headProfileWidget extends StatelessWidget {
     return Row(
       children: [
         //this container for user image
-        Container(
-          //first layer light blue
-          padding: const EdgeInsets.all(3),
-
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: AppColors.lightBlue,
-            boxShadow: [
-              BoxShadow(
-                color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.5),
-                spreadRadius: 0.11,
-                blurRadius: 3,
-                offset: const Offset(0, 1), // changes position of shadow
+        InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProfileScreen(),
               ),
-            ],
-          ),
+            );
+          },
           child: Container(
-            //second layer white
-            padding: const EdgeInsets.all(9),
-            decoration: const BoxDecoration(
+            //first layer light blue
+            padding: const EdgeInsets.all(3),
+
+            decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white,
+              color: AppColors.lightBlue,
+              boxShadow: [
+                BoxShadow(
+                  color: const Color.fromARGB(255, 0, 0, 0).withOpacity(0.5),
+                  spreadRadius: 0.11,
+                  blurRadius: 3,
+                  offset: const Offset(0, 1), // changes position of shadow
+                ),
+              ],
             ),
-            child: const Center(
-              child: Icon(
-                CupertinoIcons.person,
-                size: 25,
+            child: Container(
+              //second layer white
+              padding: const EdgeInsets.all(9),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
+              child: Center(
+                child: Icon(
+                  CupertinoIcons.person,
+                  size: 25,
+                ),
               ),
             ),
           ),

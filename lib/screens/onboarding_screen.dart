@@ -1,12 +1,17 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:educloud_mobile/common_widgets/Sigin_buttom_widget.dart';
 import 'package:educloud_mobile/main.dart';
 import 'package:educloud_mobile/models/model.dart';
 import 'package:educloud_mobile/providers/Model_provider.dart';
+import 'package:educloud_mobile/providers/user_provider.dart';
+import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/profile_screen.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:space_fixer/space_fixer.dart';
 import 'package:educloud_mobile/providers/onboarding_proivder.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +28,13 @@ class OnboardingScreen extends StatefulWidget {
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
   int currentPage = 0;
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
+  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
   FocusNode nameNode = FocusNode();
   FocusNode passNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -37,9 +44,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // backgroundColor: Color.fromRGBO(250, 251, 251, 1),
+        resizeToAvoidBottomInset: false,
         backgroundColor: Colors.white,
         body: Column(
+          // mainAxisAlignment: MainAxisAlignment.start,
           children: [
             ClipPath(
               clipper: ImageClipPathBetter(),
@@ -57,9 +65,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                   );
                 },
               ),
-            ),
-            SizedBox(
-              height: 0,
             ),
             Consumer<OnboardingProvider>(
               builder: (context, value, _) {
@@ -165,6 +170,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       showModalBottomSheet(
                         isScrollControlled: true,
                         // barrierColor: Colors.transparent,
+
                         backgroundColor: Colors.transparent,
                         context: context,
                         builder: (context) => buildSheet(value.size, _model),
@@ -202,272 +208,384 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           child: child,
         ),
       );
-  Widget buildSheet(Size size, Model _model) => Scaffold(
-        backgroundColor: Colors.transparent,
-        resizeToAvoidBottomInset: true,
-        body: makeDismissible(
-          child: DraggableScrollableSheet(
-            initialChildSize: 0.67,
-            builder: (context, scrollController) => Scaffold(
-              backgroundColor: Colors.transparent,
-              body: ListView(
-                physics: AlwaysScrollableScrollPhysics(),
-                children: [
-                  CustomPaint(
-                    size: Size(size.width,
-                        (size.width * 0.4696132596685083 - 30).toDouble()),
-                    painter: RPSCustomPainter(),
-                    child: Container(
-                      height: 150,
-                      width: double.infinity,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 50,
-                          ),
-                          Container(
-                            height: 100,
-                            width: double.infinity,
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: 50,
-                                  ),
-                                  Text(
-                                    'Sign In',
-                                    style: TextStyle(
-                                      color: AppColors.secondaryColor,
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  Divider(
-                                    color: Colors.white,
-                                    height: 2,
-                                    thickness: 2,
-                                    indent: (size.width / 2) - 40,
-                                    endIndent: (size.width / 2) - 40,
-                                  ),
-                                ],
+  Widget buildSheet(Size size, Model _model) => GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          resizeToAvoidBottomInset: true,
+          body: makeDismissible(
+            child: DraggableScrollableSheet(
+              initialChildSize: 0.662,
+              builder: (context, scrollController) => Scaffold(
+                backgroundColor: Colors.transparent,
+                body: SingleChildScrollView(
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  child: Column(
+                    // physics: AlwaysScrollableScrollPhysics(),
+                    children: [
+                      CustomPaint(
+                        size: Size(size.width,
+                            (size.width * 0.4696132596685083 - 30).toDouble()),
+                        painter: RPSCustomPainter(),
+                        child: Container(
+                          height: 150,
+                          width: double.infinity,
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 50,
                               ),
-                            ),
+                              Container(
+                                height: 100,
+                                width: double.infinity,
+                                child: Center(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 50,
+                                      ),
+                                      Text(
+                                        'Sign In',
+                                        style: TextStyle(
+                                          color: AppColors.secondaryColor,
+                                          fontSize: 24,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Divider(
+                                        color: Colors.white,
+                                        height: 2,
+                                        thickness: 2,
+                                        indent: (size.width / 2) - 40,
+                                        endIndent: (size.width / 2) - 40,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                  SpaceFixerHorizontalLine(
-                    context: context,
-                    overflowHeight: 3,
-                    overflowColor: AppColors.primaryColor,
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: 25),
-                    height: size.height / 1.9,
-                    color: AppColors.primaryColor,
-                    child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(50, 10, 50, 16),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: double.infinity,
-                            child: TextFormField(
-                              controller: _model.userNameController,
-                              focusNode: nameNode,
-                              autofocus: false,
-                              cursorColor: AppColors.primaryColor,
-                              autofillHints: [AutofillHints.name],
-                              obscureText: false,
-                              textInputAction: TextInputAction.next,
-                              onFieldSubmitted: (value) {
-                                FocusScope.of(context).requestFocus(passNode);
-                              },
-                              decoration: InputDecoration(
-                                hintText: 'Enter Name',
-                                hintStyle: TextStyle(
-                                  fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF101213),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFFE0E3E7),
-                                    width: 2,
+                      SpaceFixerHorizontalLine(
+                        context: context,
+                        overflowHeight: 3,
+                        overflowColor: AppColors.primaryColor,
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 25),
+                        height: size.height / 1.9,
+                        color: AppColors.primaryColor,
+                        child: Padding(
+                          padding:
+                              EdgeInsetsDirectional.fromSTEB(50, 10, 50, 16),
+                          child: Column(
+                            children: [
+                              Consumer<OnboardingProvider>(
+                                builder: (context, value, child) =>
+                                    TextFormField(
+                                  autovalidateMode: value.autovalidateMode,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "Enter Username";
+                                    }
+                                    if (value.length <= 2) {
+                                      return "username must be more than 2 characters";
+                                    }
+                                    if (value.length > 26) {
+                                      return "username too long";
+                                    }
+                                    bool usernameValid =
+                                        RegExp(r'^[a-zA-Z0-9_]+$')
+                                            .hasMatch(value);
+                                    if (!usernameValid) {
+                                      return "Please enter a valid username";
+                                    }
+                                  },
+                                  controller: _model.userNameController,
+                                  focusNode: nameNode,
+                                  autofocus: false,
+                                  cursorColor: AppColors.primaryColor,
+                                  autofillHints: [AutofillHints.name],
+                                  obscureText: false,
+                                  textInputAction: TextInputAction.next,
+                                  onFieldSubmitted: (value) {
+                                    FocusScope.of(context)
+                                        .requestFocus(passNode);
+                                  },
+                                  decoration: InputDecoration(
+                                    hintText: 'Enter Username',
+                                    hintStyle: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                      color: Color(0xFF101213),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFE0E3E7),
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFF4B39EF),
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    errorStyle: TextStyle(
+                                      color: Colors
+                                          .white, // Set your desired color here
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Colors.red,
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFFF5963),
+                                        width: 2,
+                                      ),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.white,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 20.0, horizontal: 20.0),
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(32.0)),
                                   ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFF4B39EF),
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFFFF5963),
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFFFF5963),
-                                    width: 2,
-                                  ),
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
-                                filled: true,
-                                fillColor: Colors.white,
-                                contentPadding: const EdgeInsets.symmetric(
-                                    vertical: 30.0, horizontal: 20.0),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(32.0)),
-                              ),
-                              style: TextStyle(
-                                fontFamily: 'Plus Jakarta Sans',
-                                color: Color(0xFF101213),
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                              ),
-                              keyboardType: TextInputType.name,
-                              // validator: _model.emailAddressControllerValidator.asValidator(context),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 30,
-                          ),
-                          Consumer<ModelProvider>(
-                            builder: (context, value, child) => Container(
-                              width: double.infinity,
-                              child: TextFormField(
-                                obscureText: !value.model.passwordVisibility,
-                                controller: _model.passwordController,
-                                autofocus: false,
-                                autofillHints: [AutofillHints.password],
-                                focusNode: passNode,
-                                textInputAction: TextInputAction.done,
-                                decoration: InputDecoration(
-                                  hintText: 'Enter Password',
-                                  hintStyle: TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Plus Jakarta Sans',
                                     color: Color(0xFF101213),
                                     fontSize: 20,
                                     fontWeight: FontWeight.w500,
                                   ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0xFFE0E3E7),
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0xFF4B39EF),
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0xFFFF5963),
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0xFFFF5963),
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(16),
-                                  ),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  contentPadding: const EdgeInsets.symmetric(
-                                      vertical: 30.0, horizontal: 20.0),
-                                  suffixIcon: Consumer<ModelProvider>(
-                                    builder: (context, value, child) => InkWell(
-                                      onTap: () {
-                                        value.model.passwordVisibility
-                                            ? value.setFalse_PasswordVisible()
-                                            : value.setTrue_PasswordVisible();
-                                      },
-                                      focusNode: FocusNode(skipTraversal: true),
-                                      child: Selector<ModelProvider,
-                                          ModelProvider>(
-                                        selector: (_, modelProvider) =>
-                                            modelProvider,
+                                  keyboardType: TextInputType.name,
+                                  // validator: _model.emailAddressControllerValidator.asValidator(context),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Consumer<ModelProvider>(
+                                builder: (context, value, child) =>
+                                    Consumer<OnboardingProvider>(
+                                  builder: (context, pass, child) =>
+                                      TextFormField(
+                                    autovalidateMode: pass.autovalidateMode,
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Enter Password";
+                                      }
+                                      if (value.length <= 5) {
+                                        return "Passord must be at least 5 characters";
+                                      }
+                                      if (value.length > 45) {
+                                        return "Password too long";
+                                      }
+                                    },
+                                    obscureText:
+                                        !value.model.passwordVisibility,
+                                    controller: _model.passwordController,
+                                    autofocus: false,
+                                    autofillHints: [AutofillHints.password],
+                                    focusNode: passNode,
+                                    textInputAction: TextInputAction.done,
+                                    decoration: InputDecoration(
+                                      hintText: 'Enter Password',
+                                      hintStyle: TextStyle(
+                                        fontFamily: 'Plus Jakarta Sans',
+                                        color: Color(0xFF101213),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFFE0E3E7),
+                                          width: 2,
+                                        ),
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFF4B39EF),
+                                          width: 2,
+                                        ),
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      errorStyle: TextStyle(
+                                        color: Colors
+                                            .white, // Set your desired color here
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFFFF5963),
+                                          width: 2,
+                                        ),
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFFFF5963),
+                                          width: 2,
+                                        ),
+                                        borderRadius: BorderRadius.circular(16),
+                                      ),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 20.0, horizontal: 20.0),
+                                      suffixIcon: Consumer<ModelProvider>(
                                         builder: (context, value, child) =>
-                                            Icon(
-                                          (value.model.passwordVisibility)
-                                              ? Icons.visibility_outlined
-                                              : Icons.visibility_off_outlined,
-                                          color: Color(0xFF57636C),
-                                          size: 24,
+                                            InkWell(
+                                          onTap: () {
+                                            value.model.passwordVisibility
+                                                ? value
+                                                    .setFalse_PasswordVisible()
+                                                : value
+                                                    .setTrue_PasswordVisible();
+                                          },
+                                          focusNode:
+                                              FocusNode(skipTraversal: true),
+                                          child: Selector<ModelProvider,
+                                              ModelProvider>(
+                                            selector: (_, modelProvider) =>
+                                                modelProvider,
+                                            builder: (context, value, child) =>
+                                                Icon(
+                                              (value.model.passwordVisibility)
+                                                  ? Icons.visibility_outlined
+                                                  : Icons
+                                                      .visibility_off_outlined,
+                                              color: Color(0xFF57636C),
+                                              size: 24,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(32.0)),
+                                    ),
+
+                                    style: TextStyle(
+                                      fontFamily: 'Plus Jakarta Sans',
+                                      color: Color(0xFF101213),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    keyboardType: TextInputType.name,
+                                    // validator: _model
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Material(
+                                color: AppColors.secondaryColor,
+                                borderRadius: BorderRadius.circular(50),
+                                child: Consumer<OnboardingProvider>(
+                                  builder: (context, value, child) =>
+                                      Consumer<UserProvider>(
+                                    builder: (context, user, child) => InkWell(
+                                      onTap: () async {
+                                        FocusScope.of(context).unfocus();
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return Center(
+                                              child:
+                                                  CircularProgressIndicator(),
+                                            );
+                                          },
+                                        );
+
+                                        value.autovalidateModetrue();
+                                        user.setUsername(
+                                            userNameController.text);
+                                        user.setPasswdor(
+                                            passwordController.text);
+                                        bool isLoginSuccess =
+                                            await user.isLoginSuccess(
+                                                user.username!, user.password!);
+                                        final error = SnackBar(
+                                          elevation: 0,
+                                          behavior: SnackBarBehavior.floating,
+                                          backgroundColor: Colors.transparent,
+                                          content: AwesomeSnackbarContent(
+                                            title: 'Login Faild!',
+                                            message:
+                                                'invaild username or password',
+                                            contentType: ContentType.failure,
+                                          ),
+                                        );
+                                        final success = SnackBar(
+                                          elevation: 0,
+                                          behavior: SnackBarBehavior.floating,
+                                          backgroundColor: Colors.transparent,
+                                          content: Container(
+                                            height: 70,
+                                            child: AwesomeSnackbarContent(
+                                              title: 'Login Success',
+                                              message: ' ',
+                                              contentType: ContentType.success,
+                                            ),
+                                          ),
+                                        );
+                                        if (!isLoginSuccess) {
+                                          ScaffoldMessenger.of(context)
+                                            ..hideCurrentSnackBar()
+                                            ..showSnackBar(error);
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                            ..hideCurrentSnackBar()
+                                            ..showSnackBar(success);
+                                        }
+                                        Navigator.of(context).pop();
+                                        // value.dispose();
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => HomeScreen(),
+                                          ),
+                                        );
+                                      },
+                                      borderRadius: BorderRadius.circular(50),
+                                      child: Container(
+                                        width: 200,
+                                        height: 50,
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'SIGN IN',
+                                          style: TextStyle(
+                                            fontFamily: 'Plus Jakarta Sans',
+                                            color: AppColors.primaryColor,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                  border: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(32.0)),
-                                ),
-
-                                style: TextStyle(
-                                  fontFamily: 'Plus Jakarta Sans',
-                                  color: Color(0xFF101213),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                keyboardType: TextInputType.name,
-                                // validator: _model
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Material(
-                            color: AppColors.secondaryColor,
-                            borderRadius: BorderRadius.circular(50),
-                            child: Consumer<OnboardingProvider>(
-                              builder: (context, value, child) => InkWell(
-                                onTap: () {
-                                  value.dispose();
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ProfileScreen(),
-                                    ),
-                                  );
-                                },
-                                borderRadius: BorderRadius.circular(50),
-                                child: Container(
-                                  width: 200,
-                                  height: 50,
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'SIGN IN',
-                                    style: TextStyle(
-                                      fontFamily: 'Plus Jakarta Sans',
-                                      color: AppColors.primaryColor,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),
