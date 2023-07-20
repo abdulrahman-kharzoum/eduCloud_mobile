@@ -31,7 +31,8 @@
     "grade_section":"الصف/الشعبة",
     "fatherName":"اسم الأب",
     "motherName":"اسم الأم",
-    "address":"العنوان"
+    "address":"العنوان",
+    "subjectInfo":"معلومات المواد"
 
     
 }

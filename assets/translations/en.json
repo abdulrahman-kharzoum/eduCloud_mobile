@@ -31,6 +31,7 @@
     "grade_section":"Grade/Section",
     "fatherName":"Father name",
     "motherName":"Mother name",
-    "address":"Address"
+    "address":"Address",
+    "subjectInfo":"Subject Info"    
 
 }

@@ -34,4 +34,5 @@ abstract class LocaleKeys {
   static const fatherName = 'fatherName';
   static const motherName = 'motherName';
   static const address = 'address';
+  static const subjectInfo = 'subjectInfo';
 }

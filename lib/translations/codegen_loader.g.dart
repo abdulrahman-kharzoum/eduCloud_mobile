@@ -47,7 +47,8 @@ class CodegenLoader extends AssetLoader {
     "grade_section": "الصف/الشعبة",
     "fatherName": "اسم الأب",
     "motherName": "اسم الأم",
-    "address": "العنوان"
+    "address": "العنوان",
+    "subjectInfo": "معلومات المواد"
   };
   static const Map<String, dynamic> en = {
     "settings": "Settings",
@@ -82,7 +83,8 @@ class CodegenLoader extends AssetLoader {
     "grade_section": "Grade/Section",
     "fatherName": "Father name",
     "motherName": "Mother name",
-    "address": "Address"
+    "address": "Address",
+    "subjectInfo": "Subject Info"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "ar": ar,
