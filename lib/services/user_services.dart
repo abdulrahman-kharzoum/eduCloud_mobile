@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:educloud_mobile/constants/configration.dart';
+import 'package:educloud_mobile/constants/sharedPreferences.dart';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,7 +43,7 @@ class UserServices {
       if (response != null && response.statusCode == 200) {
         if (response.data["message"] != null &&
             response.data["data"]["token"] != null) {
-          _preferences.setString('token', response.data["data"]["token"]);
+          _preferences.setString(token, response.data["data"]["token"]);
         }
         var list = response.data["data"]["roles"] as List<dynamic>;
         if (response.data != null) {

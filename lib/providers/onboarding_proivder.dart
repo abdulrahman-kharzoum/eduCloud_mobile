@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/providers/base_provider.dart';
 import 'package:educloud_mobile/services/user_services.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
+import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingProvider extends BaseProvider {
@@ -32,21 +35,37 @@ class OnboardingProvider extends BaseProvider {
     'images/onboardingScreen/2.jpeg',
     'images/onboardingScreen/3.jpg',
   ];
-  List<String> _text = [
-    'Page Title 1',
-    'Page Title 2',
-    'Page Title 3',
-  ];
-  List<String> _subtext = [
-    'Sub Title 1',
-    'Sub Title 2',
-    'Sub Title 3',
-  ];
+
+  List<String> _textsList = [];
+  List<String> get TextsList => _textsList;
+
+  List<String> _subTextsList = [];
+  List<String> get SubTextsList => _subTextsList;
+
   late TypewriterAnimatedText _textsWidgets;
   late TypewriterAnimatedText _subtextsWidgets;
   late Timer timer;
   void stSize(Size ssize) {
     size = ssize;
+    notifyListeners();
+  }
+
+  getSubTextsList() {
+    //_subTextsList = [];
+    _subTextsList = [
+      LocaleKeys.subTitle1.tr(),
+      LocaleKeys.subTitle2.tr(),
+      LocaleKeys.subTitle3.tr(),
+    ];
+    notifyListeners();
+  }
+
+  getTextsList() {
+    _textsList = [
+      LocaleKeys.pageTitle1.tr(),
+      LocaleKeys.pageTitle2.tr(),
+      LocaleKeys.pageTitle3.tr(),
+    ];
     notifyListeners();
   }
 
@@ -90,7 +109,7 @@ class OnboardingProvider extends BaseProvider {
   }
   TypewriterAnimatedText get textWidgets =>
       _textsWidgets = TypewriterAnimatedText(
-        _text[_currentImageIndex],
+        TextsList[_currentImageIndex],
         textStyle: AppTextStyles.textTitleStyle,
         //duration: Duration(seconds: 2),
         // scalingFactor: 4,
@@ -98,7 +117,7 @@ class OnboardingProvider extends BaseProvider {
       );
   TypewriterAnimatedText get subtextsWidgets =>
       _subtextsWidgets = TypewriterAnimatedText(
-        _subtext[_currentImageIndex],
+        SubTextsList[_currentImageIndex],
         textStyle: AppTextStyles.textSubTitleStyle,
         //duration: Duration(seconds: 2),
         // scalingFactor: 4,

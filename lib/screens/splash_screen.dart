@@ -1,12 +1,16 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
+import 'package:educloud_mobile/constants/sharedPreferences.dart';
 import 'package:educloud_mobile/main.dart';
 import 'package:educloud_mobile/providers/base_provider.dart';
 import 'package:educloud_mobile/providers/onboarding_proivder.dart';
+import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/onboarding_screen.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -19,10 +23,23 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
 
-    _timer = Timer(const Duration(seconds: 1), () {
-      // print(MediaQuery.of(context).size);
+    _timer = Timer(const Duration(seconds: 1), () async {
       context.read<OnboardingProvider>().stSize(MediaQuery.of(context).size);
-      // print(context.watch()<BaseProvider>().size);
+      final _perf = await SharedPreferences.getInstance();
+      if (_perf.getString(LanguageId) == 'English') {
+        await context.setLocale(const Locale('en'));
+      } else {
+        await context.setLocale(const Locale('ar'));
+      }
+      context.read<OnboardingProvider>().getSubTextsList();
+      context.read<OnboardingProvider>().getTextsList();
+      if (_perf.containsKey(token) && _perf.getString(token)!.isNotEmpty) {
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return HomeScreen();
+          },
+        ));
+      }
       Navigator.push(context, MaterialPageRoute(
         builder: (context) {
           return OnboardingScreen();

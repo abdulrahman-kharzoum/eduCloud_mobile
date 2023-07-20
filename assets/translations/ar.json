@@ -9,6 +9,24 @@
     "homepage": "الصفحة الرئيسية",
     "messages&notifications": "الرسائل و الإشعارات",
     "logout": "تسجيل الخروج",
-    "calender": "التقويم"
+    "calender": "التقويم",
+    "PageTitle1":"عنوان الصفحة 1",
+    "PageTitle2":"عنوان الصفحة 2",
+    "PageTitle3":"عنوان الصفحة 3",
+    "SubTitle1":"عنوان فرعي 1",
+    "SubTitle2":"عنوان فرعي 2",
+    "SubTitle3":"عنوان فرعي 3",
+    "Sign In":"تسجيل الدخول",
+    "Username":"ادخل اسم المستخدم",
+    "Password":"ادخل كلمة المرور",
+    "usernameShort":"يجب أن يكون اسم المستخدم أكثر من حرفين",
+    "passwordShort":"يجب أن تتكون كلمة المرور من 5 أحرف على الأقل",
+    "passwordLong":"كلمة المرور طويلة جدًا",
+    "usernameLong":"اسم المستخدم طويل جدًا",
+    "usernameInvalid":"الرجاء ادخال اسم مستخدم صحيح",
+    "loginSuccess":"تم تسجيل الدخول بنجاح",
+    "loginFaild":"!فشل تسجيل الدخول",
+    "invaildUsernameOrPassword":"خطأ في اسم المستخدم أو كلمة مرور"
+
     
 }

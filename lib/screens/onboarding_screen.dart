@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/common_widgets/Sigin_buttom_widget.dart';
 import 'package:educloud_mobile/main.dart';
 import 'package:educloud_mobile/models/model.dart';
@@ -10,6 +11,7 @@ import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/profile_screen.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
+import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:space_fixer/space_fixer.dart';
@@ -181,7 +183,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       width: double.infinity,
                       child: Center(
                         child: Text(
-                          'Sign In',
+                          LocaleKeys.signIn.tr(),
                           style: TextStyle(
                             color: AppColors.secondaryColor,
                             fontSize: 24,
@@ -246,7 +248,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                         height: 50,
                                       ),
                                       Text(
-                                        'Sign In',
+                                        LocaleKeys.signIn.tr(),
                                         style: TextStyle(
                                           color: AppColors.secondaryColor,
                                           fontSize: 24,
@@ -288,19 +290,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                   autovalidateMode: value.autovalidateMode,
                                   validator: (value) {
                                     if (value!.isEmpty) {
-                                      return "Enter Username";
+                                      return LocaleKeys.enterUsername.tr();
                                     }
                                     if (value.length <= 2) {
-                                      return "username must be more than 2 characters";
+                                      return LocaleKeys.usernameShort.tr();
                                     }
                                     if (value.length > 26) {
-                                      return "username too long";
+                                      return LocaleKeys.usernameLong.tr();
                                     }
                                     bool usernameValid =
                                         RegExp(r'^[a-zA-Z0-9_]+$')
                                             .hasMatch(value);
                                     if (!usernameValid) {
-                                      return "Please enter a valid username";
+                                      return LocaleKeys.usernameInvalid.tr();
                                     }
                                   },
                                   controller: _model.userNameController,
@@ -315,7 +317,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                         .requestFocus(passNode);
                                   },
                                   decoration: InputDecoration(
-                                    hintText: 'Enter Username',
+                                    hintText: LocaleKeys.enterUsername.tr(),
                                     hintStyle: TextStyle(
                                       fontFamily: 'Plus Jakarta Sans',
                                       color: Color(0xFF101213),
@@ -383,13 +385,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                     autovalidateMode: pass.autovalidateMode,
                                     validator: (value) {
                                       if (value!.isEmpty) {
-                                        return "Enter Password";
+                                        return LocaleKeys.enterPassword.tr();
                                       }
                                       if (value.length <= 5) {
-                                        return "Passord must be at least 5 characters";
+                                        return LocaleKeys.passwordShort.tr();
                                       }
                                       if (value.length > 45) {
-                                        return "Password too long";
+                                        return LocaleKeys.passwordLong.tr();
                                       }
                                     },
                                     obscureText:
@@ -400,7 +402,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                     focusNode: passNode,
                                     textInputAction: TextInputAction.done,
                                     decoration: InputDecoration(
-                                      hintText: 'Enter Password',
+                                      hintText: LocaleKeys.enterPassword.tr(),
                                       hintStyle: TextStyle(
                                         fontFamily: 'Plus Jakarta Sans',
                                         color: Color(0xFF101213),
@@ -523,9 +525,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                           behavior: SnackBarBehavior.floating,
                                           backgroundColor: Colors.transparent,
                                           content: AwesomeSnackbarContent(
-                                            title: 'Login Faild!',
-                                            message:
-                                                'invaild username or password',
+                                            title: LocaleKeys.loginFaild.tr(),
+                                            message: LocaleKeys
+                                                .invaildUsernameOrPassword
+                                                .tr(),
                                             contentType: ContentType.failure,
                                           ),
                                         );
@@ -536,7 +539,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                           content: Container(
                                             height: 70,
                                             child: AwesomeSnackbarContent(
-                                              title: 'Login Success',
+                                              title:
+                                                  LocaleKeys.loginSuccess.tr(),
                                               message: ' ',
                                               contentType: ContentType.success,
                                             ),
@@ -553,12 +557,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                         }
                                         Navigator.of(context).pop();
                                         // value.dispose();
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => HomeScreen(),
-                                          ),
-                                        );
+                                        if (isLoginSuccess) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomeScreen(),
+                                            ),
+                                          );
+                                        }
                                       },
                                       borderRadius: BorderRadius.circular(50),
                                       child: Container(
@@ -566,7 +573,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                         height: 50,
                                         alignment: Alignment.center,
                                         child: Text(
-                                          'SIGN IN',
+                                          LocaleKeys.signIn.tr(),
                                           style: TextStyle(
                                             fontFamily: 'Plus Jakarta Sans',
                                             color: AppColors.primaryColor,

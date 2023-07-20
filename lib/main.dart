@@ -4,6 +4,7 @@ import 'package:educloud_mobile/providers/base_provider.dart';
 import 'package:educloud_mobile/providers/onboarding_proivder.dart';
 import 'package:educloud_mobile/providers/user_provider.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
+import 'package:educloud_mobile/screens/profile_screen.dart';
 import 'package:educloud_mobile/screens/settings_screen.dart';
 import 'package:educloud_mobile/screens/splash_screen.dart';
 import 'package:educloud_mobile/translations/codegen_loader.g.dart';

@@ -9,5 +9,23 @@
     "homepage": "Home page",
     "messages&notifications": "Messages & Notifications",
     "logout": "Log out",
-    "calender": "Calender"
+    "calender": "Calender",
+    "PageTitle1":"Page Title 1",
+    "PageTitle2":"Page Title 2",
+    "PageTitle3":"Page Title 3",
+    "SubTitle1":"Sub Title 1",
+    "SubTitle2":"Sub Title 2",
+    "SubTitle3":"Sub Title 3",
+    "Sign In":"SIGN IN",
+    "Username":"ُEnter Username",
+    "Password":"Enter Password",
+    "usernameShort":"username must be more than 2 characters",
+    "passwordShort":"Password must be at least 5 characters",
+    "passwordLong":"Password too long",
+    "usernameLong":"username too long",
+    "usernameInvalid":"Please enter a valid username",
+    "loginSuccess":"Login Success",
+    "loginFaild":"Login Faild!",
+    "invaildUsernameOrPassword":"invaild username or password"
+
 }

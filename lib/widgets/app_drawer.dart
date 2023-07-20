@@ -1,11 +1,13 @@
 import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
+import 'package:educloud_mobile/constants/sharedPreferences.dart';
 import 'package:educloud_mobile/screens/onboarding_screen.dart';
 import 'package:educloud_mobile/screens/settings_screen.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/widgets/head_profile_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../translations/locale_keys.g.dart';
 
@@ -140,7 +142,9 @@ class _appDrawerState extends State<appDrawer> {
             height: mediaQuery.height / 40,
           ),
           GestureDetector(
-            onTap: () {
+            onTap: () async {
+              final _per = await SharedPreferences.getInstance();
+              _per.remove(token);
               Navigator.push(
                 context,
                 MaterialPageRoute(
