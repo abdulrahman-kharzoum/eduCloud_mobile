@@ -1,4 +1,6 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/screens/profile_screen.dart';
+import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
 class User {
@@ -15,11 +17,12 @@ class User {
       required this.motherName,
       required this.Address}) {
     info_cards = [
-      InfoCard("Phone number", phone_number, Icons.phone),
-      InfoCard("Grade/Section", grade_section, Icons.school_rounded),
-      InfoCard("Father name", fatherName, Icons.person),
-      InfoCard("Mother name", motherName, Icons.person),
-      InfoCard("Address", Address, Icons.location_on),
+      InfoCard(LocaleKeys.phoneNumber.tr(), phone_number, Icons.phone),
+      InfoCard(
+          LocaleKeys.grade_section.tr(), grade_section, Icons.school_rounded),
+      InfoCard(LocaleKeys.fatherName.tr(), fatherName, Icons.person),
+      InfoCard(LocaleKeys.motherName.tr(), motherName, Icons.person),
+      InfoCard(LocaleKeys.address.tr(), Address, Icons.location_on),
     ];
   }
 }

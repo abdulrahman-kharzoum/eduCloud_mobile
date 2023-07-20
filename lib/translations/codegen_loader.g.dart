@@ -42,7 +42,12 @@ class CodegenLoader extends AssetLoader {
     "usernameInvalid": "الرجاء ادخال اسم مستخدم صحيح",
     "loginSuccess": "تم تسجيل الدخول بنجاح",
     "loginFaild": "!فشل تسجيل الدخول",
-    "invaildUsernameOrPassword": "خطأ في اسم المستخدم أو كلمة مرور"
+    "invaildUsernameOrPassword": "خطأ في اسم المستخدم أو كلمة مرور",
+    "phoneNumber": "رقم الهاتف",
+    "grade_section": "الصف/الشعبة",
+    "fatherName": "اسم الأب",
+    "motherName": "اسم الأم",
+    "address": "العنوان"
   };
   static const Map<String, dynamic> en = {
     "settings": "Settings",
@@ -72,7 +77,12 @@ class CodegenLoader extends AssetLoader {
     "usernameInvalid": "Please enter a valid username",
     "loginSuccess": "Login Success",
     "loginFaild": "Login Faild!",
-    "invaildUsernameOrPassword": "invaild username or password"
+    "invaildUsernameOrPassword": "invaild username or password",
+    "phoneNumber": "Phone Number",
+    "grade_section": "Grade/Section",
+    "fatherName": "Father name",
+    "motherName": "Mother name",
+    "address": "Address"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "ar": ar,

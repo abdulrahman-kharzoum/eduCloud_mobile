@@ -26,7 +26,12 @@
     "usernameInvalid":"الرجاء ادخال اسم مستخدم صحيح",
     "loginSuccess":"تم تسجيل الدخول بنجاح",
     "loginFaild":"!فشل تسجيل الدخول",
-    "invaildUsernameOrPassword":"خطأ في اسم المستخدم أو كلمة مرور"
+    "invaildUsernameOrPassword":"خطأ في اسم المستخدم أو كلمة مرور",
+    "phoneNumber":"رقم الهاتف",
+    "grade_section":"الصف/الشعبة",
+    "fatherName":"اسم الأب",
+    "motherName":"اسم الأم",
+    "address":"العنوان"
 
     
 }

@@ -29,4 +29,9 @@ abstract class LocaleKeys {
   static const loginSuccess = 'loginSuccess';
   static const loginFaild = 'loginFaild';
   static const invaildUsernameOrPassword = 'invaildUsernameOrPassword';
+  static const phoneNumber = 'phoneNumber';
+  static const grade_section = 'grade_section';
+  static const fatherName = 'fatherName';
+  static const motherName = 'motherName';
+  static const address = 'address';
 }

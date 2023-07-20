@@ -26,6 +26,11 @@
     "usernameInvalid":"Please enter a valid username",
     "loginSuccess":"Login Success",
     "loginFaild":"Login Faild!",
-    "invaildUsernameOrPassword":"invaild username or password"
+    "invaildUsernameOrPassword":"invaild username or password",
+    "phoneNumber":"Phone Number",
+    "grade_section":"Grade/Section",
+    "fatherName":"Father name",
+    "motherName":"Mother name",
+    "address":"Address"
 
 }
