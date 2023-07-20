@@ -25,7 +25,24 @@ class CodegenLoader extends AssetLoader {
     "homepage": "الصفحة الرئيسية",
     "messages&notifications": "الرسائل و الإشعارات",
     "logout": "تسجيل الخروج",
-    "calender": "التقويم"
+    "calender": "التقويم",
+    "PageTitle1": "عنوان الصفحة 1",
+    "PageTitle2": "عنوان الصفحة 2",
+    "PageTitle3": "عنوان الصفحة 3",
+    "SubTitle1": "عنوان فرعي 1",
+    "SubTitle2": "عنوان فرعي 2",
+    "SubTitle3": "عنوان فرعي 3",
+    "Sign In": "تسجيل الدخول",
+    "Username": "ادخل اسم المستخدم",
+    "Password": "ادخل كلمة المرور",
+    "usernameShort": "يجب أن يكون اسم المستخدم أكثر من حرفين",
+    "passwordShort": "يجب أن تتكون كلمة المرور من 5 أحرف على الأقل",
+    "passwordLong": "كلمة المرور طويلة جدًا",
+    "usernameLong": "اسم المستخدم طويل جدًا",
+    "usernameInvalid": "الرجاء ادخال اسم مستخدم صحيح",
+    "loginSuccess": "تم تسجيل الدخول بنجاح",
+    "loginFaild": "!فشل تسجيل الدخول",
+    "invaildUsernameOrPassword": "خطأ في اسم المستخدم أو كلمة مرور"
   };
   static const Map<String, dynamic> en = {
     "settings": "Settings",
@@ -38,7 +55,24 @@ class CodegenLoader extends AssetLoader {
     "homepage": "Home page",
     "messages&notifications": "Messages & Notifications",
     "logout": "Log out",
-    "calender": "Calender"
+    "calender": "Calender",
+    "PageTitle1": "Page Title 1",
+    "PageTitle2": "Page Title 2",
+    "PageTitle3": "Page Title 3",
+    "SubTitle1": "Sub Title 1",
+    "SubTitle2": "Sub Title 2",
+    "SubTitle3": "Sub Title 3",
+    "Sign In": "SIGN IN",
+    "Username": "ُEnter Username",
+    "Password": "Enter Password",
+    "usernameShort": "username must be more than 2 characters",
+    "passwordShort": "Password must be at least 5 characters",
+    "passwordLong": "Password too long",
+    "usernameLong": "username too long",
+    "usernameInvalid": "Please enter a valid username",
+    "loginSuccess": "Login Success",
+    "loginFaild": "Login Faild!",
+    "invaildUsernameOrPassword": "invaild username or password"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "ar": ar,
