@@ -6,6 +6,7 @@ import 'package:educloud_mobile/providers/user_provider.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/profile_screen.dart';
 import 'package:educloud_mobile/screens/settings_screen.dart';
+import 'package:educloud_mobile/screens/installments_screen.dart';
 import 'package:educloud_mobile/screens/splash_screen.dart';
 import 'package:educloud_mobile/translations/codegen_loader.g.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +58,8 @@ class MyApp extends StatelessWidget {
           routes: {
             settingsScreen.routeName: (context) => const settingsScreen(),
             HomeScreen.routeName: (context) => HomeScreen(),
+            installmentsScreen.routeName: (context) =>
+                const installmentsScreen(),
           }),
     );
   }

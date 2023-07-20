@@ -27,14 +27,16 @@ class AppTextStyles {
       fontSize: 12,
       fontWeight: FontWeight.bold,
       fontFamily: 'Euclid Circular A');
-}
- /* static TextStyle textTitleStyle = TextStyle(
+  static TextStyle textTitleStyle1 = TextStyle(
       color: AppColors.titleTextColor,
-      fontSize: 24,
+      fontSize: 20,
       fontWeight: FontWeight.bold,
-      fontFamily: 'Lora');
-  static TextStyle textSubTitleStyle = TextStyle(
-      color: AppColors.textColor,
-      fontSize: 18,
-      fontWeight: FontWeight.w500,
-      fontFamily: 'Lora');*/
+      fontFamily: 'Euclid Circular A');
+  static TextStyle poppinsTitle = TextStyle(
+      color: AppColors.titleTextColor, fontSize: 17, fontFamily: 'Poppins');
+  static TextStyle poppinsTitle1 = TextStyle(
+      color: AppColors.titleTextColor,
+      fontWeight: FontWeight.bold,
+      fontSize: 17,
+      fontFamily: 'Poppins');
+}

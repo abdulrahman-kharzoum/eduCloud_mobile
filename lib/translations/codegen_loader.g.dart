@@ -48,7 +48,18 @@ class CodegenLoader extends AssetLoader {
     "fatherName": "اسم الأب",
     "motherName": "اسم الأم",
     "address": "العنوان",
-    "subjectInfo": "معلومات المواد"
+    "subjectInfo": "معلومات المواد",
+    "school": "المدرسة",
+    "bus": "الحافلة",
+    "donations": "التبرعات",
+    "spy": "ل.س",
+    "stillhavetopay": "تبقى لك لتدفعه",
+    "totalprice": "المبلغ الكامل",
+    "total": "المبلغ الكلي المدفوع",
+    "lastpriceyoupaied": "آخر مبلغ تم دفعه",
+    "receiptnumbers": "رقم الفاتورة",
+    "date": "التاريخ",
+    "price": "المبلغ"
   };
   static const Map<String, dynamic> en = {
     "settings": "Settings",
@@ -84,7 +95,18 @@ class CodegenLoader extends AssetLoader {
     "fatherName": "Father name",
     "motherName": "Mother name",
     "address": "Address",
-    "subjectInfo": "Subject Info"
+    "subjectInfo": "Subject Info",
+    "school": "School",
+    "bus": "Bus",
+    "donations": "Donations",
+    "spy": "SPY",
+    "stillhavetopay": "Still have to pay",
+    "totalprice": "Total price",
+    "total": "TOTAL",
+    "lastpriceyoupaied": "LAST PRICE YOU PAIED",
+    "receiptnumbers": "Receipt numbers",
+    "date": "Date",
+    "price": "Price"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "ar": ar,

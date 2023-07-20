@@ -2,13 +2,14 @@ import 'dart:ui';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/constants/sharedPreferences.dart';
-import 'package:educloud_mobile/screens/onboarding_screen.dart';
+import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/settings_screen.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/widgets/head_profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../screens/onboarding_screen.dart';
 import '../translations/locale_keys.g.dart';
 
 // ignore: camel_case_types
@@ -64,12 +65,16 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 20,
           ),
-          const circleIconWidget(
-            color: Color.fromRGBO(254, 178, 91, 1),
-            widget: Icon(
-              Icons.home,
-              color: Colors.white,
-              size: 25,
+          GestureDetector(
+            onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
+                HomeScreen.routeName, (Route<dynamic> route) => false),
+            child: const circleIconWidget(
+              color: Color.fromRGBO(254, 178, 91, 1),
+              widget: Icon(
+                Icons.home,
+                color: Colors.white,
+                size: 25,
+              ),
             ),
           ),
           SizedBox(
@@ -188,14 +193,18 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 20,
           ),
-          circleIconWidget2(
-            iconName: LocaleKeys.homepage.tr(),
-            mediaQuery: mediaQuery,
-            color: const Color.fromRGBO(254, 178, 91, 1),
-            widget: const Icon(
-              Icons.home,
-              color: Colors.white,
-              size: 25,
+          GestureDetector(
+            onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
+                HomeScreen.routeName, (Route<dynamic> route) => false),
+            child: circleIconWidget2(
+              iconName: LocaleKeys.homepage.tr(),
+              mediaQuery: mediaQuery,
+              color: const Color.fromRGBO(254, 178, 91, 1),
+              widget: const Icon(
+                Icons.home,
+                color: Colors.white,
+                size: 25,
+              ),
             ),
           ),
           SizedBox(
@@ -293,14 +302,26 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 40,
           ),
-          circleIconWidget2(
-            iconName: LocaleKeys.logout.tr(),
-            mediaQuery: mediaQuery,
-            color: const Color.fromRGBO(97, 91, 254, 1),
-            widget: const Icon(
-              Icons.logout,
-              color: Colors.white,
-              size: 20,
+          GestureDetector(
+            onTap: () async {
+              final _per = await SharedPreferences.getInstance();
+              _per.remove(token);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => OnboardingScreen(),
+                ),
+              );
+            },
+            child: circleIconWidget2(
+              iconName: LocaleKeys.logout.tr(),
+              mediaQuery: mediaQuery,
+              color: const Color.fromRGBO(97, 91, 254, 1),
+              widget: const Icon(
+                Icons.logout,
+                color: Colors.white,
+                size: 20,
+              ),
             ),
           ),
         ],
@@ -350,28 +371,32 @@ class circleIconWidget2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: color,
+    return Card(
+      color: Colors.transparent,
+      elevation: 0,
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: color,
+            ),
+            child: Center(child: widget),
           ),
-          child: Center(child: widget),
-        ),
-        SizedBox(
-          width: mediaQuery.width / 20,
-        ),
-        Text(
-          iconName,
-          style: const TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Euclid Circular A'),
-        )
-      ],
+          SizedBox(
+            width: mediaQuery.width / 20,
+          ),
+          Text(
+            iconName,
+            style: const TextStyle(
+                color: Colors.white,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Euclid Circular A'),
+          )
+        ],
+      ),
     );
   }
 }

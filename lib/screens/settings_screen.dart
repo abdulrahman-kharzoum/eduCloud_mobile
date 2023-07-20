@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:educloud_mobile/constants/sharedPreferences.dart';
 import 'package:educloud_mobile/providers/onboarding_proivder.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
@@ -18,10 +20,12 @@ class settingsScreen extends StatefulWidget {
 
 // ignore: camel_case_types
 class _settingsScreenState extends State<settingsScreen> {
-  String _selectedLanguage = 'English'; // Default language is English
+  Locale appLocale = window.locale; // Default language is English
 
   @override
   Widget build(BuildContext context) {
+    String selectedLanguage =
+        context.locale.toString() == 'en' ? 'English' : 'Arabic';
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.settings.tr()),
@@ -33,10 +37,10 @@ class _settingsScreenState extends State<settingsScreen> {
               LocaleKeys.languagesellect.tr(),
             ),
             trailing: DropdownButton<String>(
-              value: _selectedLanguage,
+              value: selectedLanguage,
               onChanged: (String? newValue) {
                 setState(() {
-                  _selectedLanguage = newValue!;
+                  selectedLanguage = newValue!;
                   // Save the selected language to local storage or a backend server
                   // For example, you can use shared preferences package to store the language.
                 });
@@ -57,8 +61,9 @@ class _settingsScreenState extends State<settingsScreen> {
                     context.read<OnboardingProvider>().getSubTextsList();
                     context.read<OnboardingProvider>().getTextsList();
 
-                    Navigator.of(context)
-                        .pushReplacementNamed(HomeScreen.routeName);
+                    // ignore: use_build_context_synchronously
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        HomeScreen.routeName, (Route<dynamic> route) => false);
                   },
                 );
               }).toList(),
