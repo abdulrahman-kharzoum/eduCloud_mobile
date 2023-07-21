@@ -1,7 +1,3 @@
-import 'dart:ui';
-
-import 'package:educloud_mobile/constants/sharedPreferences.dart';
-import 'package:educloud_mobile/providers/onboarding_proivder.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -20,12 +16,10 @@ class settingsScreen extends StatefulWidget {
 
 // ignore: camel_case_types
 class _settingsScreenState extends State<settingsScreen> {
-  Locale appLocale = window.locale; // Default language is English
+  String _selectedLanguage = 'English'; // Default language is English
 
   @override
   Widget build(BuildContext context) {
-    String selectedLanguage =
-        context.locale.toString() == 'en' ? 'English' : 'Arabic';
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.settings.tr()),
@@ -37,10 +31,10 @@ class _settingsScreenState extends State<settingsScreen> {
               LocaleKeys.languagesellect.tr(),
             ),
             trailing: DropdownButton<String>(
-              value: selectedLanguage,
+              value: _selectedLanguage,
               onChanged: (String? newValue) {
                 setState(() {
-                  selectedLanguage = newValue!;
+                  _selectedLanguage = newValue!;
                   // Save the selected language to local storage or a backend server
                   // For example, you can use shared preferences package to store the language.
                 });
@@ -50,20 +44,11 @@ class _settingsScreenState extends State<settingsScreen> {
                   value: value,
                   child: Text(value),
                   onTap: () async {
-                    final _preferences = await SharedPreferences.getInstance();
-                    if (value == 'English') {
-                      await context.setLocale(const Locale('en'));
-                      _preferences.setString(LanguageId, value);
-                    } else {
-                      await context.setLocale(const Locale('ar'));
-                      _preferences.setString(LanguageId, value);
-                    }
-                    context.read<OnboardingProvider>().getSubTextsList();
-                    context.read<OnboardingProvider>().getTextsList();
-
-                    // ignore: use_build_context_synchronously
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        HomeScreen.routeName, (Route<dynamic> route) => false);
+                    value == 'English'
+                        ? await context.setLocale(const Locale('en'))
+                        : await context.setLocale(const Locale('ar'));
+                    Navigator.of(context)
+                        .pushReplacementNamed(HomeScreen.routeName);
                   },
                 );
               }).toList(),
@@ -75,11 +60,3 @@ class _settingsScreenState extends State<settingsScreen> {
     );
   }
 }
-
-
-
-// onTap: () async {
-                  //   value == 'English'
-                  //       ? await context.setLocale(const Locale('en'))
-                  //       : await context.setLocale(const Locale('ar'));
-                  // },
