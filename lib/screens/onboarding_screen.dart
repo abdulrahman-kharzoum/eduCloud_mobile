@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/common_widgets/Sigin_buttom_widget.dart';
@@ -7,12 +8,14 @@ import 'package:educloud_mobile/main.dart';
 import 'package:educloud_mobile/models/model.dart';
 import 'package:educloud_mobile/providers/Model_provider.dart';
 import 'package:educloud_mobile/providers/user_provider.dart';
+import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/profile_screen.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:go_router/go_router.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:space_fixer/space_fixer.dart';
 import 'package:educloud_mobile/providers/onboarding_proivder.dart';
@@ -501,6 +504,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                       Consumer<UserProvider>(
                                     builder: (context, user, child) => InkWell(
                                       onTap: () async {
+                                        triggerNotification();
                                         FocusScope.of(context).unfocus();
                                         showDialog(
                                           context: context,
@@ -558,13 +562,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                         Navigator.of(context).pop();
                                         // value.dispose();
                                         if (isLoginSuccess) {
-                                          Navigator.push(
+                                          GoRouter.of(context)
+                                              .push(AppRouter.homeScreen);
+                                          /* Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
                                                   HomeScreen(),
                                             ),
-                                          );
+                                          );*/
                                         }
                                       },
                                       borderRadius: BorderRadius.circular(50),
@@ -598,6 +604,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         ),
       );
+  triggerNotification() {
+    AwesomeNotifications().createNotification(
+      content: NotificationContent(
+        id: 10,
+        channelKey: 'basic_Channel',
+        title: 'Simple Notification',
+        body: 'Hello, world!',
+      ),
+    );
+  }
 }
 
 Widget buildImage({
