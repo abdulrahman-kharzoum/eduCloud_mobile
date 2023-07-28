@@ -11,6 +11,7 @@ import 'package:educloud_mobile/providers/user_provider.dart';
 import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/profile_screen.dart';
+import 'package:educloud_mobile/services/notification_services.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
@@ -604,15 +605,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         ),
       );
-  triggerNotification() {
-    AwesomeNotifications().createNotification(
-      content: NotificationContent(
-        id: 10,
-        channelKey: 'basic_Channel',
-        title: 'Simple Notification',
-        body: 'Hello, world!',
-      ),
-    );
+  triggerNotification() async {
+    await NotificationService.showNotification(
+        title: "Title for the notification", body: "body for the notification");
   }
 }
 

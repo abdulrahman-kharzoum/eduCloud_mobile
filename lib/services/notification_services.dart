@@ -2,6 +2,10 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../main.dart';
+import '../routing/app_router.dart';
 
 class NotificationService {
   static Future<void> intializeNotification() async {
@@ -9,9 +13,10 @@ class NotificationService {
       null,
       [
         NotificationChannel(
-          channelKey: 'Notification',
-          channelName: 'Warring',
-          channelDescription: 'Your Kid got kicked out of the school',
+          channelGroupKey: 'high_importance_channel',
+          channelKey: 'high_importance_channel',
+          channelName: 'Basic Notification',
+          channelDescription: 'Notification channel for basic tests',
           defaultColor: AppColors.appColor,
           ledColor: AppColors.secondaryColor,
           importance: NotificationImportance.Max,
@@ -61,7 +66,9 @@ class NotificationService {
       ReceivedAction receivedAction) async {
     debugPrint('onActionReceivedMethod');
     final payload = receivedAction.payload ?? {};
-    if (payload["navigate"] == "true") {}
+    if (payload["navigate"] == "true") {
+      scaffoldMessengerKey.currentContext!.push(AppRouter.notificationScreen);
+    }
   }
 
   static Future<void> showNotification({

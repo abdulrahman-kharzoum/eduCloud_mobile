@@ -10,6 +10,7 @@ import 'package:educloud_mobile/screens/profile_screen.dart';
 import 'package:educloud_mobile/screens/settings_screen.dart';
 import 'package:educloud_mobile/screens/installments_screen.dart';
 import 'package:educloud_mobile/screens/splash_screen.dart';
+import 'package:educloud_mobile/services/notification_services.dart';
 import 'package:educloud_mobile/translations/codegen_loader.g.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,16 +20,7 @@ GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
-  AwesomeNotifications().initialize(
-    null,
-    [
-      NotificationChannel(
-          channelKey: 'basic_Channel',
-          channelName: "Basic Notification",
-          channelDescription: "notification channel description")
-    ],
-    debug: true,
-  );
+  await NotificationService.intializeNotification();
   runApp(
     await EasyLocalization(
         path: 'assets/translations/',
