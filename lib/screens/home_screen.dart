@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:educloud_mobile/common_widgets/backgroundPaint.dart';
+import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/screens/installments_screen.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
@@ -7,6 +8,7 @@ import 'package:educloud_mobile/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:go_router/go_router.dart';
 
 import '../translations/locale_keys.g.dart';
 import '../widgets/advertisemen_container_widget.dart';
@@ -100,8 +102,8 @@ class HomeScreen extends StatelessWidget {
                           fit: BoxFit.fill),
                     ),
                     GestureDetector(
-                      onTap: () => Navigator.of(context)
-                          .pushNamed(installmentsScreen.routeName),
+                      onTap: () => GoRouter.of(context)
+                          .push(AppRouter.installmentsScreen),
                       child: topicWidget(
                         screenHight: screenHight,
                         screenWidth: screenWidth,

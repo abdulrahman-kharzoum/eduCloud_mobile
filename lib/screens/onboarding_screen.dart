@@ -542,7 +542,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                           behavior: SnackBarBehavior.floating,
                                           backgroundColor: Colors.transparent,
                                           content: Container(
-                                            height: 70,
+                                            height: 71,
                                             child: AwesomeSnackbarContent(
                                               title:
                                                   LocaleKeys.loginSuccess.tr(),

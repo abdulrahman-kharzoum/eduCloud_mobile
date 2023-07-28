@@ -44,8 +44,9 @@ class _SplashScreenState extends State<SplashScreen> {
             return HomeScreen();
           },
         ));*/
+      } else {
+        GoRouter.of(context).push(AppRouter.onBoardingScreen);
       }
-      GoRouter.of(context).push(AppRouter.onBoardingScreen);
       /* Navigator.push(context, MaterialPageRoute(
         builder: (context) {
           return OnboardingScreen();

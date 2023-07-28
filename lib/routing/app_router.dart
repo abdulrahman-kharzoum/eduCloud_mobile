@@ -1,5 +1,6 @@
 import 'package:educloud_mobile/common_widgets/error_widget.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
+import 'package:educloud_mobile/screens/installments_screen.dart';
 import 'package:educloud_mobile/screens/notification_screen.dart';
 import 'package:educloud_mobile/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,12 @@ class AppRouter {
   /// use this in [MaterialApp.router]
   static final GoRouter _router = GoRouter(
     routes: <RouteBase>[
+      GoRoute(
+        path: installmentsScreen,
+        builder: (BuildContext context, GoRouterState state) {
+          return InstallmentsScreen();
+        },
+      ),
       GoRoute(
         path: profileScreen,
         builder: (BuildContext context, GoRouterState state) {
