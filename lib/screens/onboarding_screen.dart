@@ -12,6 +12,7 @@ import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/profile_screen.dart';
 import 'package:educloud_mobile/services/notification_services.dart';
+import 'package:educloud_mobile/services/pusher_services.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
@@ -505,7 +506,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                       Consumer<UserProvider>(
                                     builder: (context, user, child) => InkWell(
                                       onTap: () async {
-                                        triggerNotification();
                                         FocusScope.of(context).unfocus();
                                         showDialog(
                                           context: context,
@@ -605,26 +605,22 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         ),
       );
-  triggerNotification() async {
-    await NotificationService.showNotification(
-        title: "Title for the notification", body: "body for the notification");
-  }
-}
 
-Widget buildImage({
-  required Key? key,
-  required String urlImage,
-  required String title,
-  required String subtitle,
-  required Size size,
-  // required Size size,
-}) =>
-    ClipPath(
-      clipper: ImageClipPathBetter(),
-      child: Image(
-        image: AssetImage(urlImage),
-        fit: BoxFit.fitHeight,
-        // height: size.height / 1.7,
-        // width: size.width,
-      ),
-    );
+  Widget buildImage({
+    required Key? key,
+    required String urlImage,
+    required String title,
+    required String subtitle,
+    required Size size,
+    // required Size size,
+  }) =>
+      ClipPath(
+        clipper: ImageClipPathBetter(),
+        child: Image(
+          image: AssetImage(urlImage),
+          fit: BoxFit.fitHeight,
+          // height: size.height / 1.7,
+          // width: size.width,
+        ),
+      );
+}

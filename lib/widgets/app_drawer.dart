@@ -134,7 +134,7 @@ class _appDrawerState extends State<appDrawer> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed(settingsScreen.routeName);
+              GoRouter.of(context).push(AppRouter.settingsScreen);
             },
             child: const circleIconWidget(
               color: Color.fromRGBO(97, 91, 254, 1),
@@ -289,7 +289,7 @@ class _appDrawerState extends State<appDrawer> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed(settingsScreen.routeName);
+              GoRouter.of(context).push(AppRouter.settingsScreen);
             },
             child: circleIconWidget2(
               iconName: LocaleKeys.settings.tr(),

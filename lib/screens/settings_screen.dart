@@ -2,24 +2,25 @@ import 'dart:ui';
 
 import 'package:educloud_mobile/constants/sharedPreferences.dart';
 import 'package:educloud_mobile/providers/onboarding_proivder.dart';
+import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: camel_case_types
-class settingsScreen extends StatefulWidget {
-  static const String routeName = '/settings-screen';
-  const settingsScreen({super.key});
+class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
 
   @override
-  State<settingsScreen> createState() => _settingsScreenState();
+  State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 // ignore: camel_case_types
-class _settingsScreenState extends State<settingsScreen> {
+class _SettingsScreenState extends State<SettingsScreen> {
   Locale appLocale = window.locale; // Default language is English
 
   @override
@@ -62,8 +63,11 @@ class _settingsScreenState extends State<settingsScreen> {
                     context.read<OnboardingProvider>().getTextsList();
 
                     // ignore: use_build_context_synchronously
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        HomeScreen.routeName, (Route<dynamic> route) => false);
+                    /* Navigator.of(context).pushNamedAndRemoveUntil(
+                        HomeScreen.routeName, (Route<dynamic> route) => false);*/
+
+                    GoRouter.of(context).pop();
+                    GoRouter.of(context).pop();
                   },
                 );
               }).toList(),

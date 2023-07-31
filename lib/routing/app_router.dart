@@ -2,7 +2,9 @@ import 'package:educloud_mobile/common_widgets/error_widget.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/installments_screen.dart';
 import 'package:educloud_mobile/screens/notification_screen.dart';
+import 'package:educloud_mobile/screens/settings_screen.dart';
 import 'package:educloud_mobile/screens/splash_screen.dart';
+import 'package:educloud_mobile/services/pusher_services.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,17 +16,20 @@ class AppRouter {
 
   static String get onBoardingScreen => '/onboarding-screen';
 
-  // all the route paths. So that we can access them easily  across the app
   static String get homeScreen => '/home-screen';
+
   static String get notificationScreen => '/notification-screen';
   static String get settingsScreen => '/settings-screen';
   static String get installmentsScreen => '/installments-screen';
-  //static String get splashScreen => '/splash-screen';
 
-  /// The route configuration.
-  /// use this in [MaterialApp.router]
   static final GoRouter _router = GoRouter(
     routes: <RouteBase>[
+      GoRoute(
+        path: settingsScreen,
+        builder: (BuildContext context, GoRouterState state) {
+          return SettingsScreen();
+        },
+      ),
       GoRoute(
         path: installmentsScreen,
         builder: (BuildContext context, GoRouterState state) {
