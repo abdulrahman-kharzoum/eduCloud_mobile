@@ -1,8 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 class MyNotification {
   final int id;
   final String title, body;
+  bool isRead = false;
+
+  DateTime dateTime = DateTime.now();
 
   MyNotification({
     required this.id,

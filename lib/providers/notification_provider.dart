@@ -14,5 +14,5 @@ class NotificationProvider extends BaseProvider {
     // Notify listeners here if you are using ChangeNotifier or Provider
   }
 
-  List<MyNotification> get notifications => _notifications;
+  List<MyNotification> get notifications => _notifications.reversed.toList();
 }

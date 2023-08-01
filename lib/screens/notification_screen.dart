@@ -33,9 +33,24 @@ class _NotificationScreenState extends State<NotificationScreen> {
         //   return Colors.blue;
         // }),
         tabs: [
-          Tab(
-            icon: Icon(Icons.favorite, color: AppColors.secondaryColor),
-            text: 'Favorites',
+          Consumer<NotificationProvider>(
+            builder: (context, value, child) {
+              for (var i = 0; i < value.notifications.length; i++) {
+                if (value.notifications[i].isRead == false) {
+                  return Badge(
+                    child: Tab(
+                      icon:
+                          Icon(Icons.favorite, color: AppColors.secondaryColor),
+                      text: 'Favorites',
+                    ),
+                  );
+                }
+              }
+              return Tab(
+                icon: Icon(Icons.favorite, color: AppColors.secondaryColor),
+                text: 'Favorites',
+              );
+            },
           ),
           Tab(
             icon: Icon(Icons.search, color: AppColors.secondaryColor),
@@ -81,36 +96,68 @@ class _NotificationScreenState extends State<NotificationScreen> {
             child: Column(
               children: [
                 Expanded(
-                  child: Consumer<NotificationProvider>(
-                    builder: (context, value, child) => TabBarView(
-                      children: [
-                        FavoritesTab(Notifications: value.notifications),
-                        Container(
-                          child: Text('2'),
-                        ),
-                        Container(
-                          child: Text('3'),
-                        ),
-                        Container(
-                          child: Text('4'),
-                        ),
-                      ],
-                    ),
+                  child: TabBarView(
+                    children: [
+                      FavoritesTab(),
+                      Container(
+                        child: Text('2'),
+                      ),
+                      Container(
+                        child: Text('3'),
+                      ),
+                      Container(
+                        child: Text('4'),
+                      ),
+                    ],
                   ),
                 )
               ],
             ),
           ),
-          floatingActionButton: Align(
-            alignment: Alignment.bottomCenter,
-            child: FloatingActionButton(
-              backgroundColor: AppColors.mainColor,
-              child: Icon(
-                Icons.home,
-                color: AppColors.secondaryColor,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: Stack(
+            children: [
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: screenWidth,
+                  height: 120,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: [
+                      Colors.grey.shade500.withOpacity(0.8),
+                      Colors.white70.withOpacity(0.5)
+                    ], begin: Alignment.bottomCenter, end: Alignment.topCenter),
+                  ),
+                ),
               ),
-              onPressed: () => GoRouter.of(context).push(AppRouter.homeScreen),
-            ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: SizedBox(
+                      height: 70,
+                      width: screenWidth,
+                      child: FloatingActionButton(
+                        shape: CircleBorder(eccentricity: 0),
+                        backgroundColor: AppColors.mainColor,
+                        child: Icon(
+                          Icons.home,
+                          size: 35,
+                          color: AppColors.secondaryColor,
+                        ),
+                        onPressed: () =>
+                            GoRouter.of(context).push(AppRouter.homeScreen),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
