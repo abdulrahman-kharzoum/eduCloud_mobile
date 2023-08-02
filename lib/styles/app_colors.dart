@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 class AppColors {
   static Color primaryColor = Color.fromRGBO(34, 62, 109, 1);
   static Color secondaryColor = Colors.white;
+  static Color ThirdColor = const Color.fromRGBO(55, 92, 154, 1);
   static Color appColor = Color.fromRGBO(59, 103, 176, 1);
 
   static Color iconColor = Colors.white;

@@ -115,12 +115,16 @@ class HomeScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  topicWidget(
-                    screenHight: screenHight,
-                    screenWidth: screenWidth,
-                    topicTitle: LocaleKeys.studentsubjects.tr(),
-                    widgetP: SvgPicture.asset('assets/svg/student.svg',
-                        fit: BoxFit.fill),
+                  GestureDetector(
+                    onTap: () =>
+                        GoRouter.of(context).push(AppRouter.markScreen),
+                    child: topicWidget(
+                      screenHight: screenHight,
+                      screenWidth: screenWidth,
+                      topicTitle: LocaleKeys.studentsubjects.tr(),
+                      widgetP: SvgPicture.asset('assets/svg/student.svg',
+                          fit: BoxFit.fill),
+                    ),
                   ),
                   GestureDetector(
                     onTap: () =>

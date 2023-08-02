@@ -8,6 +8,7 @@ import 'package:educloud_mobile/services/pusher_services.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../screens/marks_screen.dart';
 import '../screens/onboarding_screen.dart';
 import '../screens/profile_screen.dart';
 
@@ -17,6 +18,7 @@ class AppRouter {
   static String get onBoardingScreen => '/onboarding-screen';
 
   static String get homeScreen => '/home-screen';
+  static String get markScreen => '/mark-screen';
 
   static String get notificationScreen => '/notification-screen';
   static String get settingsScreen => '/settings-screen';
@@ -24,6 +26,12 @@ class AppRouter {
 
   static final GoRouter _router = GoRouter(
     routes: <RouteBase>[
+      GoRoute(
+        path: markScreen,
+        builder: (BuildContext context, GoRouterState state) {
+          return MarkScreen();
+        },
+      ),
       GoRoute(
         path: settingsScreen,
         builder: (BuildContext context, GoRouterState state) {
