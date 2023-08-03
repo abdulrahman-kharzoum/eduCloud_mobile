@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../styles/app_text_styles.dart';
+import '../../styles/app_text_styles.dart';
 
 // ignore: camel_case_types
 class topicWidget extends StatelessWidget {
@@ -21,7 +21,7 @@ class topicWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: screenHight / 5.2,
-      width: screenWidth / 2.1,
+      width: screenWidth / 2.3,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),

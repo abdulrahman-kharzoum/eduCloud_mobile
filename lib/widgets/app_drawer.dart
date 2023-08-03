@@ -65,9 +65,9 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 20,
           ),
-          GestureDetector(
+          InkWell(
             onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
-                HomeScreen.routeName, (Route<dynamic> route) => false),
+                homeScreen.routeName, (Route<dynamic> route) => false),
             child: const circleIconWidget(
               color: Color.fromRGBO(254, 178, 91, 1),
               widget: Icon(
@@ -130,7 +130,7 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 40,
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Navigator.of(context).pushNamed(settingsScreen.routeName);
             },
@@ -146,10 +146,11 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 40,
           ),
-          GestureDetector(
+          InkWell(
             onTap: () async {
               final _per = await SharedPreferences.getInstance();
               _per.remove(token);
+              // ignore: use_build_context_synchronously
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -193,9 +194,9 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 20,
           ),
-          GestureDetector(
+          InkWell(
             onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
-                HomeScreen.routeName, (Route<dynamic> route) => false),
+                homeScreen.routeName, (Route<dynamic> route) => false),
             child: circleIconWidget2(
               iconName: LocaleKeys.homepage.tr(),
               mediaQuery: mediaQuery,
@@ -284,7 +285,7 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 40,
           ),
-          GestureDetector(
+          InkWell(
             onTap: () {
               Navigator.of(context).pushNamed(settingsScreen.routeName);
             },
@@ -302,7 +303,7 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 40,
           ),
-          GestureDetector(
+          InkWell(
             onTap: () async {
               final _per = await SharedPreferences.getInstance();
               _per.remove(token);

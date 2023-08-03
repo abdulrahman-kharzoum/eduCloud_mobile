@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (_perf.containsKey(token) && _perf.getString(token)!.isNotEmpty) {
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
-            return HomeScreen();
+            return homeScreen();
           },
         ));
       }

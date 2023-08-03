@@ -562,7 +562,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  HomeScreen(),
+                                                  homeScreen(),
                                             ),
                                           );
                                         }
