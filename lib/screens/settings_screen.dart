@@ -14,7 +14,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 // ignore: camel_case_types
-class _settingsScreenState extends State<settingsScreen>
+class _SettingsScreenState extends State<SettingsScreen>
     with SingleTickerProviderStateMixin {
   Locale appLocale = window.locale;
 
@@ -53,7 +53,7 @@ class _settingsScreenState extends State<settingsScreen>
                         : await context.setLocale(const Locale('ar'));
                     // ignore: use_build_context_synchronously
                     Navigator.of(context)
-                        .pushReplacementNamed(homeScreen.routeName);
+                        .pushReplacementNamed(HomeScreen.routeName);
                   },
                 );
               }).toList(),

@@ -7,16 +7,16 @@ import '../widgets/marks_screen_widgets/header_mark_widget.dart';
 import './home_screen.dart';
 
 // ignore: camel_case_types
-class marksScreen extends StatefulWidget {
+class MarksScreen extends StatefulWidget {
   static const String routeName = '/marks-screen';
-  const marksScreen({super.key});
+  const MarksScreen({super.key});
 
   @override
-  State<marksScreen> createState() => _marksScreenState();
+  State<MarksScreen> createState() => _MarksScreenState();
 }
 
 // ignore: camel_case_types
-class _marksScreenState extends State<marksScreen> {
+class _MarksScreenState extends State<MarksScreen> {
   final Map<String, dynamic> dummyData = {
     'exam': {
       'grand total': 1415,
@@ -105,7 +105,7 @@ class _marksScreenState extends State<marksScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.of(context).pushReplacementNamed(homeScreen.routeName);
+              Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
             }),
         title: Container(
           margin: context.locale.toString() == 'en'

@@ -1,6 +1,7 @@
 import 'package:educloud_mobile/common_widgets/error_widget.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/installments_screen.dart';
+import 'package:educloud_mobile/screens/mark1_screen.dart';
 import 'package:educloud_mobile/screens/notification_screen.dart';
 import 'package:educloud_mobile/screens/settings_screen.dart';
 import 'package:educloud_mobile/screens/splash_screen.dart';
@@ -18,7 +19,8 @@ class AppRouter {
   static String get onBoardingScreen => '/onboarding-screen';
 
   static String get homeScreen => '/home-screen';
-  static String get markScreen => '/mark-screen';
+  static String get mark2Screen => '/mark2-screen';
+  static String get mark1Screen => '/mark1-screen';
 
   static String get notificationScreen => '/notification-screen';
   static String get settingsScreen => '/settings-screen';
@@ -27,9 +29,15 @@ class AppRouter {
   static final GoRouter _router = GoRouter(
     routes: <RouteBase>[
       GoRoute(
-        path: markScreen,
+        path: mark2Screen,
         builder: (BuildContext context, GoRouterState state) {
-          return MarkScreen();
+          return Mark1Screen();
+        },
+      ),
+      GoRoute(
+        path: mark1Screen,
+        builder: (BuildContext context, GoRouterState state) {
+          return MarksScreen();
         },
       ),
       GoRoute(

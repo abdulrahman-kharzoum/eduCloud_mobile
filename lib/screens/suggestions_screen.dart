@@ -236,7 +236,7 @@ class _suggestionScreenState extends State<suggestionScreen> {
             ),
             onPressed: () {
               saveMessages();
-              Navigator.of(context).pushReplacementNamed(homeScreen.routeName);
+              Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
             }),
         title: Container(
           margin: context.locale.toString() == 'en'
