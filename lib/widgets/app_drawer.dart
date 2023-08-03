@@ -7,8 +7,10 @@ import 'package:educloud_mobile/screens/settings_screen.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/widgets/head_profile_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../routing/app_router.dart';
 import '../screens/onboarding_screen.dart';
 import '../translations/locale_keys.g.dart';
 
@@ -132,7 +134,7 @@ class _appDrawerState extends State<appDrawer> {
           ),
           InkWell(
             onTap: () {
-              Navigator.of(context).pushNamed(settingsScreen.routeName);
+              GoRouter.of(context).push(AppRouter.settingsScreen);
             },
             child: const circleIconWidget(
               color: Color.fromRGBO(97, 91, 254, 1),
@@ -150,13 +152,13 @@ class _appDrawerState extends State<appDrawer> {
             onTap: () async {
               final _per = await SharedPreferences.getInstance();
               _per.remove(token);
-              // ignore: use_build_context_synchronously
-              Navigator.push(
+              GoRouter.of(context).push(AppRouter.onBoardingScreen);
+              /*Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => OnboardingScreen(),
                 ),
-              );
+              );*/
             },
             child: const circleIconWidget(
               color: Color.fromRGBO(97, 91, 254, 1),
@@ -287,7 +289,7 @@ class _appDrawerState extends State<appDrawer> {
           ),
           InkWell(
             onTap: () {
-              Navigator.of(context).pushNamed(settingsScreen.routeName);
+              GoRouter.of(context).push(AppRouter.settingsScreen);
             },
             child: circleIconWidget2(
               iconName: LocaleKeys.settings.tr(),
@@ -307,12 +309,13 @@ class _appDrawerState extends State<appDrawer> {
             onTap: () async {
               final _per = await SharedPreferences.getInstance();
               _per.remove(token);
-              Navigator.push(
+              GoRouter.of(context).push(AppRouter.onBoardingScreen);
+              /*Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => OnboardingScreen(),
                 ),
-              );
+              );*/
             },
             child: circleIconWidget2(
               iconName: LocaleKeys.logout.tr(),

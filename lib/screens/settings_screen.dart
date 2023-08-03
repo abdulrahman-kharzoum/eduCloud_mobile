@@ -6,12 +6,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 // ignore: camel_case_types
-class settingsScreen extends StatefulWidget {
-  static const String routeName = '/settings-screen';
-  const settingsScreen({super.key});
+class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
 
   @override
-  State<settingsScreen> createState() => _settingsScreenState();
+  State<SettingsScreen> createState() => _SettingsScreenState();
 }
 
 // ignore: camel_case_types

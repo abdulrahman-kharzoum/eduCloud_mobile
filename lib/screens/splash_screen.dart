@@ -9,8 +9,11 @@ import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/onboarding_screen.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../routing/app_router.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -34,17 +37,23 @@ class _SplashScreenState extends State<SplashScreen> {
       context.read<OnboardingProvider>().getSubTextsList();
       context.read<OnboardingProvider>().getTextsList();
       if (_perf.containsKey(token) && _perf.getString(token)!.isNotEmpty) {
-        Navigator.push(context, MaterialPageRoute(
+        GoRouter.of(context).push(AppRouter.homeScreen);
+
+        /* Navigator.push(context, MaterialPageRoute(
           builder: (context) {
             return homeScreen();
           },
-        ));
+        ));*/
+      } else {
+        GoRouter.of(context).push(AppRouter.onBoardingScreen);
       }
-      Navigator.push(context, MaterialPageRoute(
+      /* Navigator.push(context, MaterialPageRoute(
         builder: (context) {
           return OnboardingScreen();
         },
-      ));
+      )
+          
+      );*/
     });
   }
 

@@ -16,7 +16,7 @@ class OnboardingProvider extends BaseProvider {
 
   AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
-  late PageController _controller;
+  PageController _controller = PageController(initialPage: 0);
   PageController get controller => this._controller;
 
   void setcontroller(PageController value) {
@@ -77,9 +77,12 @@ class OnboardingProvider extends BaseProvider {
   }
 
   int getCurrentPageIndex(PageController controller) {
-    final int? currentPage = controller.page?.toInt();
+    if (controller.positions.isNotEmpty) {
+      final int? currentPage = controller.page?.toInt();
 
-    return currentPage!;
+      return currentPage!;
+    }
+    return -1;
   }
 
   void changeController() {
@@ -91,8 +94,10 @@ class OnboardingProvider extends BaseProvider {
         curve: Curves.easeInOut,
       );
     } else {
-      _controller.nextPage(
-          duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+      if (_controller.positions.isNotEmpty) {
+        _controller.nextPage(
+            duration: Duration(milliseconds: 500), curve: Curves.easeInOut);
+      }
     }
   }
 

@@ -1,8 +1,11 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/providers/Model_provider.dart';
 import 'package:educloud_mobile/providers/base_provider.dart';
+import 'package:educloud_mobile/providers/notification_provider.dart';
 import 'package:educloud_mobile/providers/onboarding_proivder.dart';
 import 'package:educloud_mobile/providers/user_provider.dart';
+import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/marks_screen.dart';
 import 'package:educloud_mobile/screens/settings_screen.dart';
@@ -10,14 +13,22 @@ import 'package:educloud_mobile/screens/installments_screen.dart';
 import 'package:educloud_mobile/screens/splash_screen.dart';
 import 'package:educloud_mobile/screens/suggestions_screen.dart';
 import 'package:educloud_mobile/sever/apis.dart';
+import 'package:educloud_mobile/services/notification_services.dart';
+import 'package:educloud_mobile/services/pusher_services.dart';
 import 'package:educloud_mobile/translations/codegen_loader.g.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pusher_channels_flutter/pusher-js/core/pusher.dart';
 
-GlobalKey<NavigatorState> nav = GlobalKey<NavigatorState>();
+GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
+PusherChannel pusher = PusherChannel();
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await NotificationService.intializeNotification();
+  pusher.onConnectPressed();
+
   runApp(
     await EasyLocalization(
         path: 'assets/translations/',
@@ -48,26 +59,22 @@ class MyApp extends StatelessWidget {
             create: (_) => OnboardingProvider()),
         ChangeNotifierProvider<ModelProvider>(create: (_) => ModelProvider()),
         ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
+        ChangeNotifierProvider<NotificationProvider>(
+            create: (_) => NotificationProvider()),
       ],
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
-          supportedLocales: context.supportedLocales,
-          localizationsDelegates: context.localizationDelegates,
-          locale: context.locale,
-          home: SplashScreen(),
-          routes: {
-            settingsScreen.routeName: (context) => const settingsScreen(),
-            homeScreen.routeName: (context) => homeScreen(),
-            installmentsScreen.routeName: (context) =>
-                const installmentsScreen(),
-            suggestionScreen.routeName: (context) => const suggestionScreen(),
-            marksScreen.routeName: (context) => const marksScreen(),
-          }),
+      child: MaterialApp.router(
+        scaffoldMessengerKey: scaffoldMessengerKey,
+        routerConfig: AppRouter.router,
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        supportedLocales: context.supportedLocales,
+        localizationsDelegates: context.localizationDelegates,
+        locale: context.locale,
+      ),
     );
   }
 }

@@ -9,17 +9,17 @@ import '../widgets/head_profile_widget.dart';
 import '../widgets/installments_tab_widget.dart';
 
 // ignore: camel_case_types
-class installmentsScreen extends StatefulWidget {
+class InstallmentsScreen extends StatefulWidget {
   static const String routeName = '/installments-screen';
 
-  const installmentsScreen({super.key});
+  const InstallmentsScreen({super.key});
 
   @override
-  State<installmentsScreen> createState() => _installmentsScreenState();
+  State<InstallmentsScreen> createState() => _InstallmentsScreenState();
 }
 
 // ignore: camel_case_types
-class _installmentsScreenState extends State<installmentsScreen>
+class _InstallmentsScreenState extends State<InstallmentsScreen>
     with SingleTickerProviderStateMixin {
   late TabController? controller;
 

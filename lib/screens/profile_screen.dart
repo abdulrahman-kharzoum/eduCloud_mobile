@@ -11,8 +11,11 @@ import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'dart:ui' as ui;
+
+import '../routing/app_router.dart';
 
 class ProfileScreen extends StatelessWidget {
   User user = User(
@@ -68,7 +71,8 @@ class ProfileScreen extends StatelessWidget {
                         //     end: Alignment.bottomRight),
                         borderRadius: BorderRadius.circular(25),
                       ),
-                      child: LineChartWidget(marksPoints, 'Student Situation')),
+                      child: LineChartWidget(
+                          marksPoints, 'Student Situation', 2.7)),
                 ),
               ),
               Container(
@@ -336,12 +340,13 @@ class GradientAppBar extends StatelessWidget {
               alignment: Alignment.topRight,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
+                  GoRouter.of(context).push(AppRouter.homeScreen);
+                  /*Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => homeScreen(),
                     ),
-                  );
+                  );*/
                 },
                 child: Icon(
                   size: 35,
@@ -357,12 +362,13 @@ class GradientAppBar extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: GestureDetector(
                 onTap: () {
-                  Navigator.push(
+                  GoRouter.of(context).push(AppRouter.profileScreen);
+                  /*  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => ProfileScreen(),
                     ),
-                  );
+                  );*/
                 },
                 child: Icon(
                   size: 35,

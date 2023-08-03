@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 class LineChartWidget extends StatelessWidget {
   final List<MarksPoints> points;
   final String title;
-  const LineChartWidget(this.points, this.title, {super.key});
+  final double aspectRatio;
+  const LineChartWidget(this.points, this.title, this.aspectRatio, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,7 @@ class LineChartWidget extends StatelessWidget {
               Container(
                 color: Colors.white,
                 child: AspectRatio(
-                  aspectRatio: 2.7,
+                  aspectRatio: aspectRatio,
                   child: LineChart(
                     LineChartData(
                       maxX: 7,
