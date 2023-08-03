@@ -1,9 +1,9 @@
+import 'dart:ui';
+
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: camel_case_types
 class settingsScreen extends StatefulWidget {
@@ -15,11 +15,16 @@ class settingsScreen extends StatefulWidget {
 }
 
 // ignore: camel_case_types
-class _settingsScreenState extends State<settingsScreen> {
-  String _selectedLanguage = 'English'; // Default language is English
+class _settingsScreenState extends State<settingsScreen>
+    with SingleTickerProviderStateMixin {
+  Locale appLocale = window.locale;
 
   @override
   Widget build(BuildContext context) {
+    String _selectedLanguage = context.locale.toString() == 'en'
+        ? 'English'
+        : 'Arabic'; // Default language is English
+
     return Scaffold(
       appBar: AppBar(
         title: Text(LocaleKeys.settings.tr()),
@@ -47,8 +52,9 @@ class _settingsScreenState extends State<settingsScreen> {
                     value == 'English'
                         ? await context.setLocale(const Locale('en'))
                         : await context.setLocale(const Locale('ar'));
+                    // ignore: use_build_context_synchronously
                     Navigator.of(context)
-                        .pushReplacementNamed(HomeScreen.routeName);
+                        .pushReplacementNamed(homeScreen.routeName);
                   },
                 );
               }).toList(),

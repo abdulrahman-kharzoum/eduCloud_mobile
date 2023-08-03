@@ -48,6 +48,9 @@ dependencies:
   fl_chart: ^0.62.0
   loader_overlay: ^2.3.0
   flutter_spinkit: ^5.2.0
+  pusher_channels_flutter: "^1.0.1"
+  lottie: ^2.5.0
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +77,7 @@ flutter:
   assets:
     - images/onboardingScreen/
     - assets/translations/
+    - assets/lotties/
     - assets/images/21121.jpg
     - assets/svg/student.svg
     - assets/svg/mony.svg

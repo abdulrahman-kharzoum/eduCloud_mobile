@@ -43,6 +43,11 @@
     "lastpriceyoupaied": "LAST PRICE YOU PAIED",
     "receiptnumbers": "Receipt numbers",
     "date": "Date",
-    "price": "Price"      
-
+    "price": "Price",
+    "typesomething": "Type something..." ,
+    "youcansend": "You can send your suggestions and complaints here",
+    "grandtotal": "Grand total",
+    "percentage": "Percentage",
+    "arrangement": "Arrangement",
+    "":""
 }

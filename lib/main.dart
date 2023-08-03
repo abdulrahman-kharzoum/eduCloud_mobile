@@ -4,10 +4,12 @@ import 'package:educloud_mobile/providers/base_provider.dart';
 import 'package:educloud_mobile/providers/onboarding_proivder.dart';
 import 'package:educloud_mobile/providers/user_provider.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
-import 'package:educloud_mobile/screens/profile_screen.dart';
+import 'package:educloud_mobile/screens/marks_screen.dart';
 import 'package:educloud_mobile/screens/settings_screen.dart';
 import 'package:educloud_mobile/screens/installments_screen.dart';
 import 'package:educloud_mobile/screens/splash_screen.dart';
+import 'package:educloud_mobile/screens/suggestions_screen.dart';
+import 'package:educloud_mobile/sever/apis.dart';
 import 'package:educloud_mobile/translations/codegen_loader.g.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,6 +40,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider.value(
+          value: Apis(),
+        ),
         ChangeNotifierProvider<BaseProvider>(create: (_) => BaseProvider()),
         ChangeNotifierProvider<OnboardingProvider>(
             create: (_) => OnboardingProvider()),
@@ -57,9 +62,11 @@ class MyApp extends StatelessWidget {
           home: SplashScreen(),
           routes: {
             settingsScreen.routeName: (context) => const settingsScreen(),
-            HomeScreen.routeName: (context) => HomeScreen(),
+            homeScreen.routeName: (context) => homeScreen(),
             installmentsScreen.routeName: (context) =>
                 const installmentsScreen(),
+            suggestionScreen.routeName: (context) => const suggestionScreen(),
+            marksScreen.routeName: (context) => const marksScreen(),
           }),
     );
   }

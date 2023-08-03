@@ -46,4 +46,9 @@ abstract class LocaleKeys {
   static const receiptnumbers = 'receiptnumbers';
   static const date = 'date';
   static const price = 'price';
+  static const typesomething = 'typesomething';
+  static const youcansend = 'youcansend';
+  static const grandtotal = 'grandtotal';
+  static const percentage = 'percentage';
+  static const arrangement = 'arrangement';
 }

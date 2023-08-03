@@ -59,7 +59,12 @@ class CodegenLoader extends AssetLoader {
     "lastpriceyoupaied": "آخر مبلغ تم دفعه",
     "receiptnumbers": "رقم الفاتورة",
     "date": "التاريخ",
-    "price": "المبلغ"
+    "price": "المبلغ",
+    "typesomething": "اكتب شيئاً هنا",
+    "youcansend": "يمكنك إرسال الاقتراحات و الشكاوى الخاصة بك هنا",
+    "grandtotal": "المجموع الكلي",
+    "percentage": "النسبة المئوية",
+    "arrangement": "الترتيب" 
   };
   static const Map<String, dynamic> en = {
     "settings": "Settings",
@@ -106,7 +111,12 @@ class CodegenLoader extends AssetLoader {
     "lastpriceyoupaied": "LAST PRICE YOU PAIED",
     "receiptnumbers": "Receipt numbers",
     "date": "Date",
-    "price": "Price"
+    "price": "Price",
+    "typesomething": "Type something...",
+    "youcansend": "You can send your suggestions and complaints here",
+    "grandtotal": "Grand total",
+    "percentage": "Percentage",
+    "arrangement": "Arrangement"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "ar": ar,
