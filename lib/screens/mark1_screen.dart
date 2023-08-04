@@ -5,12 +5,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/common_widgets/lineChart.dart';
 import 'package:educloud_mobile/models/marksPoints.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
-import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:educloud_mobile/widgets/markWidget.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -59,7 +57,7 @@ class Mark1Screen extends StatelessWidget {
                   final List<MyNotification> notifications =
                       MyNotification.decode(NotificationsString);
                   value.setNotifications(notifications);
-                  GoRouter.of(context).push(AppRouter.notificationScreen);
+                  Navigator.pushNamed(context, AppRouter.notificationScreen);
                 },
                 child: Icon(
                   Icons.notifications,
@@ -161,18 +159,31 @@ class Mark1Screen extends StatelessWidget {
                 )
               ],
             ),
-            MarkWidget(
-                title: "Exams marks",
-                img: "images/onboardingScreen/1.jpeg",
-                screenWidth: screenWidth),
-            MarkWidget(
-                title: "Quized marks",
-                img: "images/onboardingScreen/2.jpeg",
-                screenWidth: screenWidth),
-            MarkWidget(
-                title: "Teacher notes",
-                img: "images/onboardingScreen/3.jpg",
-                screenWidth: screenWidth),
+            GestureDetector(
+              onTap: () =>
+                  Navigator.of(context).pushNamed(AppRouter.mark2Screen),
+              child: MarkWidget(
+                  title: "Exams marks",
+                  img: "images/onboardingScreen/1.jpeg",
+                  screenWidth: screenWidth),
+            ),
+
+            GestureDetector(
+              onTap: () =>
+                  Navigator.of(context).pushNamed(AppRouter.mark2Screen),
+              child: MarkWidget(
+                  title: "Quized marks",
+                  img: "images/onboardingScreen/2.jpeg",
+                  screenWidth: screenWidth),
+            ),
+            GestureDetector(
+              onTap: () =>
+                  Navigator.of(context).pushNamed(AppRouter.mark2Screen),
+              child: MarkWidget(
+                  title: "Teacher notes",
+                  img: "images/onboardingScreen/3.jpg",
+                  screenWidth: screenWidth),
+            ),
           ],
         ),
       ),

@@ -1,29 +1,18 @@
-import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/common_widgets/Sigin_buttom_widget.dart';
-import 'package:educloud_mobile/main.dart';
 import 'package:educloud_mobile/models/model.dart';
 import 'package:educloud_mobile/providers/Model_provider.dart';
 import 'package:educloud_mobile/providers/user_provider.dart';
 import 'package:educloud_mobile/routing/app_router.dart';
-import 'package:educloud_mobile/screens/home_screen.dart';
-import 'package:educloud_mobile/screens/profile_screen.dart';
-import 'package:educloud_mobile/services/notification_services.dart';
-import 'package:educloud_mobile/services/pusher_services.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
-import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:go_router/go_router.dart';
-import 'package:loader_overlay/loader_overlay.dart';
+
 import 'package:space_fixer/space_fixer.dart';
 import 'package:educloud_mobile/providers/onboarding_proivder.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -563,8 +552,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                         Navigator.of(context).pop();
                                         // value.dispose();
                                         if (isLoginSuccess) {
-                                          GoRouter.of(context)
-                                              .push(AppRouter.homeScreen);
+                                          Navigator.pushNamed(
+                                              context, AppRouter.homeScreen);
                                           /* Navigator.push(
                                             context,
                                             MaterialPageRoute(

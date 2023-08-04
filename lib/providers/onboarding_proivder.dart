@@ -2,14 +2,10 @@ import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/providers/base_provider.dart';
-import 'package:educloud_mobile/services/user_services.dart';
-import 'package:educloud_mobile/styles/app_colors.dart';
+
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingProvider extends BaseProvider {
   int _currentImageIndex = 0;
@@ -42,7 +38,9 @@ class OnboardingProvider extends BaseProvider {
   List<String> _subTextsList = [];
   List<String> get SubTextsList => _subTextsList;
 
+  // ignore: unused_field
   late TypewriterAnimatedText _textsWidgets;
+  // ignore: unused_field
   late TypewriterAnimatedText _subtextsWidgets;
   late Timer timer;
   void stSize(Size ssize) {
@@ -71,7 +69,7 @@ class OnboardingProvider extends BaseProvider {
 
   @override
   void dispose() {
-    _controller?.dispose();
+    _controller.dispose();
     timer.cancel();
     super.dispose();
   }

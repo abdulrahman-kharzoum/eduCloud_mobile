@@ -2,7 +2,6 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../main.dart';
 import '../routing/app_router.dart';
@@ -67,7 +66,8 @@ class NotificationService {
     debugPrint('onActionReceivedMethod');
     final payload = receivedAction.payload ?? {};
     if (payload["navigate"] == "true") {
-      scaffoldMessengerKey.currentContext!.push(AppRouter.notificationScreen);
+      Navigator.of(scaffoldMessengerKey.currentContext!)
+          .pushNamed(AppRouter.notificationScreen);
     }
   }
 

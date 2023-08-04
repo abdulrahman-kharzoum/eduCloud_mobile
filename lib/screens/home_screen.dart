@@ -1,8 +1,6 @@
 import 'dart:ui';
 import 'package:educloud_mobile/common_widgets/backgroundPaint.dart';
 import 'package:educloud_mobile/routing/app_router.dart';
-import 'package:educloud_mobile/screens/installments_screen.dart';
-import 'package:educloud_mobile/screens/marks_screen.dart';
 import 'package:educloud_mobile/screens/suggestions_screen.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
@@ -10,7 +8,6 @@ import 'package:educloud_mobile/widgets/app_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:go_router/go_router.dart';
 
 import '../translations/locale_keys.g.dart';
 import '../widgets/advertisemen_container_widget.dart';
@@ -19,7 +16,7 @@ import '../widgets/home_screen_widgets/topic_widget.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
-  static const routeName = '/home-screen';
+  // static const routeName = '/home-screen';
   HomeScreen({super.key});
   //this get the language of the app
   Locale appLocale = window.locale;
@@ -35,15 +32,19 @@ class HomeScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           actions: [
-            Container(
-              // ignore: unrelated_type_equality_checks
-              //check if the language english or arabic
-              margin: context.locale.toString() == 'en'
-                  ? EdgeInsets.only(right: screenWidth / 40)
-                  : EdgeInsets.only(left: screenWidth / 40),
-              child: Icon(
-                Icons.notifications,
-                color: AppColors.titleTextColor,
+            GestureDetector(
+              onTap: () =>
+                  Navigator.of(context).pushNamed(AppRouter.notificationScreen),
+              child: Container(
+                // ignore: unrelated_type_equality_checks
+                //check if the language english or arabic
+                margin: context.locale.toString() == 'en'
+                    ? EdgeInsets.only(right: screenWidth / 40)
+                    : EdgeInsets.only(left: screenWidth / 40),
+                child: Icon(
+                  Icons.notifications,
+                  color: AppColors.titleTextColor,
+                ),
               ),
             ),
           ],
@@ -108,8 +109,8 @@ class HomeScreen extends StatelessWidget {
                             width: screenWidth / 40,
                           ),
                           GestureDetector(
-                            onTap: () => GoRouter.of(context)
-                                .push(AppRouter.mark2Screen),
+                            onTap: () => Navigator.pushNamed(
+                                context, AppRouter.mark1Screen),
                             child: topicWidget(
                               screenHight: screenHight,
                               screenWidth: screenWidth,
@@ -123,8 +124,8 @@ class HomeScreen extends StatelessWidget {
                             width: screenWidth / 20,
                           ),
                           GestureDetector(
-                            onTap: () => GoRouter.of(context)
-                                .push(AppRouter.installmentsScreen),
+                            onTap: () => Navigator.pushNamed(
+                                context, AppRouter.installmentsScreen),
                             child: topicWidget(
                               screenHight: screenHight,
                               screenWidth: screenWidth,
@@ -161,7 +162,9 @@ class HomeScreen extends StatelessWidget {
                           GestureDetector(
                             onTap: () {
                               Navigator.of(context)
-                                  .pushNamed(suggestionScreen.routeName);
+                                  .pushNamed(SuggestionScreen.routeName);
+                              // GoRouter.of(context)
+                              //     .push(AppRouter.suggestionScreen);
                             },
                             child: topicWidget(
                               screenHight: screenHight,

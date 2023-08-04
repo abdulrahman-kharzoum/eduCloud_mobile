@@ -1,14 +1,13 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:educloud_mobile/common_widgets/BackgroundPaint.dart';
 import 'package:educloud_mobile/providers/notification_provider.dart';
 import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/widgets/fav_tab.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/Notification.dart';
+import 'package:provider/provider.dart';
 
 class NotificationScreen extends StatefulWidget {
   static const String routeName = '/settings-screen';
@@ -147,8 +146,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           size: 35,
                           color: AppColors.secondaryColor,
                         ),
-                        onPressed: () =>
-                            GoRouter.of(context).push(AppRouter.homeScreen),
+                        onPressed: () => Navigator.of(context)
+                            .pushNamedAndRemoveUntil(AppRouter.homeScreen,
+                                (Route<dynamic> route) => false),
                       ),
                     ),
                   ),

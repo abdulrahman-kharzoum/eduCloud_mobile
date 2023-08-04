@@ -1,4 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/providers/Model_provider.dart';
 import 'package:educloud_mobile/providers/base_provider.dart';
@@ -6,19 +5,13 @@ import 'package:educloud_mobile/providers/notification_provider.dart';
 import 'package:educloud_mobile/providers/onboarding_proivder.dart';
 import 'package:educloud_mobile/providers/user_provider.dart';
 import 'package:educloud_mobile/routing/app_router.dart';
-import 'package:educloud_mobile/screens/home_screen.dart';
-import 'package:educloud_mobile/screens/marks_screen.dart';
-import 'package:educloud_mobile/screens/settings_screen.dart';
-import 'package:educloud_mobile/screens/installments_screen.dart';
 import 'package:educloud_mobile/screens/splash_screen.dart';
-import 'package:educloud_mobile/screens/suggestions_screen.dart';
 import 'package:educloud_mobile/sever/apis.dart';
 import 'package:educloud_mobile/services/notification_services.dart';
 import 'package:educloud_mobile/services/pusher_services.dart';
 import 'package:educloud_mobile/translations/codegen_loader.g.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:pusher_channels_flutter/pusher-js/core/pusher.dart';
 
 GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
@@ -62,9 +55,10 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<NotificationProvider>(
             create: (_) => NotificationProvider()),
       ],
-      child: MaterialApp.router(
+      child: MaterialApp(
         scaffoldMessengerKey: scaffoldMessengerKey,
-        routerConfig: AppRouter.router,
+        onGenerateRoute: AppRouter().generateRoute,
+        home: SplashScreen(),
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(

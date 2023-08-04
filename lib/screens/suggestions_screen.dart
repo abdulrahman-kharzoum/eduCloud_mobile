@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:ui';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:educloud_mobile/screens/home_screen.dart';
+import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/sever/apis.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
@@ -18,18 +18,18 @@ import '../widgets/chat_screen_widgets/center_chat_widget.dart';
 import '../widgets/chat_screen_widgets/message_card_widget.dart';
 
 // ignore: camel_case_types
-class suggestionScreen extends StatefulWidget {
+class SuggestionScreen extends StatefulWidget {
   static const String routeName = '/suggestion-screen';
 
-  const suggestionScreen({super.key});
+  const SuggestionScreen({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _suggestionScreenState createState() => _suggestionScreenState();
+  _SuggestionScreenState createState() => _SuggestionScreenState();
 }
 
 // ignore: camel_case_types
-class _suggestionScreenState extends State<suggestionScreen> {
+class _SuggestionScreenState extends State<SuggestionScreen> {
   // ignore: deprecated_member_use
   Locale appLocale = window.locale;
   final List<dynamic> _messages = [];
@@ -236,7 +236,7 @@ class _suggestionScreenState extends State<suggestionScreen> {
             ),
             onPressed: () {
               saveMessages();
-              Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+              Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
             }),
         title: Container(
           margin: context.locale.toString() == 'en'

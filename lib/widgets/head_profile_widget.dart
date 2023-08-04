@@ -1,7 +1,5 @@
-import 'package:educloud_mobile/screens/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../routing/app_router.dart';
 import '../styles/app_colors.dart';
@@ -27,7 +25,7 @@ class headProfileWidget extends StatelessWidget {
         //this container for user image
         InkWell(
           onTap: () {
-            GoRouter.of(context).push(AppRouter.profileScreen);
+            Navigator.of(context).pushNamed(AppRouter.profileScreen);
             /* Navigator.push(
               context,
               MaterialPageRoute(

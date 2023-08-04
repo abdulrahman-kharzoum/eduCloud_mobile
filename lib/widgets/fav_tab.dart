@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:educloud_mobile/models/Notification.dart';
 import 'package:educloud_mobile/providers/notification_provider.dart';
 
-import 'package:educloud_mobile/services/pusher_services.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

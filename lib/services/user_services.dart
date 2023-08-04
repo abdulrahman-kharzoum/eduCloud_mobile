@@ -1,10 +1,8 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:educloud_mobile/constants/configration.dart';
 import 'package:educloud_mobile/constants/sharedPreferences.dart';
 
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserServices {

@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:educloud_mobile/screens/home_screen.dart';
+import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -45,17 +45,16 @@ class _SettingsScreenState extends State<SettingsScreen>
               },
               items: <String>['English', 'Arabic'].map((String value) {
                 return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                  onTap: () async {
-                    value == 'English'
-                        ? await context.setLocale(const Locale('en'))
-                        : await context.setLocale(const Locale('ar'));
-                    // ignore: use_build_context_synchronously
-                    Navigator.of(context)
-                        .pushReplacementNamed(HomeScreen.routeName);
-                  },
-                );
+                    value: value,
+                    child: Text(value),
+                    onTap: () async {
+                      value == 'English'
+                          ? await context.setLocale(const Locale('en'))
+                          : await context.setLocale(const Locale('ar'));
+                      // ignore: use_build_context_synchronously
+                      Navigator.pushReplacementNamed(
+                          context, AppRouter.homeScreen);
+                    });
               }).toList(),
             ),
           ),

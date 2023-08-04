@@ -1,8 +1,5 @@
-import 'package:educloud_mobile/models/model.dart';
 import 'package:educloud_mobile/providers/base_provider.dart';
-import 'package:educloud_mobile/screens/onboarding_screen.dart';
 import 'package:educloud_mobile/services/user_services.dart';
-import 'package:flutter/material.dart';
 
 class UserProvider extends BaseProvider {
   String? username;

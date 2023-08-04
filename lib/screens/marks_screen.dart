@@ -1,10 +1,10 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/widgets/marks_screen_widgets/select_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/head_profile_widget.dart';
 import '../widgets/marks_screen_widgets/header_mark_widget.dart';
-import './home_screen.dart';
 
 // ignore: camel_case_types
 class MarksScreen extends StatefulWidget {
@@ -105,7 +105,8 @@ class _MarksScreenState extends State<MarksScreen> {
               color: Colors.white,
             ),
             onPressed: () {
-              Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+              // Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
+              Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
             }),
         title: Container(
           margin: context.locale.toString() == 'en'

@@ -1,6 +1,5 @@
 import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class ErrorScreen extends StatelessWidget {
   const ErrorScreen({super.key});
@@ -14,7 +13,8 @@ class ErrorScreen extends StatelessWidget {
       ),
       body: Center(
         child: ElevatedButton(
-          onPressed: () => context.go(AppRouter.homeScreen),
+          onPressed: () =>
+              Navigator.pushReplacementNamed(context, AppRouter.homeScreen),
           child: const Text("Go to home page"),
         ),
       ),
