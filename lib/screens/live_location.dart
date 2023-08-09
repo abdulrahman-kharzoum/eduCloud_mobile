@@ -19,6 +19,22 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
+  StreamSubscription<LocationData>? locationSubscription;
+  @override
+  void initState() {
+    getCurrentLocation();
+    setCustomMarkerIcon();
+    super.initState();
+    // getPolyPoints();
+  }
+
+  @override
+  void dispose() {
+    locationSubscription?.cancel(); // Cancel the location subscription
+    _controller.future
+        .then((controller) => controller.dispose()); // Dispose of controller
+    super.dispose();
+  }
   // bool _loading = false;
   // int _polylineCount = 1;
   // Map<PolylineId, Polyline> _polylines = <PolylineId, Polyline>{};
@@ -112,30 +128,58 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
   }
 
   LocationData? currentLocation;
+  // void getCurrentLocation() async {
+  //   Location location = Location();
+  //   location.getLocation().then(
+  //     (location) {
+  //       currentLocation = location;
+  //       setState(() {});
+  //     },
+  //   );
+  //   GoogleMapController googleMapController = await _controller.future;
+  //   location.onLocationChanged.listen(
+  //     (newLoc) {
+  //       currentLocation = newLoc;
+  //       googleMapController.animateCamera(
+  //         CameraUpdate.newCameraPosition(
+  //           CameraPosition(
+  //             zoom: 13.5,
+  //             target: LatLng(
+  //               newLoc.latitude!,
+  //               newLoc.longitude!,
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //       setState(() {});
+  //     },
+  //   );
+  // }
   void getCurrentLocation() async {
     Location location = Location();
-    location.getLocation().then(
-      (location) {
-        currentLocation = location;
-        setState(() {});
-      },
-    );
-    GoogleMapController googleMapController = await _controller.future;
-    location.onLocationChanged.listen(
+    locationSubscription = location.onLocationChanged.listen(
       (newLoc) {
         currentLocation = newLoc;
-        googleMapController.animateCamera(
-          CameraUpdate.newCameraPosition(
-            CameraPosition(
-              zoom: 13.5,
-              target: LatLng(
-                newLoc.latitude!,
-                newLoc.longitude!,
+        final googleMapController = _controller.future;
+        googleMapController.then(
+          (controller) {
+            controller.animateCamera(
+              CameraUpdate.newCameraPosition(
+                CameraPosition(
+                  zoom: 13.5,
+                  target: LatLng(
+                    newLoc.latitude!,
+                    newLoc.longitude!,
+                  ),
+                ),
               ),
-            ),
-          ),
+            );
+          },
         );
-        setState(() {});
+        if (mounted) {
+          // Check if the widget is still mounted before calling setState
+          setState(() {});
+        }
       },
     );
   }
@@ -165,19 +209,6 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
     return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
         .buffer
         .asUint8List();
-  }
-
-  @override
-  void initState() {
-    getCurrentLocation();
-    setCustomMarkerIcon();
-    // getPolyPoints();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
