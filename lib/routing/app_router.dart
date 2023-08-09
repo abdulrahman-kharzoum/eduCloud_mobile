@@ -1,5 +1,6 @@
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/installments_screen.dart';
+import 'package:educloud_mobile/screens/live_location.dart';
 import 'package:educloud_mobile/screens/mark1_screen.dart';
 import 'package:educloud_mobile/screens/notification_screen.dart';
 import 'package:educloud_mobile/screens/settings_screen.dart';
@@ -15,6 +16,7 @@ import '../screens/profile_screen.dart';
 
 class AppRouter {
   static String get profileScreen => '/profile-screen';
+  static String get locationScreen => '/location-screen';
 
   static String get onBoardingScreen => '/onboarding-screen';
 
@@ -45,6 +47,8 @@ class AppRouter {
   });
 
   Map<String, MaterialPageRoute Function(RouteSettings)> routesMap = {
+    locationScreen: (s) =>
+        MaterialPageRoute(builder: (_) => OrderTrackingPage(), settings: s),
     suggestionScreen: (s) =>
         MaterialPageRoute(builder: (_) => SuggestionScreen(), settings: s),
     mark2Screen: (s) =>
