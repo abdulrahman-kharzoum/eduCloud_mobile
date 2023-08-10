@@ -5,18 +5,18 @@ import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../styles/app_colors.dart';
+import '../../styles/app_colors.dart';
 
-class FavoritesTab extends StatefulWidget {
-  FavoritesTab({
+class HomeworksTab extends StatefulWidget {
+  HomeworksTab({
     super.key,
   });
 
   @override
-  State<FavoritesTab> createState() => _FavoritesTabState();
+  State<HomeworksTab> createState() => _HomeworksTabState();
 }
 
-class _FavoritesTabState extends State<FavoritesTab> {
+class _HomeworksTabState extends State<HomeworksTab> {
   @override
   Widget build(BuildContext context) {
     return Consumer<NotificationProvider>(
