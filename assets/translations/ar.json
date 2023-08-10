@@ -39,12 +39,19 @@
     "loginSuccess":"تم تسجيل الدخول بنجاح",
     "loginFaild":"!فشل تسجيل الدخول",
     "invaildUsernameOrPassword":"خطأ في اسم المستخدم أو كلمة مرور",
+    "studentSituation":"حالة الطالب",
     "phoneNumber":"رقم الهاتف",
     "grade_section":"الصف/الشعبة",
     "fatherName":"اسم الأب",
     "motherName":"اسم الأم",
     "address":"العنوان",
-    "subjectInfo":"معلومات المواد"
-
+    "subjectInfo":"معلومات المواد",
+    "notes":"ملحوظات",
+    "absences":"غيابات",
+    "homeworks":"وظائف",
+    "general":"عام",
+    "ExamsMarks":"علامات الامتحانات",
+    "QuizzesMarks":"علامات الاختبارات",
+    "TeacherNotes":"ملاحظات المعلم"
     
 }

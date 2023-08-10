@@ -51,4 +51,12 @@ abstract class LocaleKeys {
   static const grandtotal = 'grandtotal';
   static const percentage = 'percentage';
   static const arrangement = 'arrangement';
+  static const notes = 'notes';
+  static const absences = 'absences';
+  static const homeworks = 'homeworks';
+  static const general = 'general';
+  static const studentSituation = 'studentSituation';
+  static const examsMarks = 'ExamsMarks';
+  static const quizzesMarks = 'QuizzesMarks';
+  static const teacherNotes = 'TeacherNotes';
 }

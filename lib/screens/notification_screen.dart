@@ -1,9 +1,11 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/common_widgets/BackgroundPaint.dart';
 import 'package:educloud_mobile/providers/notification_provider.dart';
 import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
+import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:educloud_mobile/widgets/fav_tab.dart';
 import 'package:flutter/material.dart';
 
@@ -38,30 +40,73 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 if (value.notifications[i].isRead == false) {
                   return Badge(
                     child: Tab(
-                      icon:
-                          Icon(Icons.favorite, color: AppColors.secondaryColor),
-                      text: 'Favorites',
+                      icon: Icon(Icons.notes, color: AppColors.secondaryColor),
+                      text: LocaleKeys.notes.tr(),
                     ),
                   );
                 }
               }
               return Tab(
-                icon: Icon(Icons.favorite, color: AppColors.secondaryColor),
-                text: 'Favorites',
+                icon: Icon(Icons.notes, color: AppColors.secondaryColor),
+                text: LocaleKeys.notes.tr(),
               );
             },
           ),
-          Tab(
-            icon: Icon(Icons.search, color: AppColors.secondaryColor),
-            text: 'Search',
+          Consumer<NotificationProvider>(
+            builder: (context, value, child) {
+              for (var i = 0; i < value.notifications.length; i++) {
+                if (value.notifications[i].isRead == false) {
+                  return Badge(
+                    child: Tab(
+                      icon: Icon(Icons.person, color: AppColors.secondaryColor),
+                      text: LocaleKeys.absences.tr(),
+                    ),
+                  );
+                }
+              }
+              return Tab(
+                icon: Icon(Icons.person, color: AppColors.secondaryColor),
+                text: LocaleKeys.absences.tr(),
+              );
+            },
           ),
-          Tab(
-            icon: Icon(Icons.info, color: AppColors.secondaryColor),
-            text: 'Information',
+          Consumer<NotificationProvider>(
+            builder: (context, value, child) {
+              for (var i = 0; i < value.notifications.length; i++) {
+                if (value.notifications[i].isRead == false) {
+                  return Badge(
+                    child: Tab(
+                      icon: Icon(Icons.library_books,
+                          color: AppColors.secondaryColor),
+                      text: LocaleKeys.homeworks.tr(),
+                    ),
+                  );
+                }
+              }
+              return Tab(
+                icon:
+                    Icon(Icons.library_books, color: AppColors.secondaryColor),
+                text: LocaleKeys.homeworks.tr(),
+              );
+            },
           ),
-          Tab(
-            icon: Icon(Icons.notifications, color: AppColors.secondaryColor),
-            text: 'Notifications',
+          Consumer<NotificationProvider>(
+            builder: (context, value, child) {
+              for (var i = 0; i < value.notifications.length; i++) {
+                if (value.notifications[i].isRead == false) {
+                  return Badge(
+                    child: Tab(
+                      icon: Icon(Icons.public, color: AppColors.secondaryColor),
+                      text: LocaleKeys.general.tr(),
+                    ),
+                  );
+                }
+              }
+              return Tab(
+                icon: Icon(Icons.public, color: AppColors.secondaryColor),
+                text: LocaleKeys.general.tr(),
+              );
+            },
           ),
         ],
       );
@@ -75,7 +120,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         length: 4,
         child: Scaffold(
           appBar: AppBar(
-            toolbarHeight: 0,
+            toolbarHeight: 26,
             // centerTitle: true,
             bottom: PreferredSize(
               preferredSize: _tabBar.preferredSize,

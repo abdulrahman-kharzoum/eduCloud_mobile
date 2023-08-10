@@ -106,7 +106,7 @@ class _MarksScreenState extends State<MarksScreen> {
             ),
             onPressed: () {
               // Navigator.of(context).pushReplacementNamed(HomeScreen.routeName);
-              Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
+              Navigator.pop(context);
             }),
         title: Container(
           margin: context.locale.toString() == 'en'

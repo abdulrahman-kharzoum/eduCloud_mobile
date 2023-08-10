@@ -48,6 +48,14 @@
     "youcansend": "You can send your suggestions and complaints here",
     "grandtotal": "Grand total",
     "percentage": "Percentage",
+    "studentSituation":"Student Situation",
     "arrangement": "Arrangement",
-    "":""
+    "notes":"Notes",
+    "absences":"Absences",
+    "homeworks":"Homeworks",
+    "general":"General",
+    "ExamsMarks":"Exams Marks",
+    "QuizzesMarks":"Quizzes Marks",
+    "TeacherNotes":"Teacher Notes"
+    
 }

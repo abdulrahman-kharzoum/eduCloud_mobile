@@ -64,7 +64,15 @@ class CodegenLoader extends AssetLoader {
     "youcansend": "يمكنك إرسال الاقتراحات و الشكاوى الخاصة بك هنا",
     "grandtotal": "المجموع الكلي",
     "percentage": "النسبة المئوية",
-    "arrangement": "الترتيب" 
+    "arrangement": "الترتيب",
+    "notes": "ملحوظات",
+    "absences": "غيابات",
+    "homeworks": "وظائف",
+    "general": "عام",
+    "studentSituation": "حالة الطالب",
+    "ExamsMarks": "علامات الامتحانات",
+    "QuizzesMarks": "علامات الاختبارات",
+    "TeacherNotes": "ملاحظات المعلم"
   };
   static const Map<String, dynamic> en = {
     "settings": "Settings",
@@ -116,7 +124,15 @@ class CodegenLoader extends AssetLoader {
     "youcansend": "You can send your suggestions and complaints here",
     "grandtotal": "Grand total",
     "percentage": "Percentage",
-    "arrangement": "Arrangement"
+    "arrangement": "Arrangement",
+    "notes": "Notes",
+    "absences": "Absences",
+    "homeworks": "Homeworks",
+    "general": "General",
+    "studentSituation": "Student Situation",
+    "ExamsMarks": "Exams Marks",
+    "QuizzesMarks": "Quizzes Marks",
+    "TeacherNotes": "Teacher Notes"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "ar": ar,

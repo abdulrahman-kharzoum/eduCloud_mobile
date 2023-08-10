@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/common_widgets/lineChart.dart';
 import 'package:educloud_mobile/models/marksPoints.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
+import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:educloud_mobile/widgets/markWidget.dart';
 
 import 'package:flutter/material.dart';
@@ -111,7 +112,7 @@ class Mark1Screen extends StatelessWidget {
                       child: Container(
                         width: screenWidth - 50,
                         child: LineChartWidget(
-                            marksPoints, 'Student Situation', 2.2),
+                            marksPoints, LocaleKeys.studentSituation.tr(), 2.2),
                       ),
                     ),
                   ],
@@ -163,8 +164,8 @@ class Mark1Screen extends StatelessWidget {
               onTap: () =>
                   Navigator.of(context).pushNamed(AppRouter.mark2Screen),
               child: MarkWidget(
-                  title: "Exams marks",
-                  img: "images/onboardingScreen/1.jpeg",
+                  title: LocaleKeys.examsMarks.tr(),
+                  img: "assets/markScreen/examsMarks.jpg",
                   screenWidth: screenWidth),
             ),
 
@@ -172,16 +173,16 @@ class Mark1Screen extends StatelessWidget {
               onTap: () =>
                   Navigator.of(context).pushNamed(AppRouter.mark2Screen),
               child: MarkWidget(
-                  title: "Quized marks",
-                  img: "images/onboardingScreen/2.jpeg",
+                  title: LocaleKeys.quizzesMarks.tr(),
+                  img: "assets/markScreen/quizzesMarks.jpg",
                   screenWidth: screenWidth),
             ),
             GestureDetector(
               onTap: () =>
                   Navigator.of(context).pushNamed(AppRouter.mark2Screen),
               child: MarkWidget(
-                  title: "Teacher notes",
-                  img: "images/onboardingScreen/3.jpg",
+                  title: LocaleKeys.teacherNotes.tr(),
+                  img: "assets/markScreen/teacherNotes.jpg",
                   screenWidth: screenWidth),
             ),
           ],

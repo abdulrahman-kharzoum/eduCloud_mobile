@@ -69,7 +69,7 @@ class ProfileScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: LineChartWidget(
-                          marksPoints, 'Student Situation', 2.7)),
+                          marksPoints, LocaleKeys.studentSituation.tr(), 2.7)),
                 ),
               ),
               Container(

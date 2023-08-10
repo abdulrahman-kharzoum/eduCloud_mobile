@@ -55,7 +55,7 @@ dependencies:
   flutter_spinkit: ^5.2.0
   pusher_channels_flutter: ^2.1.2
   badges: ^3.1.1
-  google_map_polyline_new:
+
   lottie: ^2.5.0
   google_maps_flutter: ^2.4.0
   location: ^5.0.2+1
@@ -64,7 +64,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  image: ^3.2.2
+
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
@@ -73,9 +73,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 dependency_overrides:
   intl: any
-  google_map_polyline_new:
-    git:
-      url:  https://github.com/Shreemanarjun/google_map_polyline.git
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -92,6 +90,7 @@ flutter:
     - images/onboardingScreen/
     - assets/translations/
     - assets/location/
+    - assets/markScreen/
     - assets/lotties/
     - assets/images/21121.jpg
     - assets/svg/student.svg
