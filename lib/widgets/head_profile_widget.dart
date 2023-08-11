@@ -11,12 +11,21 @@ class headProfileWidget extends StatelessWidget {
     super.key,
     required this.screenHight,
     required this.screenWidth,
+    required this.studentName,
+    required this.gradeNumber,
+    required this.icon,
     required this.nameColor,
+    required this.circleColor,
   });
 
   final double screenHight;
   final double screenWidth;
+  final String studentName;
+  final Icon icon;
+  final String gradeNumber;
+
   final Color nameColor;
+  final Color circleColor;
 
   @override
   Widget build(BuildContext context) {
@@ -52,15 +61,12 @@ class headProfileWidget extends StatelessWidget {
             child: Container(
               //second layer white
               padding: const EdgeInsets.all(9),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: Colors.white,
+                color: circleColor,
               ),
               child: Center(
-                child: Icon(
-                  CupertinoIcons.person,
-                  size: 25,
-                ),
+                child: icon,
               ),
             ),
           ),
@@ -74,7 +80,7 @@ class headProfileWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              'Alaa shibany',
+              studentName,
               style: TextStyle(
                   color: nameColor,
                   fontSize: 18,
@@ -82,7 +88,7 @@ class headProfileWidget extends StatelessWidget {
                   fontFamily: 'Euclid Circular A'),
             ),
             Text(
-              'Grade 9',
+              gradeNumber,
               style: AppTextStyles.profile2,
             ),
           ],

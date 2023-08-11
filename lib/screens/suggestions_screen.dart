@@ -6,6 +6,7 @@ import 'package:educloud_mobile/sever/apis.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:educloud_mobile/widgets/head_profile_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
@@ -245,6 +246,13 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
               : EdgeInsets.only(
                   right: screenWidth / 100, bottom: screenHight / 100),
           child: headProfileWidget(
+              icon: Icon(
+                CupertinoIcons.person,
+                size: 25,
+              ),
+              circleColor: AppColors.secondaryColor,
+              studentName: 'Alaa shibany',
+              gradeNumber: 'Grade 9',
               screenHight: screenHight,
               screenWidth: screenWidth,
               nameColor: Colors.white),

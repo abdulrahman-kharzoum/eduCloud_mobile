@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/routing/app_router.dart';
+import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/widgets/marks_screen_widgets/select_bar_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/head_profile_widget.dart';
@@ -114,6 +116,13 @@ class _MarksScreenState extends State<MarksScreen> {
               : EdgeInsets.only(
                   right: screenWidth / 100, top: screenHight / 100),
           child: headProfileWidget(
+              icon: Icon(
+                CupertinoIcons.person,
+                size: 25,
+              ),
+              circleColor: AppColors.secondaryColor,
+              studentName: 'Alaa shibany',
+              gradeNumber: 'Grade 9',
               screenHight: screenHight,
               screenWidth: screenWidth,
               nameColor: Colors.white),

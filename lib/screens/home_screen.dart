@@ -5,6 +5,7 @@ import 'package:educloud_mobile/screens/suggestions_screen.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:educloud_mobile/widgets/app_drawer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -75,6 +76,13 @@ class HomeScreen extends StatelessWidget {
                           : EdgeInsets.only(
                               top: screenHight / 17, right: screenWidth / 5),
                       child: headProfileWidget(
+                        icon: Icon(
+                          CupertinoIcons.person,
+                          size: 25,
+                        ),
+                        circleColor: AppColors.secondaryColor,
+                        studentName: 'Alaa shibany',
+                        gradeNumber: 'Grade 9',
                         screenHight: screenHight,
                         screenWidth: screenWidth,
                         nameColor: AppColors.mainColor,

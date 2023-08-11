@@ -52,6 +52,9 @@
     "general":"عام",
     "ExamsMarks":"علامات الامتحانات",
     "QuizzesMarks":"علامات الاختبارات",
-    "TeacherNotes":"ملاحظات المعلم"
+    "TeacherNotes":"ملاحظات المعلم",
+    "lastPriceYouPaid":"آخر سعر مدفوع",
+    "StudentName":"اسم الطالب",
+    "haveToPay":"يجب أن يدفع"
     
 }

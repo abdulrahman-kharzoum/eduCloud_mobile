@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/constants/sharedPreferences.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/widgets/head_profile_widget.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
@@ -101,12 +102,16 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 40,
           ),
-          const circleIconWidget(
-            color: Color.fromRGBO(162, 179, 84, 1),
-            widget: Icon(
-              Icons.directions_bus_rounded,
-              color: Colors.white,
-              size: 25,
+          GestureDetector(
+            onTap: () =>
+                Navigator.of(context).pushNamed(AppRouter.pricePaidScreen),
+            child: const circleIconWidget(
+              color: Color.fromRGBO(162, 179, 84, 1),
+              widget: Icon(
+                Icons.directions_bus_rounded,
+                color: Colors.white,
+                size: 25,
+              ),
             ),
           ),
           SizedBox(
@@ -187,6 +192,13 @@ class _appDrawerState extends State<appDrawer> {
             height: mediaQuery.height / 20,
           ),
           headProfileWidget(
+            icon: Icon(
+              CupertinoIcons.person,
+              size: 25,
+            ),
+            circleColor: AppColors.secondaryColor,
+            studentName: 'Alaa shibany',
+            gradeNumber: 'Grade 9',
             screenHight: mediaQuery.width,
             screenWidth: mediaQuery.height,
             nameColor: Colors.white,

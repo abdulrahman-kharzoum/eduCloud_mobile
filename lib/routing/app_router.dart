@@ -13,6 +13,7 @@ import '../screens/error_screen.dart';
 import '../screens/marks_screen.dart';
 import '../screens/onboarding_screen.dart';
 import '../screens/profile_screen.dart';
+import '../screens/supervisor/last price you paid.dart';
 
 class AppRouter {
   static String get profileScreen => '/profile-screen';
@@ -29,6 +30,7 @@ class AppRouter {
   static String get settingsScreen => '/settings-screen';
   static String get installmentsScreen => '/installments-screen';
   static String get splashScreen => '/splash-screen';
+  static String get pricePaidScreen => '/PricePaid-screen';
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     try {
@@ -47,6 +49,8 @@ class AppRouter {
   });
 
   Map<String, MaterialPageRoute Function(RouteSettings)> routesMap = {
+    pricePaidScreen: (s) =>
+        MaterialPageRoute(builder: (_) => PricePaid(), settings: s),
     locationScreen: (s) =>
         MaterialPageRoute(builder: (_) => OrderTrackingPage(), settings: s),
     suggestionScreen: (s) =>

@@ -7,6 +7,7 @@ import 'package:educloud_mobile/models/marksPoints.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:educloud_mobile/widgets/markWidget.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 
@@ -98,6 +99,13 @@ class Mark1Screen extends StatelessWidget {
                       : EdgeInsets.only(
                           top: screenHight / 17, right: screenWidth / 5),
                   child: headProfileWidget(
+                    icon: Icon(
+                      CupertinoIcons.person,
+                      size: 25,
+                    ),
+                    circleColor: AppColors.secondaryColor,
+                    studentName: 'Alaa shibany',
+                    gradeNumber: 'Grade 9',
                     screenHight: screenHight,
                     screenWidth: screenWidth,
                     nameColor: AppColors.secondaryColor,

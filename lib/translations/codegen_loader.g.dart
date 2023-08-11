@@ -72,7 +72,10 @@ class CodegenLoader extends AssetLoader {
     "studentSituation": "حالة الطالب",
     "ExamsMarks": "علامات الامتحانات",
     "QuizzesMarks": "علامات الاختبارات",
-    "TeacherNotes": "ملاحظات المعلم"
+    "TeacherNotes": "ملاحظات المعلم",
+    "lastPriceYouPaid": "آخر سعر مدفوع",
+    "StudentName": "اسم الطالب",
+    "haveToPay": "يجب أن يدفع"
   };
   static const Map<String, dynamic> en = {
     "settings": "Settings",
@@ -132,7 +135,10 @@ class CodegenLoader extends AssetLoader {
     "studentSituation": "Student Situation",
     "ExamsMarks": "Exams Marks",
     "QuizzesMarks": "Quizzes Marks",
-    "TeacherNotes": "Teacher Notes"
+    "TeacherNotes": "Teacher Notes",
+    "lastPriceYouPaid": "LAST PRICE YOU PAID",
+    "StudentName": "STUDENT NAME",
+    "haveToPay": "HAVE TO PAY"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "ar": ar,

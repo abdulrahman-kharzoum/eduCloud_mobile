@@ -59,4 +59,7 @@ abstract class LocaleKeys {
   static const examsMarks = 'ExamsMarks';
   static const quizzesMarks = 'QuizzesMarks';
   static const teacherNotes = 'TeacherNotes';
+  static const lastPriceYouPaid = 'lastPriceYouPaid';
+  static const StudentName = 'StudentName';
+  static const haveToPay = 'haveToPay';
 }

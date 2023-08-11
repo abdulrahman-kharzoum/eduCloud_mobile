@@ -56,6 +56,9 @@
     "general":"General",
     "ExamsMarks":"Exams Marks",
     "QuizzesMarks":"Quizzes Marks",
-    "TeacherNotes":"Teacher Notes"
+    "TeacherNotes":"Teacher Notes",
+    "lastPriceYouPaid":"LAST PRICE YOU PAID",
+    "StudentName":"STUDENT NAME",
+    "haveToPay":"HAVE TO PAY"
     
 }
