@@ -18,7 +18,7 @@ class PaymentTableSupervisor extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           horizontal: mediaQuery.width / 20, vertical: mediaQuery.height / 40),
       margin: EdgeInsets.only(
-          top: mediaQuery.height / 10,
+          top: mediaQuery.height / 20,
           left: mediaQuery.width / 30,
           right: mediaQuery.width / 30),
       width: double.infinity,

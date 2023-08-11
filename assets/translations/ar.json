@@ -56,6 +56,9 @@
     "lastPriceYouPaid":"آخر سعر مدفوع",
     "StudentName":"اسم الطالب",
     "haveToPay":"يجب أن يدفع",
-    "accumulatedAmount":"المبلغ المتراكم"
-    
+    "accumulatedAmount":"المبلغ المتراكم",
+    "startingTrip":"بداية الرحلة",
+    "endingTrip":"نهاية الرحلة",
+    "didGetIn":"هل صعد؟",
+    "next":"التالي"
 }

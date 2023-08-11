@@ -76,7 +76,11 @@ class CodegenLoader extends AssetLoader {
     "lastPriceYouPaid": "آخر سعر مدفوع",
     "StudentName": "اسم الطالب",
     "haveToPay": "يجب أن يدفع",
-    "accumulatedAmount": "المبلغ المتراكم"
+    "accumulatedAmount": "المبلغ المتراكم",
+    "didGetIn": "هل صعد؟",
+    "startingTrip": "بداية الرحلة",
+    "endingTrip": "نهاية الرحلة",
+    "next": "التالي"
   };
   static const Map<String, dynamic> en = {
     "settings": "Settings",
@@ -140,7 +144,11 @@ class CodegenLoader extends AssetLoader {
     "lastPriceYouPaid": "LAST PRICE YOU PAID",
     "StudentName": "STUDENT NAME",
     "haveToPay": "HAVE TO PAY",
-    "accumulatedAmount": "ACCUMULATED AMOUNT"
+    "accumulatedAmount": "ACCUMULATED AMOUNT",
+    "didGetIn": "DID GET IN?",
+    "startingTrip": "STARTING TRIP",
+    "endingTrip": "ENDING TRIP",
+    "next": "NEXT"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "ar": ar,

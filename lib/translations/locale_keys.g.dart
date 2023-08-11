@@ -63,4 +63,8 @@ abstract class LocaleKeys {
   static const StudentName = 'StudentName';
   static const haveToPay = 'haveToPay';
   static const accumulatedAmount = 'accumulatedAmount';
+  static const didGetIn = 'didGetIn';
+  static const startingTrip = 'startingTrip';
+  static const endingTrip = 'endingTrip';
+  static const next = 'next';
 }

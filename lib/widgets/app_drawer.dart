@@ -80,12 +80,16 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 15,
           ),
-          const circleIconWidget(
-            color: Color.fromRGBO(254, 91, 96, 1),
-            widget: Icon(
-              Icons.book,
-              color: Colors.white,
-              size: 25,
+          GestureDetector(
+            onTap: () =>
+                Navigator.of(context).pushNamed(AppRouter.absencesScreen),
+            child: const circleIconWidget(
+              color: Color.fromRGBO(254, 91, 96, 1),
+              widget: Icon(
+                Icons.book,
+                color: Colors.white,
+                size: 25,
+              ),
             ),
           ),
           SizedBox(
@@ -121,10 +125,14 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 5,
           ),
-          const Icon(
-            Icons.calendar_today_outlined,
-            color: Colors.white,
-            size: 30,
+          GestureDetector(
+            onTap: () =>
+                Navigator.of(context).pushNamed(AppRouter.absencesScreen2),
+            child: const Icon(
+              Icons.calendar_today_outlined,
+              color: Colors.white,
+              size: 30,
+            ),
           ),
           SizedBox(
             height: mediaQuery.height / 20,
@@ -229,14 +237,18 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 15,
           ),
-          circleIconWidget2(
-            iconName: LocaleKeys.studentsubjects.tr(),
-            mediaQuery: mediaQuery,
-            color: const Color.fromRGBO(254, 91, 96, 1),
-            widget: const Icon(
-              Icons.book,
-              color: Colors.white,
-              size: 25,
+          GestureDetector(
+            onTap: () =>
+                Navigator.of(context).pushNamed(AppRouter.absencesScreen),
+            child: circleIconWidget2(
+              iconName: LocaleKeys.studentsubjects.tr(),
+              mediaQuery: mediaQuery,
+              color: const Color.fromRGBO(254, 91, 96, 1),
+              widget: const Icon(
+                Icons.book,
+                color: Colors.white,
+                size: 25,
+              ),
             ),
           ),
           SizedBox(
@@ -280,10 +292,14 @@ class _appDrawerState extends State<appDrawer> {
             margin: EdgeInsets.only(left: mediaQuery.width / 40),
             child: Row(
               children: [
-                const Icon(
-                  Icons.calendar_today_outlined,
-                  color: Colors.white,
-                  size: 30,
+                GestureDetector(
+                  onTap: () => Navigator.of(context)
+                      .pushNamed(AppRouter.absencesScreen2),
+                  child: const Icon(
+                    Icons.calendar_today_outlined,
+                    color: Colors.white,
+                    size: 30,
+                  ),
                 ),
                 SizedBox(
                   width: mediaQuery.width / 20,

@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
-
 import '../../styles/app_text_styles.dart';
 
 class PaymentTableStudent extends StatelessWidget {
@@ -18,7 +17,7 @@ class PaymentTableStudent extends StatelessWidget {
       padding: EdgeInsets.symmetric(
           horizontal: mediaQuery.width / 20, vertical: mediaQuery.height / 40),
       margin: EdgeInsets.only(
-          top: mediaQuery.height / 10,
+          top: mediaQuery.height / 20,
           left: mediaQuery.width / 30,
           right: mediaQuery.width / 30),
       width: double.infinity,

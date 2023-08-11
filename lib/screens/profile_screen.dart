@@ -90,7 +90,10 @@ class ProfileScreen extends StatelessWidget {
               Padding(
                   padding: EdgeInsets.only(top: 25),
                   child: Center(
-                      child: Common_Button(LocaleKeys.subjectInfo.tr()))),
+                      child: Common_Button(
+                    text: LocaleKeys.subjectInfo.tr(),
+                    onTap: () {},
+                  ))),
             ],
           ),
         ),

@@ -7,6 +7,8 @@ import 'package:educloud_mobile/screens/settings_screen.dart';
 import 'package:educloud_mobile/screens/splash_screen.dart';
 import 'package:educloud_mobile/screens/student_Bus_payment.dart';
 import 'package:educloud_mobile/screens/suggestions_screen.dart';
+import 'package:educloud_mobile/screens/supervisor/absences_screen.dart';
+import 'package:educloud_mobile/screens/supervisor/absences_screen2.dart';
 
 import 'package:flutter/material.dart';
 
@@ -33,6 +35,8 @@ class AppRouter {
   static String get splashScreen => '/splash-screen';
   static String get pricePaidScreen => '/pricePaid-screen';
   static String get studentBusPay => '/studentBusPay-screen';
+  static String get absencesScreen => '/absencesScreen-screen';
+  static String get absencesScreen2 => '/absencesScreen2-screen';
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     try {
@@ -51,6 +55,10 @@ class AppRouter {
   });
 
   Map<String, MaterialPageRoute Function(RouteSettings)> routesMap = {
+    absencesScreen2: (s) =>
+        MaterialPageRoute(builder: (_) => AbsencesScreen2(), settings: s),
+    absencesScreen: (s) =>
+        MaterialPageRoute(builder: (_) => AbsencesScreen(), settings: s),
     studentBusPay: (s) =>
         MaterialPageRoute(builder: (_) => StudentBusPay(), settings: s),
     pricePaidScreen: (s) =>

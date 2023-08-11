@@ -60,6 +60,11 @@
     "lastPriceYouPaid":"LAST PRICE YOU PAID",
     "StudentName":"STUDENT NAME",
     "haveToPay":"HAVE TO PAY",
-    "accumulatedAmount":"ACCUMULATED AMOUNT"
+    "accumulatedAmount":"ACCUMULATED AMOUNT",
+    "startingTrip":"STARTING TRIP",
+    "endingTrip":"ENDING TRIP",
+    "didGetIn":"DID GET IN?",
+    "next":"NEXT"
+    
     
 }
