@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 
 import '../../styles/app_text_styles.dart';
 
-class PaymentTableSupervisor extends StatelessWidget {
-  const PaymentTableSupervisor(
+class PaymentTableStudent extends StatelessWidget {
+  const PaymentTableStudent(
       {required this.mediaQuery, required this.data, super.key});
   final Size mediaQuery;
 
@@ -45,6 +45,26 @@ class PaymentTableSupervisor extends StatelessWidget {
                 LocaleKeys.lastPriceYouPaid.tr(),
                 style: AppTextStyles.poppinsTitle1,
               ),
+              Text(
+                '${data['paied'].toString()} ',
+                style: AppTextStyles.poppinsTitle,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: mediaQuery.height / 80,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                LocaleKeys.accumulatedAmount.tr(),
+                style: AppTextStyles.poppinsTitle1,
+              ),
+              Text(
+                '${data['info'].first['price'].toString()} ${LocaleKeys.spy.tr()}',
+                style: AppTextStyles.poppinsTitle,
+              ),
             ],
           ),
           SizedBox(
@@ -53,8 +73,9 @@ class PaymentTableSupervisor extends StatelessWidget {
           Table(
             defaultVerticalAlignment: TableCellVerticalAlignment.bottom,
             columnWidths: const {
-              0: FlexColumnWidth(20),
+              0: FlexColumnWidth(8),
               1: FlexColumnWidth(6),
+              2: FlexColumnWidth(6),
             },
             children: [
               TableRow(
@@ -63,10 +84,9 @@ class PaymentTableSupervisor extends StatelessWidget {
                     verticalAlignment: TableCellVerticalAlignment.middle,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
-                          vertical: mediaQuery.height / 70),
+                          vertical: mediaQuery.height / 80),
                       child: Text(
-                        LocaleKeys.StudentName.tr(),
-                        style: AppTextStyles.miniTitle,
+                        LocaleKeys.receiptnumbers.tr(),
                       ),
                     ),
                   ),
@@ -74,10 +94,20 @@ class PaymentTableSupervisor extends StatelessWidget {
                     verticalAlignment: TableCellVerticalAlignment.middle,
                     child: Padding(
                       padding: EdgeInsets.symmetric(
-                          vertical: mediaQuery.height / 70),
+                          vertical: mediaQuery.height / 80),
                       child: Text(
-                        LocaleKeys.haveToPay.tr(),
-                        style: AppTextStyles.miniTitle,
+                        LocaleKeys.date.tr(),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  TableCell(
+                    verticalAlignment: TableCellVerticalAlignment.middle,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: mediaQuery.height / 80),
+                      child: Text(
+                        LocaleKeys.price.tr(),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -90,16 +120,26 @@ class PaymentTableSupervisor extends StatelessWidget {
                     TableCell(
                       child: Padding(
                         padding:
-                            EdgeInsets.only(bottom: mediaQuery.height / 50),
-                        child: Text(data['info'][i]['name'].toString()),
+                            EdgeInsets.only(bottom: mediaQuery.height / 100),
+                        child: Text(data['info'][i]['receipt'].toString()),
                       ),
                     ),
                     TableCell(
                       child: Padding(
                         padding:
-                            EdgeInsets.only(bottom: mediaQuery.height / 50),
+                            EdgeInsets.only(bottom: mediaQuery.height / 100),
                         child: Text(
-                          '\$${data['info'][i]['haveToPay'].toStringAsFixed(2)}',
+                          data['info'][i]['date'].toString(),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    TableCell(
+                      child: Padding(
+                        padding:
+                            EdgeInsets.only(bottom: mediaQuery.height / 100),
+                        child: Text(
+                          "\$${data['info'][i]['price'].toStringAsFixed(1)}",
                           style: AppTextStyles.textTitleStyle.copyWith(
                               fontSize: 18, fontWeight: FontWeight.normal),
                           textAlign: TextAlign.center,

@@ -91,12 +91,16 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 40,
           ),
-          const circleIconWidget(
-            color: Color.fromRGBO(84, 179, 155, 1),
-            widget: Icon(
-              Icons.local_post_office,
-              color: Colors.white,
-              size: 25,
+          GestureDetector(
+            onTap: () =>
+                Navigator.of(context).pushNamed(AppRouter.studentBusPay),
+            child: const circleIconWidget(
+              color: Color.fromRGBO(84, 179, 155, 1),
+              widget: Icon(
+                Icons.local_post_office,
+                color: Colors.white,
+                size: 25,
+              ),
             ),
           ),
           SizedBox(
@@ -238,27 +242,35 @@ class _appDrawerState extends State<appDrawer> {
           SizedBox(
             height: mediaQuery.height / 40,
           ),
-          circleIconWidget2(
-            iconName: LocaleKeys.messagesnotifications.tr(),
-            mediaQuery: mediaQuery,
-            color: const Color.fromRGBO(84, 179, 155, 1),
-            widget: const Icon(
-              Icons.local_post_office,
-              color: Colors.white,
-              size: 25,
+          GestureDetector(
+            onTap: () =>
+                Navigator.of(context).pushNamed(AppRouter.studentBusPay),
+            child: circleIconWidget2(
+              iconName: LocaleKeys.messagesnotifications.tr(),
+              mediaQuery: mediaQuery,
+              color: const Color.fromRGBO(84, 179, 155, 1),
+              widget: const Icon(
+                Icons.local_post_office,
+                color: Colors.white,
+                size: 25,
+              ),
             ),
           ),
           SizedBox(
             height: mediaQuery.height / 40,
           ),
-          circleIconWidget2(
-            iconName: LocaleKeys.schoolbuslocation.tr(),
-            mediaQuery: mediaQuery,
-            color: const Color.fromRGBO(162, 179, 84, 1),
-            widget: const Icon(
-              Icons.directions_bus_rounded,
-              color: Colors.white,
-              size: 25,
+          GestureDetector(
+            onTap: () =>
+                Navigator.of(context).pushNamed(AppRouter.pricePaidScreen),
+            child: circleIconWidget2(
+              iconName: LocaleKeys.schoolbuslocation.tr(),
+              mediaQuery: mediaQuery,
+              color: const Color.fromRGBO(162, 179, 84, 1),
+              widget: const Icon(
+                Icons.directions_bus_rounded,
+                color: Colors.white,
+                size: 25,
+              ),
             ),
           ),
           SizedBox(

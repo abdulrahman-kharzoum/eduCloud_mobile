@@ -62,4 +62,5 @@ abstract class LocaleKeys {
   static const lastPriceYouPaid = 'lastPriceYouPaid';
   static const StudentName = 'StudentName';
   static const haveToPay = 'haveToPay';
+  static const accumulatedAmount = 'accumulatedAmount';
 }

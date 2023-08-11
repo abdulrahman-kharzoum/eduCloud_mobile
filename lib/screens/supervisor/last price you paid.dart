@@ -72,7 +72,7 @@ class PricePaid extends StatelessWidget {
               nameColor: AppColors.mainColor,
             ),
           ),
-          PaymentTable(
+          PaymentTableSupervisor(
             data: data,
             mediaQuery: mediaQuery,
           ),

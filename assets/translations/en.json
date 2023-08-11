@@ -59,6 +59,7 @@
     "TeacherNotes":"Teacher Notes",
     "lastPriceYouPaid":"LAST PRICE YOU PAID",
     "StudentName":"STUDENT NAME",
-    "haveToPay":"HAVE TO PAY"
+    "haveToPay":"HAVE TO PAY",
+    "accumulatedAmount":"ACCUMULATED AMOUNT"
     
 }

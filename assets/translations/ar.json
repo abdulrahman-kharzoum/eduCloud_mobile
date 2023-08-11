@@ -55,6 +55,7 @@
     "TeacherNotes":"ملاحظات المعلم",
     "lastPriceYouPaid":"آخر سعر مدفوع",
     "StudentName":"اسم الطالب",
-    "haveToPay":"يجب أن يدفع"
+    "haveToPay":"يجب أن يدفع",
+    "accumulatedAmount":"المبلغ المتراكم"
     
 }
