@@ -57,7 +57,7 @@ class _schoolBusScreenState extends State<schoolBusScreen> {
             gradeNumber: 'Grade 9',
             screenHight: screenHight,
             screenWidth: screenWidth,
-            nameColor: AppColors.mainColor,
+            nameColor: AppColors.secondaryColor,
           ),
         ),
       ),
@@ -122,8 +122,7 @@ class _schoolBusScreenState extends State<schoolBusScreen> {
               screenWidth: screenWidth,
               screenHight: screenHight,
               bottom: InkWell(
-                onTap: () =>
-                    Navigator.of(context).pushNamed(AppRouter.locationScreen),
+                onTap: () => print('Location'),
                 child: Container(
                   height: screenHight / 20,
                   width: screenWidth / 2.5,

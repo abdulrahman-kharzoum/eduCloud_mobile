@@ -83,7 +83,7 @@ class _schoolBusInfoScreenState extends State<schoolBusInfoScreen> {
               : EdgeInsets.only(
                   right: screenWidth / 100, top: screenHight / 100),
           child: headProfileWidget(
-            icon: Icon(
+            icon: const Icon(
               CupertinoIcons.person,
               size: 25,
             ),
