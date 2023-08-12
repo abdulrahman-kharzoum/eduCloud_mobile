@@ -78,4 +78,7 @@ abstract class LocaleKeys {
   static const thetotalprice = 'thetotalprice';
   static const thetotalpriceyoupaied = 'thetotalpriceyoupaied';
   static const follownow = 'follownow';
+  static const startingPoint = 'startingPoint';
+  static const endPoint = 'endPoint';
+  static const maps = 'maps';
 }

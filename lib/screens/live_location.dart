@@ -1,5 +1,9 @@
 import 'dart:async';
 import 'dart:ui' as ui;
+import 'package:easy_localization/easy_localization.dart';
+import 'package:educloud_mobile/styles/app_colors.dart';
+import 'package:educloud_mobile/styles/app_text_styles.dart';
+import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -96,8 +100,31 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("maps"),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60.0),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: AppColors.gradientColorsButtom,
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter),
+          ),
+          child: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: AppColors.secondaryColor),
+              onPressed: () => Navigator.of(context).pop(),
+              color: AppColors.secondaryColor,
+            ),
+            title: Text(
+              LocaleKeys.maps.tr(),
+              style: AppTextStyles.textTitleStyle
+                  .copyWith(color: AppColors.secondaryColor),
+            ),
+            centerTitle: true,
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+          ),
+        ),
       ),
       body: currentLocation == null
           ? const Center(child: Text("Loading"))
@@ -150,23 +177,70 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          markingStartLocation = true;
-                          markingEndLocation = false;
-                        });
-                      },
-                      child: Text("Mark Start"),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: AppColors.gradientColorsButtom,
+                        ),
+                      ),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+
+                          elevation: 0, // No shadow
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            markingStartLocation = true;
+                            markingEndLocation = false;
+                          });
+                        },
+                        child: Text(
+                          LocaleKeys.startingPoint.tr(),
+                          style: AppTextStyles.poppinsTitle
+                              .copyWith(color: AppColors.secondaryColor),
+                        ),
+                      ),
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          markingStartLocation = false;
-                          markingEndLocation = true;
-                        });
-                      },
-                      child: Text("Mark End"),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: AppColors.gradientColorsButtom,
+                        ),
+                      ),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+
+                          elevation: 0, // No shadow
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            markingStartLocation = false;
+                            markingEndLocation = true;
+                          });
+                        },
+                        child: Text(
+                          LocaleKeys.endPoint.tr(),
+                          style: AppTextStyles.poppinsTitle
+                              .copyWith(color: AppColors.secondaryColor),
+                        ),
+                      ),
                     ),
                   ],
                 ),

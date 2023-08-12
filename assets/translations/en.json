@@ -66,6 +66,9 @@
     "endingTrip":"ENDING TRIP",
     "didGetIn":"DID GET IN?",
     "next":"NEXT",
+    "startingPoint":"Starting Point",
+    "endPoint":"End Point",
+    "maps":"Maps",
     
     
     "fulltotal": "Full total",
