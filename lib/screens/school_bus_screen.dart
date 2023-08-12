@@ -4,6 +4,7 @@ import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:educloud_mobile/widgets/app_drawer.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/bus_screen_widgets/bus_screen_container_widget.dart';
@@ -47,9 +48,17 @@ class _schoolBusScreenState extends State<schoolBusScreen> {
               : EdgeInsets.only(
                   right: screenWidth / 100, top: screenHight / 100),
           child: headProfileWidget(
-              screenHight: screenHight,
-              screenWidth: screenWidth,
-              nameColor: AppColors.mainColor),
+            icon: Icon(
+              CupertinoIcons.person,
+              size: 25,
+            ),
+            circleColor: AppColors.secondaryColor,
+            studentName: 'Alaa shibany',
+            gradeNumber: 'Grade 9',
+            screenHight: screenHight,
+            screenWidth: screenWidth,
+            nameColor: AppColors.mainColor,
+          ),
         ),
       ),
       body: Padding(
@@ -113,7 +122,8 @@ class _schoolBusScreenState extends State<schoolBusScreen> {
               screenWidth: screenWidth,
               screenHight: screenHight,
               bottom: InkWell(
-                onTap: () => print('Location'),
+                onTap: () =>
+                    Navigator.of(context).pushNamed(AppRouter.locationScreen),
                 child: Container(
                   height: screenHight / 20,
                   width: screenWidth / 2.5,
