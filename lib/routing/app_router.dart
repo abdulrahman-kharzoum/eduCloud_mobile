@@ -1,11 +1,15 @@
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/installments_screen.dart';
+import 'package:educloud_mobile/screens/live_location.dart';
 import 'package:educloud_mobile/screens/mark1_screen.dart';
 import 'package:educloud_mobile/screens/notification_screen.dart';
 import 'package:educloud_mobile/screens/school_bus_info_screen.dart';
 import 'package:educloud_mobile/screens/settings_screen.dart';
 import 'package:educloud_mobile/screens/splash_screen.dart';
+import 'package:educloud_mobile/screens/student_Bus_payment.dart';
 import 'package:educloud_mobile/screens/suggestions_screen.dart';
+import 'package:educloud_mobile/screens/supervisor/absences_screen.dart';
+import 'package:educloud_mobile/screens/supervisor/absences_screen2.dart';
 
 import 'package:flutter/material.dart';
 
@@ -13,10 +17,12 @@ import '../screens/error_screen.dart';
 import '../screens/marks_screen.dart';
 import '../screens/onboarding_screen.dart';
 import '../screens/profile_screen.dart';
+import '../screens/supervisor/last price you paid.dart';
 import '../screens/school_bus_screen.dart';
 
 class AppRouter {
   static String get profileScreen => '/profile-screen';
+  static String get locationScreen => '/location-screen';
 
   static String get onBoardingScreen => '/onboarding-screen';
 
@@ -31,6 +37,10 @@ class AppRouter {
   static String get splashScreen => '/splash-screen';
   static String get schoolBusSc => '/school-bus-screen';
   static String get schoolBusInfoSc => '/school-bus-info-screen';
+  static String get pricePaidScreen => '/pricePaid-screen';
+  static String get studentBusPay => '/studentBusPay-screen';
+  static String get absencesScreen => '/absencesScreen-screen';
+  static String get absencesScreen2 => '/absencesScreen2-screen';
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     try {
@@ -49,6 +59,16 @@ class AppRouter {
   });
 
   Map<String, MaterialPageRoute Function(RouteSettings)> routesMap = {
+    absencesScreen2: (s) =>
+        MaterialPageRoute(builder: (_) => AbsencesScreen2(), settings: s),
+    absencesScreen: (s) =>
+        MaterialPageRoute(builder: (_) => AbsencesScreen(), settings: s),
+    studentBusPay: (s) =>
+        MaterialPageRoute(builder: (_) => StudentBusPay(), settings: s),
+    pricePaidScreen: (s) =>
+        MaterialPageRoute(builder: (_) => PricePaid(), settings: s),
+    locationScreen: (s) =>
+        MaterialPageRoute(builder: (_) => OrderTrackingPage(), settings: s),
     suggestionScreen: (s) =>
         MaterialPageRoute(builder: (_) => SuggestionScreen(), settings: s),
     mark2Screen: (s) =>

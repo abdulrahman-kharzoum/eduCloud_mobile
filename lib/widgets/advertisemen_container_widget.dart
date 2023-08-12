@@ -74,7 +74,8 @@ class _FadeImageAnimationState extends State<FadeImageAnimation>
       duration: const Duration(seconds: 2),
       vsync: this,
     );
-
+    print(
+        "init state----------------------------------------------------------------");
     _fadeInAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(
         parent: _controller,
@@ -105,6 +106,8 @@ class _FadeImageAnimationState extends State<FadeImageAnimation>
   @override
   void dispose() {
     _controller.dispose();
+    print(
+        "dispose---------------------------------------------------------------");
     super.dispose();
   }
 

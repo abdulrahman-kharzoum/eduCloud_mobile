@@ -5,35 +5,36 @@ import '../styles/app_colors.dart';
 
 class Common_Button extends StatelessWidget {
   final String text;
-  Common_Button(this.text, {super.key});
+  final VoidCallback? onTap;
+  Common_Button({required this.text, this.onTap, super.key});
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 5, bottom: 5),
-      child: ElevatedButton(
-        onPressed: () {},
-        child: Ink(
+      child: GestureDetector(
+        onTap: () {
+          // Handle button press here
+        },
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 70),
+          // padding: EdgeInsets.only(right: 16, left: 16),
+          width: 250,
+          height: 50,
           decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: AppColors.gradientColorsButtom),
-              borderRadius: BorderRadius.circular(20)),
-          child: Container(
-            width: 250,
-            height: 45,
-            alignment: Alignment.center,
+            borderRadius: BorderRadius.circular(20),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: AppColors.gradientColorsButtom,
+            ),
+          ),
+          child: Center(
             child: Text(
               text,
               style: AppTextStyles.textTitleStyle
                   .copyWith(color: Colors.white, fontSize: 16),
             ),
           ),
-        ),
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.zero,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         ),
       ),
     );

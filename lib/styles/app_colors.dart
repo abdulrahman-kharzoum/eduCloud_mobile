@@ -12,6 +12,8 @@ class AppColors {
   static Color ProfileColor = Color.fromRGBO(34, 62, 109, 1);
   static Color blueNormal = const Color.fromRGBO(20, 122, 214, 1);
   static Color InfoCardColor = Colors.white54;
+  static Color greyColor = const Color.fromRGBO(243, 245, 247, 1);
+  static Color grey2Color = Colors.grey.shade500;
   static List<Color> gradientColors = [
     const Color.fromRGBO(59, 103, 176, 1),
     Color.fromRGBO(164, 188, 228, 1),

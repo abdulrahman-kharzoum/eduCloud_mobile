@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../common_widgets/BackgroundPaint.dart';
@@ -116,6 +117,13 @@ class _InstallmentsScreenState extends State<InstallmentsScreen>
                   : EdgeInsets.only(
                       top: screenHight / 25, right: screenWidth / 5),
               child: headProfileWidget(
+                icon: Icon(
+                  CupertinoIcons.person,
+                  size: 25,
+                ),
+                circleColor: AppColors.secondaryColor,
+                studentName: 'Alaa shibany',
+                gradeNumber: 'Grade 9',
                 screenHight: screenHight,
                 screenWidth: screenWidth,
                 nameColor: AppColors.mainColor,

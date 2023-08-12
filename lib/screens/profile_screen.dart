@@ -69,7 +69,7 @@ class ProfileScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: LineChartWidget(
-                          marksPoints, 'Student Situation', 2.7)),
+                          marksPoints, LocaleKeys.studentSituation.tr(), 2.7)),
                 ),
               ),
               Container(
@@ -90,7 +90,10 @@ class ProfileScreen extends StatelessWidget {
               Padding(
                   padding: EdgeInsets.only(top: 25),
                   child: Center(
-                      child: Common_Button(LocaleKeys.subjectInfo.tr()))),
+                      child: Common_Button(
+                    text: LocaleKeys.subjectInfo.tr(),
+                    onTap: () {},
+                  ))),
             ],
           ),
         ),

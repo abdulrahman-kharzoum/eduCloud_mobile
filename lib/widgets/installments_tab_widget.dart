@@ -165,32 +165,32 @@ class installmentsTab extends StatelessWidget {
                 children: [
                   TableRow(
                     children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: mediaQuery.height / 80),
-                        child: TableCell(
-                          verticalAlignment: TableCellVerticalAlignment.middle,
+                      TableCell(
+                        verticalAlignment: TableCellVerticalAlignment.middle,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: mediaQuery.height / 80),
                           child: Text(
                             LocaleKeys.receiptnumbers.tr(),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: mediaQuery.height / 80),
-                        child: TableCell(
-                          verticalAlignment: TableCellVerticalAlignment.middle,
+                      TableCell(
+                        verticalAlignment: TableCellVerticalAlignment.middle,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: mediaQuery.height / 80),
                           child: Text(
                             LocaleKeys.date.tr(),
                             textAlign: TextAlign.center,
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: mediaQuery.height / 80),
-                        child: TableCell(
-                          verticalAlignment: TableCellVerticalAlignment.middle,
+                      TableCell(
+                        verticalAlignment: TableCellVerticalAlignment.middle,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: mediaQuery.height / 80),
                           child: Text(
                             LocaleKeys.price.tr(),
                             textAlign: TextAlign.center,
@@ -202,27 +202,27 @@ class installmentsTab extends StatelessWidget {
                   for (int i = 0; i < data['info'].length; i++)
                     TableRow(
                       children: [
-                        Padding(
-                          padding:
-                              EdgeInsets.only(bottom: mediaQuery.height / 100),
-                          child: TableCell(
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                bottom: mediaQuery.height / 100),
                             child: Text(data['info'][i]['receipt'].toString()),
                           ),
                         ),
-                        Padding(
-                          padding:
-                              EdgeInsets.only(bottom: mediaQuery.height / 100),
-                          child: TableCell(
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                bottom: mediaQuery.height / 100),
                             child: Text(
                               data['info'][i]['date'].toString(),
                               textAlign: TextAlign.center,
                             ),
                           ),
                         ),
-                        Padding(
-                          padding:
-                              EdgeInsets.only(bottom: mediaQuery.height / 100),
-                          child: TableCell(
+                        TableCell(
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                bottom: mediaQuery.height / 100),
                             child: Text(
                               data['info'][i]['price'].toString(),
                               textAlign: TextAlign.center,
