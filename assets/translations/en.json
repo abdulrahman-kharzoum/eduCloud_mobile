@@ -42,12 +42,21 @@
     "total": "TOTAL",
     "lastpriceyoupaied": "LAST PRICE YOU PAIED",
     "receiptnumbers": "Receipt numbers",
+    "receiptnumber": "Receipt numbers",
     "date": "Date",
     "price": "Price",
     "typesomething": "Type something..." ,
     "youcansend": "You can send your suggestions and complaints here",
     "grandtotal": "Grand total",
     "percentage": "Percentage",
-    "arrangement": "Arrangement",
-    "":""
+    "fulltotal": "Full total",
+    "marks": "Marks",
+    "subjects" : "Subjects",
+    "all": "All",
+    "quizzes" : "Quizzes",
+    "exams": "Exams",
+    "sorry": "Sorry, but there is no exams or quizzes yet",
+    "thetotalprice" : "THE TOTAL PRICE",
+    "thetotalpriceyoupaied" : "The total price you paied"
+
 }

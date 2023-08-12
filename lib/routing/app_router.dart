@@ -2,6 +2,7 @@ import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/installments_screen.dart';
 import 'package:educloud_mobile/screens/mark1_screen.dart';
 import 'package:educloud_mobile/screens/notification_screen.dart';
+import 'package:educloud_mobile/screens/school_bus_info_screen.dart';
 import 'package:educloud_mobile/screens/settings_screen.dart';
 import 'package:educloud_mobile/screens/splash_screen.dart';
 import 'package:educloud_mobile/screens/suggestions_screen.dart';
@@ -12,6 +13,7 @@ import '../screens/error_screen.dart';
 import '../screens/marks_screen.dart';
 import '../screens/onboarding_screen.dart';
 import '../screens/profile_screen.dart';
+import '../screens/school_bus_screen.dart';
 
 class AppRouter {
   static String get profileScreen => '/profile-screen';
@@ -27,6 +29,8 @@ class AppRouter {
   static String get settingsScreen => '/settings-screen';
   static String get installmentsScreen => '/installments-screen';
   static String get splashScreen => '/splash-screen';
+  static String get schoolBusSc => '/school-bus-screen';
+  static String get schoolBusInfoSc => '/school-bus-info-screen';
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     try {
@@ -65,5 +69,9 @@ class AppRouter {
         MaterialPageRoute(builder: (_) => NotificationScreen(), settings: s),
     splashScreen: (s) =>
         MaterialPageRoute(builder: (_) => SplashScreen(), settings: s),
+    schoolBusSc: (s) =>
+        MaterialPageRoute(builder: (_) => const schoolBusScreen(), settings: s),
+    schoolBusInfoSc: (s) => MaterialPageRoute(
+        builder: (_) => const schoolBusInfoScreen(), settings: s),
   };
 }

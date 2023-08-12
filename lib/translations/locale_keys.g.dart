@@ -44,6 +44,7 @@ abstract class LocaleKeys {
   static const total = 'total';
   static const lastpriceyoupaied = 'lastpriceyoupaied';
   static const receiptnumbers = 'receiptnumbers';
+  static const receiptnumber = 'receiptnumber';
   static const date = 'date';
   static const price = 'price';
   static const typesomething = 'typesomething';
@@ -51,4 +52,14 @@ abstract class LocaleKeys {
   static const grandtotal = 'grandtotal';
   static const percentage = 'percentage';
   static const arrangement = 'arrangement';
+  static const marks = 'marks';
+  static const subjects = 'subjects';
+  static const all = 'all';
+  static const quizzes = 'quizzes';
+  static const exams = 'exams';
+  static const fulltotal = 'fulltotal';
+  static const sorry = 'sorry';
+  static const thetotalprice = 'thetotalprice';
+  static const thetotalpriceyoupaied = 'thetotalpriceyoupaied';
+  static const follownow = 'follownow';
 }

@@ -59,9 +59,20 @@ class Mark1Screen extends StatelessWidget {
                   value.setNotifications(notifications);
                   Navigator.pushNamed(context, AppRouter.notificationScreen);
                 },
-                child: Icon(
-                  Icons.notifications,
-                  color: AppColors.secondaryColor,
+                child: GestureDetector(
+                  onTap: () => Navigator.of(context)
+                      .pushNamed(AppRouter.notificationScreen),
+                  child: Container(
+                    // ignore: unrelated_type_equality_checks
+                    //check if the language english or arabic
+                    margin: context.locale.toString() == 'en'
+                        ? EdgeInsets.only(right: screenWidth / 40)
+                        : EdgeInsets.only(left: screenWidth / 40),
+                    child: const Icon(
+                      Icons.notifications,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ),

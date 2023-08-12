@@ -149,12 +149,16 @@ class HomeScreen extends StatelessWidget {
                           SizedBox(
                             width: screenWidth / 40,
                           ),
-                          topicWidget(
-                            screenHight: screenHight,
-                            screenWidth: screenWidth,
-                            topicTitle: LocaleKeys.schoolbuslocation.tr(),
-                            widgetP: SvgPicture.asset('assets/svg/bus.svg',
-                                fit: BoxFit.fill),
+                          GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                                context, AppRouter.schoolBusSc),
+                            child: topicWidget(
+                              screenHight: screenHight,
+                              screenWidth: screenWidth,
+                              topicTitle: LocaleKeys.schoolbuslocation.tr(),
+                              widgetP: SvgPicture.asset('assets/svg/bus.svg',
+                                  fit: BoxFit.fill),
+                            ),
                           ),
                           SizedBox(
                             width: screenWidth / 20,

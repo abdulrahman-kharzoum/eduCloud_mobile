@@ -4,15 +4,22 @@ import 'package:flutter/material.dart';
 import '../../translations/locale_keys.g.dart';
 
 // ignore: camel_case_types
-class headerMarkWidget extends StatelessWidget {
+class headerMarkWidget extends StatefulWidget {
   const headerMarkWidget({
     super.key,
-    required this.marksStatus,
-    required this.dummyData,
+    required this.percentage,
+    required this.total,
+    required this.fullMark,
   });
-  final int marksStatus;
-  final Map<String, dynamic> dummyData;
+  final double percentage;
+  final double fullMark;
+  final double total;
 
+  @override
+  State<headerMarkWidget> createState() => _headerMarkWidgetState();
+}
+
+class _headerMarkWidgetState extends State<headerMarkWidget> {
   @override
   Widget build(BuildContext context) {
     final screenHight = MediaQuery.of(context).size.height;
@@ -37,127 +44,64 @@ class headerMarkWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: screenWidth / 15),
-            child: marksStatus == 0
-                ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              padding: EdgeInsets.symmetric(horizontal: screenWidth / 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            dummyData['exam']['grand total'].toString(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            LocaleKeys.grandtotal.tr(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                      Text(
+                        widget.total.toString(),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            dummyData['exam']['Percentage'].toString(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            LocaleKeys.percentage.tr(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            dummyData['exam']['Arrangement'].toString(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            LocaleKeys.arrangement.tr(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            dummyData['quizes']['grand total'].toString(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            LocaleKeys.grandtotal.tr(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            dummyData['quizes']['Percentage'].toString(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            LocaleKeys.percentage.tr(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            dummyData['quizes']['Arrangement'].toString(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            LocaleKeys.arrangement.tr(),
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                      Text(
+                        LocaleKeys.grandtotal.tr(),
+                        style: const TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
-          ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.fullMark.toString(),
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        LocaleKeys.fulltotal.tr(),
+                        style: const TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        ' ${widget.percentage.toStringAsFixed(2).toString()}%',
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        LocaleKeys.percentage.tr(),
+                        style: const TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ],
+              )),
         ],
       ),
     );

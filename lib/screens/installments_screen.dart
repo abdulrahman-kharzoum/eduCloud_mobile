@@ -3,6 +3,7 @@ import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 
 import '../common_widgets/BackgroundPaint.dart';
+import '../routing/app_router.dart';
 import '../styles/app_colors.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/head_profile_widget.dart';
@@ -87,6 +88,16 @@ class _InstallmentsScreenState extends State<InstallmentsScreen>
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        actions: [
+          IconButton(
+              icon: Icon(
+                Icons.arrow_forward,
+                color: AppColors.mainColor,
+              ),
+              onPressed: () {
+                Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
+              }),
+        ],
       ),
       body: CustomPaint(
         size: Size(

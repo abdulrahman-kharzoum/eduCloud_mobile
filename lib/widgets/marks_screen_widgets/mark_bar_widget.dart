@@ -10,9 +10,13 @@ class markBarWidget extends StatelessWidget {
     required this.studentMark,
     required this.fullMark,
     required this.failMark,
+    required this.title,
+    required this.type,
   });
   final Color barColor;
   final String subjectName;
+  final String title;
+  final String type;
   final String studentMark;
   final String fullMark;
   final String failMark;
@@ -20,69 +24,84 @@ class markBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width / 15),
       height: MediaQuery.of(context).size.height / 12,
       width: double.infinity,
       color: barColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(subjectName),
-          Row(
-            children: [
-              Container(
-                height: 40,
-                width: 70,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.all(Radius.circular(15)),
-                  border: Border.all(color: Colors.black),
-                ),
-                child: Center(
-                  child: Text(
-                    studentMark,
-                    style: AppTextStyles.profile,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-              Column(
+          SizedBox(
+              width: MediaQuery.of(context).size.width / 2.5,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.arrow_circle_up_rounded,
-                        color: Colors.grey,
-                        size: 20,
-                      ),
-                      Text(
-                        fullMark,
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
+                  Text(
+                    subjectName,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.arrow_circle_down_rounded,
-                        color: Colors.grey,
-                        size: 20,
-                      ),
-                      Text(
-                        failMark,
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
+                  Text(
+                    '$title ($type)',
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.height / 70,
+                        color: Colors.black54),
                   ),
                 ],
-              )
-            ],
+              )),
+          Container(
+            height: 40,
+            width: 70,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: const BorderRadius.all(Radius.circular(15)),
+              border: Border.all(color: Colors.black),
+            ),
+            child: Center(
+              child: Text(
+                studentMark,
+                style: AppTextStyles.profile,
+              ),
+            ),
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 8,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.arrow_circle_up_rounded,
+                      color: Colors.grey,
+                      size: 20,
+                    ),
+                    Text(
+                      fullMark,
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.arrow_circle_down_rounded,
+                      color: Colors.grey,
+                      size: 20,
+                    ),
+                    Text(
+                      failMark,
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
     );
   }
 }
+// int.parse(studentMark) < int.parse(failMark)

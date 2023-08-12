@@ -20,6 +20,7 @@
     "total": "المبلغ الكلي المدفوع",
     "lastpriceyoupaied": "آخر مبلغ تم دفعه",
     "receiptnumbers": "رقم الفاتورة",
+    "receiptnumber": "أرقام الفواتير",
     "date": "التاريخ",
     "price": "المبلغ",   
     "PageTitle1":"عنوان الصفحة 1",
@@ -44,7 +45,14 @@
     "fatherName":"اسم الأب",
     "motherName":"اسم الأم",
     "address":"العنوان",
-    "subjectInfo":"معلومات المواد"
-
-    
+    "subjectInfo":"معلومات المواد",
+    "marks": "علامات",
+    "subjects" : "مادة",
+    "all": "الكل",
+    "quizzes" : "الأسبار",
+   "exams": "المذاكرات",
+   "fulltotal": "المجموع الكامل",
+   "sorry": "أسف ولكن لاويجد هناك اختبارات أو أسبار بعد"    ,
+   "thetotalprice" : "المبلغ الكلي المتوجب ",
+    "thetotalpriceyoupaied" : "المبلغ الكلي المدفوع"
 }

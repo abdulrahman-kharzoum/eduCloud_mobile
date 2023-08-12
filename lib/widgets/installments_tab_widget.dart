@@ -117,7 +117,7 @@ class installmentsTab extends StatelessWidget {
           width: double.infinity,
           height: mediaQuery.height / 2,
           decoration: BoxDecoration(
-            color: const Color.fromRGBO(243, 245, 247, 1),
+            color: Color.fromARGB(255, 229, 230, 231),
             borderRadius: BorderRadius.circular(15),
           ),
           child: ListView(
