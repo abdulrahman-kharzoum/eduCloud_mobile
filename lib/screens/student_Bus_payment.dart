@@ -99,7 +99,7 @@ class StudentBusPay extends StatelessWidget {
                 CupertinoIcons.person,
                 size: 25,
               ),
-              circleColor: AppColors.secondaryColor,
+              circleColor: AppColors.mainColor,
               studentName: 'Alaa shibany',
               gradeNumber: 'Grade 9',
               screenHight: screenHight,

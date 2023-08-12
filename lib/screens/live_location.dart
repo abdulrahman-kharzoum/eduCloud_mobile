@@ -14,8 +14,12 @@ class OrderTrackingPage extends StatefulWidget {
 
 class OrderTrackingPageState extends State<OrderTrackingPage> {
   final Completer<GoogleMapController> _controller = Completer();
-  static const LatLng sourceLocation = LatLng(37.4116, -122.0713);
-  static const LatLng destination = LatLng(37.4221, -122.0841);
+  LatLng? startingLocation;
+  LatLng? endingLocation;
+  // static const LatLng sourceLocation = LatLng(37.4116, -122.0713);
+  // static const LatLng destination = LatLng(37.4221, -122.0841);
+  bool markingStartLocation = false;
+  bool markingEndLocation = false;
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
@@ -97,33 +101,76 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
       ),
       body: currentLocation == null
           ? const Center(child: Text("Loading"))
-          : GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: LatLng(
-                    currentLocation!.latitude!, currentLocation!.longitude!),
-                zoom: 13.5,
-              ),
-              markers: {
-                Marker(
-                  markerId: const MarkerId("currentLocation"),
-                  icon: currentLocationIcon,
-                  position: LatLng(
-                      currentLocation!.latitude!, currentLocation!.longitude!),
+          : Column(
+              children: [
+                Expanded(
+                  flex: 5,
+                  child: GoogleMap(
+                    onTap: (LatLng tappedLatLng) {
+                      setState(() {
+                        if (markingStartLocation) {
+                          startingLocation = tappedLatLng;
+                          markingStartLocation = false;
+                        } else if (markingEndLocation) {
+                          endingLocation = tappedLatLng;
+                          markingEndLocation = false;
+                        }
+                      });
+                    },
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(currentLocation!.latitude!,
+                          currentLocation!.longitude!),
+                      zoom: 13.5,
+                    ),
+                    markers: {
+                      Marker(
+                        markerId: const MarkerId("currentLocation"),
+                        icon: currentLocationIcon,
+                        position: LatLng(currentLocation!.latitude!,
+                            currentLocation!.longitude!),
+                      ),
+                      if (startingLocation != null)
+                        Marker(
+                          markerId: MarkerId("startingLocation"),
+                          position: startingLocation!,
+                          icon: sourceIcon,
+                        ),
+                      if (endingLocation != null)
+                        Marker(
+                          markerId: MarkerId("endingLocation"),
+                          position: endingLocation!,
+                          icon: destinationIcon,
+                        ),
+                    },
+                    onMapCreated: (mapController) {
+                      _controller.complete(mapController);
+                    },
+                  ),
                 ),
-                Marker(
-                  markerId: MarkerId("source"),
-                  position: sourceLocation,
-                  icon: sourceIcon,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          markingStartLocation = true;
+                          markingEndLocation = false;
+                        });
+                      },
+                      child: Text("Mark Start"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          markingStartLocation = false;
+                          markingEndLocation = true;
+                        });
+                      },
+                      child: Text("Mark End"),
+                    ),
+                  ],
                 ),
-                Marker(
-                  markerId: MarkerId("destination"),
-                  position: destination,
-                  icon: destinationIcon,
-                ),
-              },
-              onMapCreated: (mapController) {
-                _controller.complete(mapController);
-              },
+              ],
             ),
     );
   }
