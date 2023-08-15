@@ -49,6 +49,8 @@ dependencies:
   google_fonts: ^4.0.3
   animated_text_kit: ^4.2.2
   fl_chart: ^0.62.0
+  google_maps_flutter: ^2.4.0
+  location: ^5.0.2+1
   crypto: ^3.0.3
 
   loader_overlay: ^2.3.0
@@ -57,8 +59,6 @@ dependencies:
   badges: ^3.1.1
 
   lottie: ^2.5.0
-  google_maps_flutter: ^2.4.0
-  location: ^5.0.2+1
 
 dev_dependencies:
   flutter_test:
@@ -100,6 +100,8 @@ flutter:
     - assets/svg/complaint.svg
     - assets/svg/show1.svg
     - assets/svg/show2.svg
+    - assets/location/
+    - assets/markScreen/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,5 +1,9 @@
 import 'dart:async';
 import 'dart:ui' as ui;
+import 'package:easy_localization/easy_localization.dart';
+import 'package:educloud_mobile/styles/app_colors.dart';
+import 'package:educloud_mobile/styles/app_text_styles.dart';
+import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -14,8 +18,12 @@ class OrderTrackingPage extends StatefulWidget {
 
 class OrderTrackingPageState extends State<OrderTrackingPage> {
   final Completer<GoogleMapController> _controller = Completer();
-  static const LatLng sourceLocation = LatLng(37.4116, -122.0713);
-  static const LatLng destination = LatLng(37.4221, -122.0841);
+  LatLng? startingLocation;
+  LatLng? endingLocation;
+  // static const LatLng sourceLocation = LatLng(37.4116, -122.0713);
+  // static const LatLng destination = LatLng(37.4221, -122.0841);
+  bool markingStartLocation = false;
+  bool markingEndLocation = false;
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
@@ -92,38 +100,151 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("maps"),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60.0),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: AppColors.gradientColorsButtom,
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter),
+          ),
+          child: AppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: AppColors.secondaryColor),
+              onPressed: () => Navigator.of(context).pop(),
+              color: AppColors.secondaryColor,
+            ),
+            title: Text(
+              LocaleKeys.maps.tr(),
+              style: AppTextStyles.textTitleStyle
+                  .copyWith(color: AppColors.secondaryColor),
+            ),
+            centerTitle: true,
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+          ),
+        ),
       ),
       body: currentLocation == null
           ? const Center(child: Text("Loading"))
-          : GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: LatLng(
-                    currentLocation!.latitude!, currentLocation!.longitude!),
-                zoom: 13.5,
-              ),
-              markers: {
-                Marker(
-                  markerId: const MarkerId("currentLocation"),
-                  icon: currentLocationIcon,
-                  position: LatLng(
-                      currentLocation!.latitude!, currentLocation!.longitude!),
+          : Column(
+              children: [
+                Expanded(
+                  flex: 5,
+                  child: GoogleMap(
+                    onTap: (LatLng tappedLatLng) {
+                      setState(() {
+                        if (markingStartLocation) {
+                          startingLocation = tappedLatLng;
+                          markingStartLocation = false;
+                        } else if (markingEndLocation) {
+                          endingLocation = tappedLatLng;
+                          markingEndLocation = false;
+                        }
+                      });
+                    },
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(currentLocation!.latitude!,
+                          currentLocation!.longitude!),
+                      zoom: 13.5,
+                    ),
+                    markers: {
+                      Marker(
+                        markerId: const MarkerId("currentLocation"),
+                        icon: currentLocationIcon,
+                        position: LatLng(currentLocation!.latitude!,
+                            currentLocation!.longitude!),
+                      ),
+                      if (startingLocation != null)
+                        Marker(
+                          markerId: MarkerId("startingLocation"),
+                          position: startingLocation!,
+                          icon: sourceIcon,
+                        ),
+                      if (endingLocation != null)
+                        Marker(
+                          markerId: MarkerId("endingLocation"),
+                          position: endingLocation!,
+                          icon: destinationIcon,
+                        ),
+                    },
+                    onMapCreated: (mapController) {
+                      _controller.complete(mapController);
+                    },
+                  ),
                 ),
-                Marker(
-                  markerId: MarkerId("source"),
-                  position: sourceLocation,
-                  icon: sourceIcon,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: AppColors.gradientColorsButtom,
+                        ),
+                      ),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+
+                          elevation: 0, // No shadow
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            markingStartLocation = true;
+                            markingEndLocation = false;
+                          });
+                        },
+                        child: Text(
+                          LocaleKeys.startingPoint.tr(),
+                          style: AppTextStyles.poppinsTitle
+                              .copyWith(color: AppColors.secondaryColor),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: AppColors.gradientColorsButtom,
+                        ),
+                      ),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.transparent,
+
+                          elevation: 0, // No shadow
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            markingStartLocation = false;
+                            markingEndLocation = true;
+                          });
+                        },
+                        child: Text(
+                          LocaleKeys.endPoint.tr(),
+                          style: AppTextStyles.poppinsTitle
+                              .copyWith(color: AppColors.secondaryColor),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                Marker(
-                  markerId: MarkerId("destination"),
-                  position: destination,
-                  icon: destinationIcon,
-                ),
-              },
-              onMapCreated: (mapController) {
-                _controller.complete(mapController);
-              },
+              ],
             ),
     );
   }

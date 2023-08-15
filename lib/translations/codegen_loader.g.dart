@@ -92,6 +92,9 @@ class CodegenLoader extends AssetLoader {
     "thetotalprice": "المبلغ الكلي المتوجب",
     "thetotalpriceyoupaied": "المبلغ الكلي المدفوع",
     "follownow": "تتبع الآن",
+    "startingPoint": "نقطة البداية",
+    "endPoint": "نقطة النهاية ",
+    "maps": "الخرائط",
     "grade": "الصف",
   };
   static const Map<String, dynamic> en = {
@@ -172,6 +175,9 @@ class CodegenLoader extends AssetLoader {
     "startingTrip": "STARTING TRIP",
     "endingTrip": "ENDING TRIP",
     "next": "NEXT",
+    "startingPoint": "Starting Point",
+    "endPoint": "End Point",
+    "maps": "Maps",
     "grade": "Grade",
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {

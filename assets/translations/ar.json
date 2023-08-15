@@ -70,5 +70,8 @@
     "startingTrip":"بداية الرحلة",
     "endingTrip":"نهاية الرحلة",
     "didGetIn":"هل صعد؟",
-    "next":"التالي"
+    "next":"التالي",
+    "startingPoint":"نقطة البداية",
+    "maps":"الخرائط",
+    "endPoint":"نقطة النهاية "
 }
