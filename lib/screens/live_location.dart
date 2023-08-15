@@ -28,10 +28,27 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
   StreamSubscription<LocationData>? locationSubscription;
+  bool receivingLocationUpdates = false;
+
+  Future<void> checkLocationServices() async {
+    Location location = Location();
+
+    bool serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      bool shouldRequest = await location.requestService();
+      if (!shouldRequest) {
+        // The user declined to enable location services
+        return;
+      }
+    }
+    setState(() {});
+  }
+
   @override
   void initState() {
     getCurrentLocation();
     setCustomMarkerIcon();
+    checkLocationServices();
     super.initState();
     // getPolyPoints();
   }

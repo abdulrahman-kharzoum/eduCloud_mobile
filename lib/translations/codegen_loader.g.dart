@@ -176,7 +176,7 @@ class CodegenLoader extends AssetLoader {
     "endingTrip": "ENDING TRIP",
     "next": "NEXT",
     "startingPoint": "Starting Point",
-    "endPoint": "End Point",
+    "endPoint": "Ending Point",
     "maps": "Maps",
     "grade": "Grade",
   };
