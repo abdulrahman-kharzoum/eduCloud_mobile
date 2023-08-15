@@ -82,17 +82,19 @@ class _schoolBusInfoScreenState extends State<schoolBusInfoScreen> {
               ? EdgeInsets.only(left: screenWidth / 100, top: screenHight / 100)
               : EdgeInsets.only(
                   right: screenWidth / 100, top: screenHight / 100),
-          child: headProfileWidget(
-            icon: const Icon(
-              CupertinoIcons.person,
-              size: 25,
+          child: InkWell(
+            onTap: () =>
+                Navigator.of(context).pushNamed(AppRouter.profileScreen),
+            child: headProfileWidget(
+              icon: const Icon(
+                CupertinoIcons.person,
+                size: 25,
+              ),
+              circleColor: AppColors.secondaryColor,
+              screenHight: screenHight,
+              screenWidth: screenWidth,
+              nameColor: AppColors.mainColor,
             ),
-            circleColor: AppColors.secondaryColor,
-            studentName: 'Alaa shibany',
-            gradeNumber: 'Grade 9',
-            screenHight: screenHight,
-            screenWidth: screenWidth,
-            nameColor: AppColors.mainColor,
           ),
         ),
       ),

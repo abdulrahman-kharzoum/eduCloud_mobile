@@ -1,9 +1,11 @@
 import 'package:educloud_mobile/providers/base_provider.dart';
 import 'package:educloud_mobile/services/user_services.dart';
+import 'package:flutter/cupertino.dart';
 
 class UserProvider extends BaseProvider {
   String? username;
   String? password;
+
   String? get user_name => this.username;
   String? get pass => this.password;
   void setUsername(String? name) {

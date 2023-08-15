@@ -78,4 +78,5 @@ abstract class LocaleKeys {
   static const thetotalprice = 'thetotalprice';
   static const thetotalpriceyoupaied = 'thetotalpriceyoupaied';
   static const follownow = 'follownow';
+  static const grade = 'grade';
 }

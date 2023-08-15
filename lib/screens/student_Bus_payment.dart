@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/head_profile_widget.dart';
-import '../../widgets/supervisor_widgets/payment_table.dart';
 
 class StudentBusPay extends StatelessWidget {
   const StudentBusPay({super.key});
@@ -94,17 +93,19 @@ class StudentBusPay extends StatelessWidget {
                 ? EdgeInsets.only(top: screenHight / 17, left: screenWidth / 5)
                 : EdgeInsets.only(
                     top: screenHight / 17, right: screenWidth / 5),
-            child: headProfileWidget(
-              icon: Icon(
-                CupertinoIcons.person,
-                size: 25,
+            child: InkWell(
+              onTap: () =>
+                  Navigator.of(context).pushNamed(AppRouter.profileScreen),
+              child: headProfileWidget(
+                icon: Icon(
+                  CupertinoIcons.person,
+                  size: 25,
+                ),
+                circleColor: AppColors.secondaryColor,
+                screenHight: screenHight,
+                screenWidth: screenWidth,
+                nameColor: AppColors.mainColor,
               ),
-              circleColor: AppColors.secondaryColor,
-              studentName: 'Alaa shibany',
-              gradeNumber: 'Grade 9',
-              screenHight: screenHight,
-              screenWidth: screenWidth,
-              nameColor: AppColors.mainColor,
             ),
           ),
           PaymentTableStudent(

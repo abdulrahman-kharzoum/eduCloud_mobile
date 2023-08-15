@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:ui';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/routing/app_router.dart';
@@ -12,6 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:crypto/crypto.dart';
 
 import '../common_widgets/BackgroundPaint.dart';
 import '../models/message.dart';
@@ -107,6 +109,16 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
   //Call it when press send bottom
   Future<void> send(String _message, String _date) async {
     try {
+      print(
+          '---------------------------------------------------------asdfasdfas');
+      await pusher
+          .trigger(
+            PusherEvent(
+                channelName: 'private-student-1',
+                eventName: 'client-new-notification',
+                data: _date),
+          )
+          .onError((error, stackTrace) => print(error));
       await Provider.of<Apis>(context, listen: false)
           .sendComplaint(message: _message, date: _date);
       _messageText.add(_message);
@@ -121,7 +133,7 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
   void dispose() {
     _scrollController.dispose();
     pusher.disconnect();
-    pusher.unsubscribe(channelName: "student-51");
+    pusher.unsubscribe(channelName: "private-student-1");
     _messageController.dispose();
     super.dispose();
   }
@@ -131,56 +143,87 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
     pusher = PusherChannelsFlutter.getInstance();
     try {
       await pusher.init(
-        apiKey: '669937dceb19e6086cd4',
-        cluster: "mt1",
-        onConnectionStateChange: onConnectionStateChange,
-        onError: onError,
-        onSubscriptionSucceeded: onSubscriptionSucceeded,
-        onSubscriptionError: onSubscriptionError,
-        authEndpoint: "http://localhost:8000/broadcasting/auth",
-        onMemberAdded: onMemberAdded,
-        onMemberRemoved: onMemberRemoved,
-        onEvent: (event) {
-          print(event);
-          setState(() {
-            _messageText.add(jsonDecode(event.data)['reply']['body']);
-            _whoSent.add('2');
-            _dateSent.add(DateFormat.jm().format(DateTime.now()));
-            event.eventName == 'new_reply'
-                ? _messages.add(
-                    ChatMessage(jsonDecode(event.data)['reply']['body'], '2',
-                        DateFormat.jm().format(DateTime.now())),
-                  )
-                : print('hello');
-            saveMessages();
-          });
-        },
+          apiKey: '669937dceb19e6086cd4',
+          cluster: 'mt1',
+          onConnectionStateChange: onConnectionStateChange,
+          onError: onError,
+          onSubscriptionSucceeded: onSubscriptionSucceeded,
+          onEvent: (event) {
+            print(event);
+            setState(() {
+              _messageText.add(jsonDecode(event.data)['reply']['body']);
+              _whoSent.add('2');
+              _dateSent.add(DateFormat.jm().format(DateTime.now()));
+              event.eventName == 'new_reply'
+                  ? _messages.add(
+                      ChatMessage(jsonDecode(event.data)['reply']['body'], '2',
+                          DateFormat.jm().format(DateTime.now())),
+                    )
+                  : print('hello');
+              saveMessages();
+            });
+          },
+          onSubscriptionError: onSubscriptionError,
+          onDecryptionFailure: onDecryptionFailure,
+          onMemberAdded: onMemberAdded,
+          onMemberRemoved: onMemberRemoved,
+          onSubscriptionCount: onSubscriptionCount,
+          authEndpoint: "http://127.0.0.1:8000/broadcasting/auth",
+          onAuthorizer: onAuthorizer);
+      await pusher.subscribe(
+        channelName: 'private-student-1',
       );
-      await pusher.subscribe(channelName: "student-51");
       await pusher.connect();
     } catch (e) {
-      print("error in initialization: $e");
+      print("ERROR: $e");
     }
   }
 
-  void onError(String message, int? code, dynamic e) {
-    print("onError: $message code: $code exception: $e");
+  getSignature(String value) {
+    var key = utf8.encode('61da591e6d4984e182d4');
+    var bytes = utf8.encode(value);
+
+    var hmacSha256 = Hmac(sha256, key); // HMAC-SHA256
+    var digest = hmacSha256.convert(bytes);
+    print("HMAC signature in string is: $digest");
+    return digest;
+  }
+
+  dynamic onAuthorizer(String channelName, String socketId, dynamic options) {
+    return {
+      "auth": "669937dceb19e6086cd4:${getSignature("$socketId:$channelName")}",
+    };
+  }
+
+  void onDecryptionFailure(String event, String reason) {
+    print("onDecryptionFailure: $event reason: $reason");
+  }
+
+  void onMemberAdded(String channelName, PusherMember member) {
+    print("onMemberAdded: $channelName user: $member");
+  }
+
+  void onMemberRemoved(String channelName, PusherMember member) {
+    print("onMemberRemoved: $channelName user: $member");
+  }
+
+  void onSubscriptionCount(String channelName, int subscriptionCount) {
+    print(
+        "onSubscriptionCount: $channelName subscriptionCount: $subscriptionCount");
   }
 
   void onConnectionStateChange(dynamic currentState, dynamic previousState) {
     print("Connection: $currentState");
   }
 
-  void onMemberRemoved(String channelName, PusherMember member) {
-    print("onMemberRemoved: $channelName member: $member");
-  }
-
-  void onMemberAdded(String channelName, PusherMember member) {
-    print("onMemberAdded: $channelName member: $member");
+  void onError(String message, int? code, dynamic e) {
+    print("onError: $message code: $code exception: $e");
   }
 
   void onSubscriptionSucceeded(String channelName, dynamic data) {
-    print("onSubscriptionSucceeded: $channelName data: $data");
+    log("onSubscriptionSucceeded: $channelName data: $data");
+    final me = pusher.getChannel(channelName)?.me;
+    print("Me ======: $me");
   }
 
   void onSubscriptionError(String message, dynamic e) {
@@ -246,13 +289,11 @@ class _SuggestionScreenState extends State<SuggestionScreen> {
               : EdgeInsets.only(
                   right: screenWidth / 100, bottom: screenHight / 100),
           child: headProfileWidget(
-              icon: Icon(
+              icon: const Icon(
                 CupertinoIcons.person,
                 size: 25,
               ),
               circleColor: AppColors.secondaryColor,
-              studentName: 'Alaa shibany',
-              gradeNumber: 'Grade 9',
               screenHight: screenHight,
               screenWidth: screenWidth,
               nameColor: Colors.white),

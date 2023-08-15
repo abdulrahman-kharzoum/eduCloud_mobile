@@ -116,17 +116,19 @@ class _InstallmentsScreenState extends State<InstallmentsScreen>
                       top: screenHight / 25, left: screenWidth / 5)
                   : EdgeInsets.only(
                       top: screenHight / 25, right: screenWidth / 5),
-              child: headProfileWidget(
-                icon: Icon(
-                  CupertinoIcons.person,
-                  size: 25,
+              child: InkWell(
+                onTap: () =>
+                    Navigator.of(context).pushNamed(AppRouter.profileScreen),
+                child: headProfileWidget(
+                  icon: Icon(
+                    CupertinoIcons.person,
+                    size: 25,
+                  ),
+                  circleColor: AppColors.secondaryColor,
+                  screenHight: screenHight,
+                  screenWidth: screenWidth,
+                  nameColor: AppColors.mainColor,
                 ),
-                circleColor: AppColors.secondaryColor,
-                studentName: 'Alaa shibany',
-                gradeNumber: 'Grade 9',
-                screenHight: screenHight,
-                screenWidth: screenWidth,
-                nameColor: AppColors.mainColor,
               ),
             ),
             SizedBox(

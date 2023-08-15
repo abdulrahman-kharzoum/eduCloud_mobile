@@ -13,14 +13,20 @@ import 'package:provider/provider.dart';
 import 'dart:ui' as ui;
 
 import '../routing/app_router.dart';
+import '../sever/apis.dart';
 
+// ignore: must_be_immutable
 class ProfileScreen extends StatelessWidget {
   User user = User(
-      phone_number: "+963981233473",
-      grade_section: "grad 8 / section 2 ",
-      fatherName: "Ahmad moshen",
-      motherName: "Sara ahmad",
-      Address: "39 Iroquios Street Owosso, MI 48867 ");
+      phone_number: Apis.studentData['data']['numbers'].isEmpty
+          ? 'No phone numbers'
+          : Apis.studentData['data']['numbers'].first,
+      grade_section: Apis.studentData['data']['grade'] != null
+          ? "${LocaleKeys.grade.tr()} ${Apis.studentData['data']['grade']}/${Apis.studentData['data']['g_class']['name']}"
+          : "${LocaleKeys.grade.tr()} null/${Apis.studentData['data']['g_class']['name']}",
+      fatherName: Apis.studentData['data']['father_name'],
+      motherName: Apis.studentData['data']['mother_name'],
+      Address: Apis.studentData['data']['address']);
   ProfileScreen({super.key});
 
   @override
@@ -37,16 +43,21 @@ class ProfileScreen extends StatelessWidget {
                   top: 10,
                 ),
                 child: Center(
-                  child:
-                      Text('Student Name', style: AppTextStyles.textTitleStyle),
+                  child: Text(Apis.studentData['data']['full_name'],
+                      style: AppTextStyles.textTitleStyle),
                 ),
               ),
               Container(
                 // padding: EdgeInsets.only(top: 5),
                 child: Center(
-                  child: Text('Grade Number',
-                      style: AppTextStyles.textSubTitleStyle
-                          .copyWith(fontSize: 14)),
+                  child: Apis.studentData['data']['grade'] != null
+                      ? Text(
+                          '${LocaleKeys.grade.tr()} ${Apis.studentData['data']['grade']}',
+                          style: AppTextStyles.textSubTitleStyle
+                              .copyWith(fontSize: 14))
+                      : Text('${LocaleKeys.grade} null',
+                          style: AppTextStyles.textSubTitleStyle
+                              .copyWith(fontSize: 14)),
                 ),
               ),
               SizedBox(
@@ -59,13 +70,6 @@ class ProfileScreen extends StatelessWidget {
                   child: Container(
                       decoration: BoxDecoration(
                         color: AppColors.secondaryColor,
-                        // gradient: LinearGradient(
-                        //     colors: [
-                        //       AppColors.ProfileColor,
-                        //       AppColors.primaryColor
-                        //     ],
-                        //     begin: Alignment.bottomLeft,
-                        //     end: Alignment.bottomRight),
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: LineChartWidget(
@@ -102,6 +106,7 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class InfoCard extends StatelessWidget {
   String lead_title;
   String trail_title;
@@ -322,7 +327,7 @@ class GradientAppBar extends StatelessWidget {
                       //       "https://images.unsplash.com/photo-1533738363-b7f9aef128ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80"),
                       // ),
                     ),
-                    child: CircleAvatar(
+                    child: const CircleAvatar(
                       radius: 150 / 2,
                       //   backgroundColor: Colors.grey.shade800,
                       backgroundImage: NetworkImage(
@@ -335,22 +340,15 @@ class GradientAppBar extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 20),
             child: Align(
               alignment: Alignment.topRight,
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).pushNamedAndRemoveUntil(
                       AppRouter.homeScreen, (Route<dynamic> route) => false);
-                  /*Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => homeScreen(),
-                    ),
-                  );*/
                 },
                 child: Icon(
-                  size: 35,
                   Icons.home,
                   color: AppColors.secondaryColor,
                 ),
@@ -361,22 +359,14 @@ class GradientAppBar extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             child: Align(
               alignment: Alignment.topLeft,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, AppRouter.profileScreen);
-                  /*  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProfileScreen(),
-                    ),
-                  );*/
-                },
-                child: Icon(
-                  size: 35,
-                  Icons.arrow_back,
-                  color: AppColors.secondaryColor,
-                ),
-              ),
+              child: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_forward,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  }),
             ),
           ),
         ],

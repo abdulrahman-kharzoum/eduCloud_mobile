@@ -78,8 +78,6 @@ class AbsencesScreen extends StatelessWidget {
                 size: 25,
               ),
               circleColor: AppColors.mainColor,
-              studentName: 'Supervisor name',
-              gradeNumber: 'Bus supervisor ',
               screenHight: screenHight,
               screenWidth: screenWidth,
               nameColor: AppColors.mainColor,

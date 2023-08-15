@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:educloud_mobile/constants/sharedPreferences.dart';
+import 'package:educloud_mobile/sever/apis.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -44,6 +46,7 @@ class UserServices {
           _preferences.setString(token, response.data["data"]["token"]);
         }
         var list = response.data["data"]["roles"] as List<dynamic>;
+
         if (response.data != null) {
           for (var i = 0; i < list.length; i++) {
             if (response.data["message"] == "logged in successfully" &&

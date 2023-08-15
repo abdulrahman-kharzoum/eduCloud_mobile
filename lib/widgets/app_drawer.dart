@@ -218,8 +218,6 @@ class _appDrawerState extends State<appDrawer> {
               size: 25,
             ),
             circleColor: AppColors.secondaryColor,
-            studentName: 'Alaa shibany',
-            gradeNumber: 'Grade 9',
             screenHight: mediaQuery.width,
             screenWidth: mediaQuery.height,
             nameColor: Colors.white,

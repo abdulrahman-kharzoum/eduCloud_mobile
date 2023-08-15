@@ -115,8 +115,6 @@ class Mark1Screen extends StatelessWidget {
                       size: 25,
                     ),
                     circleColor: AppColors.secondaryColor,
-                    studentName: 'Alaa shibany',
-                    gradeNumber: 'Grade 9',
                     screenHight: screenHight,
                     screenWidth: screenWidth,
                     nameColor: AppColors.secondaryColor,

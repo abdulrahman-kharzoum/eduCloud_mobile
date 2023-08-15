@@ -1,8 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/sever/apis.dart';
-import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:educloud_mobile/widgets/marks_screen_widgets/select_bar_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -99,8 +97,6 @@ class _MarksScreenState extends State<MarksScreen> {
                 size: 25,
               ),
               circleColor: AppColors.secondaryColor,
-              studentName: 'Alaa shibany',
-              gradeNumber: 'Grade 9',
               screenHight: screenHight,
               screenWidth: screenWidth,
               nameColor: Colors.white),
