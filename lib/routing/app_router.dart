@@ -1,6 +1,6 @@
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/installments_screen.dart';
-import 'package:educloud_mobile/screens/live_location.dart';
+import 'package:educloud_mobile/screens/supervisor/live_location.dart';
 import 'package:educloud_mobile/screens/mark1_screen.dart';
 import 'package:educloud_mobile/screens/notification_screen.dart';
 import 'package:educloud_mobile/screens/school_bus_info_screen.dart';
@@ -10,6 +10,8 @@ import 'package:educloud_mobile/screens/student_Bus_payment.dart';
 import 'package:educloud_mobile/screens/suggestions_screen.dart';
 import 'package:educloud_mobile/screens/supervisor/absences_screen.dart';
 import 'package:educloud_mobile/screens/supervisor/absences_screen2.dart';
+import 'package:educloud_mobile/screens/supervisor/home_screenSup.dart';
+import 'package:educloud_mobile/screens/tracking_bus.dart';
 
 import 'package:flutter/material.dart';
 
@@ -41,6 +43,8 @@ class AppRouter {
   static String get studentBusPay => '/studentBusPay-screen';
   static String get absencesScreen => '/absencesScreen-screen';
   static String get absencesScreen2 => '/absencesScreen2-screen';
+  static String get homeScreenSup => '/homeScreenSup-screen';
+  static String get trackingBus => '/trackingBus-screen';
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     try {
@@ -59,6 +63,10 @@ class AppRouter {
   });
 
   Map<String, MaterialPageRoute Function(RouteSettings)> routesMap = {
+    trackingBus: (s) =>
+        MaterialPageRoute(builder: (_) => TrackingBus(), settings: s),
+    homeScreenSup: (s) =>
+        MaterialPageRoute(builder: (_) => HomeScreenSup(), settings: s),
     absencesScreen2: (s) =>
         MaterialPageRoute(builder: (_) => AbsencesScreen2(), settings: s),
     absencesScreen: (s) =>

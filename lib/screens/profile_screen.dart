@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/common_widgets/common_button.dart';
 import 'package:educloud_mobile/common_widgets/lineChart.dart';
 import 'package:educloud_mobile/models/marksPoints.dart';
-import 'package:educloud_mobile/models/user.dart';
+import 'package:educloud_mobile/models/student.dart';
 import 'package:educloud_mobile/providers/base_provider.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
@@ -17,7 +17,7 @@ import '../sever/apis.dart';
 
 // ignore: must_be_immutable
 class ProfileScreen extends StatelessWidget {
-  User user = User(
+  Student student = Student(
       phone_number: Apis.studentData['data']['numbers'].isEmpty
           ? 'No phone numbers'
           : Apis.studentData['data']['numbers'].first,
@@ -86,7 +86,7 @@ class ProfileScreen extends StatelessWidget {
                       elevation: 1,
                       shadowColor: Colors.grey,
                       color: AppColors.InfoCardColor,
-                      child: user.info_cards[index],
+                      child: student.info_cards[index],
                     );
                   },
                 ),

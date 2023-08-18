@@ -2,12 +2,15 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:educloud_mobile/constants/sharedPreferences.dart';
+import 'package:educloud_mobile/models/student.dart';
+import 'package:educloud_mobile/models/user.dart';
 import 'package:educloud_mobile/sever/apis.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserServices {
+  User user = User();
   final dio = Dio(
     BaseOptions(
       // baseUrl: 'http://localhost:8000',
@@ -51,11 +54,20 @@ class UserServices {
           for (var i = 0; i < list.length; i++) {
             if (response.data["message"] == "logged in successfully" &&
                 list[i] == "student") {
+              _preferences.setString(role, list.first);
+              user.roles![i] = list[i];
+              return true;
+            } else if (response.data["message"] == "logged in successfully" &&
+                list[i] == "busSupervisor") {
+              _preferences.setString(role, list.first);
+              // user.roles![i] = list[i];
+
               return true;
             }
           }
           return false;
         }
+        return false;
       }
     } catch (e) {
       print(e.toString());

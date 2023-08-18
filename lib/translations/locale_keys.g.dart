@@ -66,6 +66,8 @@ abstract class LocaleKeys {
   static const accumulatedAmount = 'accumulatedAmount';
   static const didGetIn = 'didGetIn';
   static const startingTrip = 'startingTrip';
+  static const returnTrip = 'returnTrip';
+  static const leavingTrip = 'leavingTrip';
   static const endingTrip = 'endingTrip';
   static const next = 'next';
   static const marks = 'marks';
