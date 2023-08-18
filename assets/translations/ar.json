@@ -68,6 +68,9 @@
     "haveToPay":"يجب أن يدفع",
     "accumulatedAmount":"المبلغ المتراكم",
     "startingTrip":"بداية الرحلة",
+    "leavingTrip":"رحلة الانطلاق",
+    "returnTrip":"رحلة العودة",
+  
     "endingTrip":"نهاية الرحلة",
     "didGetIn":"هل صعد؟",
     "next":"التالي",

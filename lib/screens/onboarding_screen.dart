@@ -2,12 +2,14 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/common_widgets/Sigin_buttom_widget.dart';
+import 'package:educloud_mobile/constants/sharedPreferences.dart';
 import 'package:educloud_mobile/models/model.dart';
 import 'package:educloud_mobile/providers/Model_provider.dart';
 import 'package:educloud_mobile/providers/user_provider.dart';
 import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:space_fixer/space_fixer.dart';
 import 'package:educloud_mobile/providers/onboarding_proivder.dart';
@@ -27,7 +29,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _controller = PageController();
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
-  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
+
   FocusNode nameNode = FocusNode();
   FocusNode passNode = FocusNode();
 
@@ -552,8 +554,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                         Navigator.of(context).pop();
                                         // value.dispose();
                                         if (isLoginSuccess) {
-                                          Navigator.pushNamed(
-                                              context, AppRouter.homeScreen);
+                                          final SharedPreferences _preferences =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                          if (_preferences
+                                              .getStringList(role)!
+                                              .contains("student")) {
+                                            Navigator.pushNamed(
+                                                context, AppRouter.homeScreen);
+                                          } else if (_preferences
+                                              .getStringList(role)!
+                                              .contains("busSupervisor")) {
+                                            Navigator.pushNamed(context,
+                                                AppRouter.homeScreenSup);
+                                          }
+
                                           /* Navigator.push(
                                             context,
                                             MaterialPageRoute(

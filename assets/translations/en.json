@@ -67,10 +67,10 @@
     "didGetIn":"DID GET IN?",
     "next":"NEXT",
     "startingPoint":"Starting Point",
-    "endPoint":"End Point",
+    "endPoint":"Ending Point",
     "maps":"Maps",
-    
-    
+    "leavingTrip":"Leaving Trip",
+    "returnTrip":"Return Trip",
     "fulltotal": "Full total",
     "marks": "Marks",
     "subjects" : "Subjects",

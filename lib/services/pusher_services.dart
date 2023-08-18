@@ -88,7 +88,7 @@ class PusherChannel {
         // authEndpoint: "<Your Authendpoint Url>",
         // onAuthorizer: onAuthorizer
       );
-      await pusher.subscribe(channelName: channelName);
+      await pusher.subscribe(channelName: channelName2);
       await pusher.connect();
     } catch (e) {
       debugPrint("ERROR: $e");

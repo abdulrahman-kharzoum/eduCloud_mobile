@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:ui' as ui;
 import 'package:easy_localization/easy_localization.dart';
+import 'package:educloud_mobile/services/pusherLocation.dart';
+
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
@@ -20,6 +23,11 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
   final Completer<GoogleMapController> _controller = Completer();
   LatLng? startingLocation;
   LatLng? endingLocation;
+  LocationData? currentLocation;
+  LatLng? LocationTrackingdata;
+  // dynamic data = {};
+  String data = "";
+
   // static const LatLng sourceLocation = LatLng(37.4116, -122.0713);
   // static const LatLng destination = LatLng(37.4221, -122.0841);
   bool markingStartLocation = false;
@@ -28,10 +36,32 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
   StreamSubscription<LocationData>? locationSubscription;
+  bool receivingLocationUpdates = false;
+  PusherLocationService _pusherLocationService = PusherLocationService();
+
+  Timer? _timer;
+  Future<void> checkLocationServices() async {
+    Location location = Location();
+
+    bool serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      bool shouldRequest = await location.requestService();
+      if (!shouldRequest) {
+        // The user declined to enable location services
+        return;
+      }
+    }
+    setState(() {});
+  }
+
   @override
   void initState() {
+    print("init pusher -------------");
+    _pusherLocationService.initPusher();
     getCurrentLocation();
     setCustomMarkerIcon();
+    checkLocationServices();
+
     super.initState();
     // getPolyPoints();
   }
@@ -39,8 +69,12 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
   @override
   void dispose() {
     locationSubscription?.cancel(); // Cancel the location subscription
+    _pusherLocationService.dispose();
     _controller.future
         .then((controller) => controller.dispose()); // Dispose of controller
+    if (_timer != null) {
+      _timer!.cancel();
+    }
     super.dispose();
   }
 
@@ -56,13 +90,32 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
     currentLocationIcon = BitmapDescriptor.fromBytes(markerCurrentLocationIcon);
   }
 
-  LocationData? currentLocation;
-
   void getCurrentLocation() async {
     Location location = Location();
     locationSubscription = location.onLocationChanged.listen(
       (newLoc) {
         currentLocation = newLoc;
+
+        print("Location tracking data:---");
+        if (startingLocation != null && endingLocation != null) {
+          data =
+              '{"data":{"Location": {"latitude": ${currentLocation!.latitude!},"longitude": ${currentLocation!.longitude!},"message": "sucess"},"StartingPoint": {"latitude": ${startingLocation!.latitude},"longitude": ${startingLocation!.longitude!},"message": "sucess"},"EndingPoint": {"latitude": ${endingLocation!.latitude!},"longitude": ${endingLocation!.longitude},"message": "sucess"}}}';
+        } else {
+          data =
+              '{"data":{"Location": {"latitude": ${currentLocation!.latitude!},"longitude": ${currentLocation!.longitude!},"message": "sucess","StartingPoint": {},"EndingPoint": {} }}}';
+        }
+
+        var encodedString = jsonEncode(data);
+        print("data before sending");
+        print(data);
+
+        print("encodedString before sending");
+        print(encodedString);
+        // _timer =
+        // Timer.periodic(Duration(seconds: 10), (timer) {
+        _pusherLocationService.sendLocation(
+            encodedString, "client-new-location");
+        // });
         final googleMapController = _controller.future;
         googleMapController.then(
           (controller) {
@@ -248,4 +301,6 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
             ),
     );
   }
+
+  void saveLocation() {}
 }

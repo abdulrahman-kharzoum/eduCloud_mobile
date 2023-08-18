@@ -1,27 +1,31 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/sever/apis.dart';
+import 'package:educloud_mobile/styles/app_colors.dart';
+import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../routing/app_router.dart';
-import '../styles/app_colors.dart';
-import '../styles/app_text_styles.dart';
+import 'package:provider/provider.dart';
 
 // ignore: camel_case_types
-class headProfileWidget extends StatelessWidget {
-  const headProfileWidget({
+class headSupWidget extends StatelessWidget {
+  const headSupWidget({
     super.key,
     required this.screenHight,
     required this.screenWidth,
     required this.icon,
     required this.nameColor,
     required this.circleColor,
+    required this.userName,
+    required this.userRole,
   });
 
   final double screenHight;
   final double screenWidth;
   final Icon icon;
+  final String userName;
+  final String userRole;
 
   final Color nameColor;
   final Color circleColor;
@@ -29,13 +33,10 @@ class headProfileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.of(context).pushNamed(AppRouter.profileScreen),
       child: Row(
         children: [
           //this container for user image
           InkWell(
-            onTap: () =>
-                Navigator.of(context).pushNamed(AppRouter.profileScreen),
             child: Container(
               //first layer light blue
               padding: const EdgeInsets.all(3),
@@ -53,8 +54,6 @@ class headProfileWidget extends StatelessWidget {
                 ],
               ),
               child: InkWell(
-                onTap: () =>
-                    Navigator.of(context).pushNamed(AppRouter.profileScreen),
                 child: Container(
                   //second layer white
                   padding: const EdgeInsets.all(9),
@@ -83,28 +82,18 @@ class headProfileWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-
-                  Apis.studentData['data']['full_name'],
+                  userName,
+                  // Apis.studentData['data']['full_name'],
                   style: TextStyle(
                       color: nameColor,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                       fontFamily: 'Euclid Circular A'),
                 ),
-                Apis.studentData['data']['grade'] != null
-                    ? Apis.studentData['data']['g_class'] != null
-                        ? Text(
-                            '${LocaleKeys.grade.tr()} ${Apis.studentData['data']['grade']['name']}/${Apis.studentData['data']['g_class']['name']}',
-                            style: AppTextStyles.profile2,
-                          )
-                        : Text(
-                            '${LocaleKeys.grade.tr()} ${Apis.studentData['data']['grade']['name']}/null',
-                            style: AppTextStyles.profile2,
-                          )
-                    : Text(
-                        'null/null',
-                        style: AppTextStyles.profile2,
-                      )
+                Text(
+                  userRole,
+                  style: AppTextStyles.profile2,
+                )
               ],
             ),
           )

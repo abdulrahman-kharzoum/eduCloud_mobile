@@ -17,7 +17,7 @@ class mapWidget extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          height: screenHight / 2.5,
+          height: screenHight / 2.6,
           width: double.infinity,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(

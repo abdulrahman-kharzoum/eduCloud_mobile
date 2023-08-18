@@ -1,7 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/common_widgets/common_button.dart';
 import 'package:educloud_mobile/common_widgets/lineChart.dart';
-import 'package:educloud_mobile/models/user.dart';
+import 'package:educloud_mobile/models/marksPoints.dart';
+import 'package:educloud_mobile/models/student.dart';
 import 'package:educloud_mobile/providers/base_provider.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
@@ -11,13 +12,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:ui' as ui;
 
-import '../models/marksPoints.dart';
+import '../models/user.dart';
 import '../routing/app_router.dart';
 import '../sever/apis.dart';
 
 // ignore: must_be_immutable
 class ProfileScreen extends StatelessWidget {
-  User user = User(
+  Student user = Student(
       phone_number: Apis.studentData['data']['numbers'].isEmpty
           ? 'No phone numbers'
           : Apis.studentData['data']['numbers'].first['number'],

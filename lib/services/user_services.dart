@@ -1,13 +1,17 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:educloud_mobile/constants/configration.dart';
 import 'package:educloud_mobile/constants/sharedPreferences.dart';
+import 'package:educloud_mobile/models/student.dart';
+import 'package:educloud_mobile/models/user.dart';
 import 'package:educloud_mobile/sever/apis.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserServices {
+  User user = User();
   final dio = Dio(
     BaseOptions(
       // baseUrl: 'http://localhost:8000',
@@ -26,13 +30,15 @@ class UserServices {
   Future<bool> loginApi(String username, String password) async {
     final SharedPreferences _preferences =
         await SharedPreferences.getInstance();
+    List<String> roles = [];
     try {
       var body = {
         "user_name": username,
         "password": password,
       };
       var bodyJson = jsonEncode(body);
-      Uri uri = Uri.parse('http://localhost:8000/V1.0/auth/login');
+      Uri uri = Uri.parse(
+          '$baseUrl/auth/login');
 
       Response response = await dio.postUri(uri, data: body);
       print("response:");
@@ -48,14 +54,16 @@ class UserServices {
         var list = response.data["data"]["roles"] as List<dynamic>;
 
         if (response.data != null) {
-          for (var i = 0; i < list.length; i++) {
-            if (response.data["message"] == "logged in successfully" &&
-                list[i] == "student") {
-              return true;
+          if (response.data["message"] == "logged in successfully") {
+            for (var i = 0; i < list.length; i++) {
+              roles.add(list[i] as String);
             }
+            _preferences.setStringList(role, roles);
+            return true;
           }
           return false;
         }
+        return false;
       }
     } catch (e) {
       print(e.toString());
