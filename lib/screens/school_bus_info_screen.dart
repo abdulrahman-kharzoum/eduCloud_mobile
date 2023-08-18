@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../routing/app_router.dart';
+import '../sever/apis.dart';
 import '../styles/app_colors.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/head_profile_widget.dart';
@@ -74,7 +75,7 @@ class _schoolBusInfoScreenState extends State<schoolBusInfoScreen> {
                 color: AppColors.mainColor,
               ),
               onPressed: () {
-                Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
+                Navigator.pop(context);
               }),
         ],
         title: Container(
@@ -99,9 +100,25 @@ class _schoolBusInfoScreenState extends State<schoolBusInfoScreen> {
         ),
       ),
       body: Padding(
-          padding: EdgeInsets.only(top: screenHight / 15),
-          child: installmentsTab(
-              mediaQuery: MediaQuery.of(context).size, data: data)),
+        padding: EdgeInsets.only(top: screenHight / 15),
+        child: //bus
+            Apis.studentExpensesInfo['data']['busBill'] != null
+                ? installmentsTab(
+                    mediaQuery: MediaQuery.of(context).size,
+                    data: Apis.studentExpensesBusInfo['data'],
+                    paied: Apis.studentExpensesInfo['data']['paidForBusBill'],
+                    totalPrice: Apis.studentExpensesInfo['data']['busBill']
+                        ['value'],
+                    haveToPay: Apis.studentExpensesInfo['data']['busBill']
+                            ['value'] -
+                        Apis.studentExpensesInfo['data']['paidForBusBill'])
+                : installmentsTab(
+                    mediaQuery: MediaQuery.of(context).size,
+                    data: [],
+                    paied: Apis.studentExpensesInfo['data']['paidForBusBill'],
+                    totalPrice: -1,
+                    haveToPay: -1),
+      ),
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/common_widgets/common_button.dart';
 import 'package:educloud_mobile/common_widgets/lineChart.dart';
-import 'package:educloud_mobile/models/marksPoints.dart';
 import 'package:educloud_mobile/models/user.dart';
 import 'package:educloud_mobile/providers/base_provider.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
@@ -12,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:ui' as ui;
 
+import '../models/marksPoints.dart';
 import '../routing/app_router.dart';
 import '../sever/apis.dart';
 
@@ -20,9 +20,9 @@ class ProfileScreen extends StatelessWidget {
   User user = User(
       phone_number: Apis.studentData['data']['numbers'].isEmpty
           ? 'No phone numbers'
-          : Apis.studentData['data']['numbers'].first,
+          : Apis.studentData['data']['numbers'].first['number'],
       grade_section: Apis.studentData['data']['grade'] != null
-          ? "${LocaleKeys.grade.tr()} ${Apis.studentData['data']['grade']}/${Apis.studentData['data']['g_class']['name']}"
+          ? "${LocaleKeys.grade.tr()} ${Apis.studentData['data']['grade']['name']}/${Apis.studentData['data']['g_class']['name']}"
           : "${LocaleKeys.grade.tr()} null/${Apis.studentData['data']['g_class']['name']}",
       fatherName: Apis.studentData['data']['father_name'],
       motherName: Apis.studentData['data']['mother_name'],
@@ -52,7 +52,7 @@ class ProfileScreen extends StatelessWidget {
                 child: Center(
                   child: Apis.studentData['data']['grade'] != null
                       ? Text(
-                          '${LocaleKeys.grade.tr()} ${Apis.studentData['data']['grade']}',
+                          '${LocaleKeys.grade.tr()} ${Apis.studentData['data']['grade']['name']}',
                           style: AppTextStyles.textSubTitleStyle
                               .copyWith(fontSize: 14))
                       : Text('${LocaleKeys.grade} null',
@@ -73,7 +73,10 @@ class ProfileScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(25),
                       ),
                       child: LineChartWidget(
-                          marksPoints, LocaleKeys.studentSituation.tr(), 2.7)),
+                          MarksPoints.marksPoints(),
+                          MarksPoints.marksPoints2(),
+                          LocaleKeys.studentSituation.tr(),
+                          2.7)),
                 ),
               ),
               Container(
@@ -94,9 +97,12 @@ class ProfileScreen extends StatelessWidget {
               Padding(
                   padding: EdgeInsets.only(top: 25),
                   child: Center(
-                      child: Common_Button(
-                    text: LocaleKeys.subjectInfo.tr(),
-                    onTap: () {},
+                      child: GestureDetector(
+                    onTap: () =>
+                        Navigator.pushNamed(context, AppRouter.mark1Screen),
+                    child: Common_Button(
+                      text: LocaleKeys.subjectInfo.tr(),
+                    ),
                   ))),
             ],
           ),

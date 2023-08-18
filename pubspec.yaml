@@ -92,6 +92,7 @@ flutter:
     - assets/lotties/
     - assets/images/21121.jpg
     - assets/images/emptyExam.png
+    - assets/images/mony.png
     - assets/images/map.png
     - assets/images/buslogo.gif
     - assets/svg/student.svg

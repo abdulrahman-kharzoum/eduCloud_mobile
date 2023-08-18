@@ -89,6 +89,7 @@ class CodegenLoader extends AssetLoader {
     "exams": "المذاكرات",
     "fulltotal": "المجموع الكامل",
     "sorry": "أسف ولكن لاويجد هناك اختبارات أو أسبار بعد",
+    "sorrymony": "أسف ولكن لاويجد هناك مصاريف أو تسجيل بعد",
     "thetotalprice": "المبلغ الكلي المتوجب",
     "thetotalpriceyoupaied": "المبلغ الكلي المدفوع",
     "follownow": "تتبع الآن",
@@ -179,6 +180,7 @@ class CodegenLoader extends AssetLoader {
     "endPoint": "End Point",
     "maps": "Maps",
     "grade": "Grade",
+    "sorrymony": "Sorry , but thire isn't any payment yet",
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "ar": ar,

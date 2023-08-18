@@ -55,12 +55,22 @@ class markBarWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: const BorderRadius.all(Radius.circular(15)),
-              border: Border.all(color: Colors.black),
+              border: Border.all(
+                  color: int.parse(studentMark) < int.parse(failMark)
+                      ? Colors.red
+                      : Colors.black),
             ),
             child: Center(
               child: Text(
                 studentMark,
-                style: AppTextStyles.profile,
+                style: TextStyle(
+                  color: int.parse(studentMark) < int.parse(failMark)
+                      ? Colors.red
+                      : const Color.fromRGBO(55, 53, 89, 1),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Euclid Circular A',
+                ),
               ),
             ),
           ),

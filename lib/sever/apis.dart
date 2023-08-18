@@ -9,6 +9,9 @@ class Apis with ChangeNotifier {
   static Map<String, dynamic> responseMessage = {};
   static List<dynamic> marksDataList = [];
   static Map<String, dynamic> studentData = {};
+  static Map<String, dynamic> studentExpensesInfo = {};
+  static Map<String, dynamic> studentExpensesSchoolInfo = {};
+  static Map<String, dynamic> studentExpensesBusInfo = {};
 
   Future<void> sendComplaint(
       {required String message, required String date}) async {
@@ -87,6 +90,81 @@ class Apis with ChangeNotifier {
       responseMessage = response.data;
       print(responseMessage);
       studentData = response.data;
+      notifyListeners();
+      print('................................');
+    } on DioException catch (e) {
+      print(e);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> studentExpenses() async {
+    final SharedPreferences _preferences =
+        await SharedPreferences.getInstance();
+    try {
+      Dio.Response response = await dio().get(
+        "/student/getStudentsFinanceInformation/-1",
+        options: Dio.Options(
+          headers: {
+            'Authorization': 'Bearer ${_preferences.getString('token')}'
+          },
+        ),
+      );
+      print(
+          '................................get student expenses data server ${response.statusCode}');
+      print(response.data);
+      studentExpensesInfo = response.data;
+      notifyListeners();
+      print('................................');
+    } on DioException catch (e) {
+      print(e);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> studentExpensesSchool() async {
+    final SharedPreferences _preferences =
+        await SharedPreferences.getInstance();
+    try {
+      Dio.Response response = await dio().get(
+        "/student/getPaymentsOf/-1?schoolPayments?=1",
+        options: Dio.Options(
+          headers: {
+            'Authorization': 'Bearer ${_preferences.getString('token')}'
+          },
+        ),
+      );
+      print(
+          '................................get student expenses school data server ${response.statusCode}');
+      print(response.data);
+      studentExpensesSchoolInfo = response.data;
+      notifyListeners();
+      print('................................');
+    } on DioException catch (e) {
+      print(e);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> studentExpensesBuss() async {
+    final SharedPreferences _preferences =
+        await SharedPreferences.getInstance();
+    try {
+      Dio.Response response = await dio().get(
+        "/student/getPaymentsOf/-1?schoolPayments?=0",
+        options: Dio.Options(
+          headers: {
+            'Authorization': 'Bearer ${_preferences.getString('token')}'
+          },
+        ),
+      );
+      print(
+          '................................get student expenses buss data server ${response.statusCode}');
+      print(response.data);
+      studentExpensesBusInfo = response.data;
       notifyListeners();
       print('................................');
     } on DioException catch (e) {

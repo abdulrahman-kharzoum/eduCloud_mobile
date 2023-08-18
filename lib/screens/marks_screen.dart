@@ -92,7 +92,7 @@ class _MarksScreenState extends State<MarksScreen> {
               : EdgeInsets.only(
                   right: screenWidth / 100, top: screenHight / 100),
           child: headProfileWidget(
-              icon: Icon(
+              icon: const Icon(
                 CupertinoIcons.person,
                 size: 25,
               ),

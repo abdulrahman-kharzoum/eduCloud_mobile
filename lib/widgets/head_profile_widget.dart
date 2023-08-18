@@ -3,7 +3,6 @@ import 'package:educloud_mobile/sever/apis.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../routing/app_router.dart';
 import '../styles/app_colors.dart';
@@ -92,14 +91,19 @@ class headProfileWidget extends StatelessWidget {
                       fontFamily: 'Euclid Circular A'),
                 ),
                 Apis.studentData['data']['grade'] != null
-                    ? Text(
-                        '${LocaleKeys.grade.tr()} ${Apis.studentData['data']['grade']}/${Apis.studentData['data']['g_class']['name']}',
+                    ? Apis.studentData['data']['g_class'] != null
+                        ? Text(
+                            '${LocaleKeys.grade.tr()} ${Apis.studentData['data']['grade']['name']}/${Apis.studentData['data']['g_class']['name']}',
+                            style: AppTextStyles.profile2,
+                          )
+                        : Text(
+                            '${LocaleKeys.grade.tr()} ${Apis.studentData['data']['grade']['name']}/null',
+                            style: AppTextStyles.profile2,
+                          )
+                    : Text(
+                        'null/null',
                         style: AppTextStyles.profile2,
                       )
-                    : Text(
-                        '${LocaleKeys.grade.tr()} null /${Apis.studentData['data']['g_class']['name']}',
-                        style: AppTextStyles.profile2,
-                      ),
               ],
             ),
           )
