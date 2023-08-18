@@ -1,7 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'package:crypto/crypto.dart';
 import 'package:educloud_mobile/constants/configration.dart';
+import 'package:educloud_mobile/main.dart';
+import 'package:educloud_mobile/models/Location.dart';
+import 'package:educloud_mobile/providers/location_provider.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
@@ -86,14 +92,81 @@ class PusherLocationService {
         onConnectionStateChange: onConnectionStateChange,
         onError: onError,
         onSubscriptionSucceeded: onSubscriptionSucceeded,
-        onEvent: (event) {
+        onEvent: (event) async {
           try {
             print("----------------------event--------------------");
-            var eve = jsonDecode(event.data);
-            print(jsonDecode(event.data));
-            print("Decoded ");
-            print(eve);
-            print("after ----------------");
+
+            if (event != null && event.data != null) {
+              var jsonDataForLocation = jsonDecode(event.data);
+              print("jsonDataForLocation Decoded : ");
+              print(jsonDataForLocation);
+
+              Map<String, dynamic> jsonMap = json.decode(jsonDataForLocation);
+              Map<String, dynamic> locationData = jsonMap['data']['Location'];
+              double latitude = locationData['latitude'];
+              double longitude = locationData['longitude'];
+              String message = locationData['message'];
+              LatLng busLocation = LatLng(latitude, longitude);
+              if (jsonMap['data']['StartingPoint'] != null &&
+                  jsonMap['data']['EndingPoint'] != null) {
+                Map<String, dynamic> startingPointData =
+                    jsonMap['data']['StartingPoint'];
+                Map<String, dynamic> endingPointData =
+                    jsonMap['data']['EndingPoint'];
+
+                if (startingPointData.isNotEmpty &&
+                    endingPointData.isNotEmpty) {
+                  double startingPoint_latitude = startingPointData['latitude'];
+                  double startingPoint_longitude =
+                      startingPointData['longitude'];
+
+                  double endingPoint_latitude = endingPointData['latitude'];
+                  double endingPoint_longitude = endingPointData['longitude'];
+
+                  LatLng startingPoint =
+                      LatLng(startingPoint_latitude, startingPoint_longitude);
+                  LatLng endingPoint =
+                      LatLng(endingPoint_latitude, endingPoint_longitude);
+                  (scaffoldMessengerKey.currentContext!)
+                      .read<LocationProvider>()
+                      .trackBus(busLocation, startingPoint, endingPoint);
+                  print('Latitude: $latitude');
+                  print('Longitude: $longitude');
+                  print('Message: $message');
+                }
+              }
+              if (jsonMap['data']['StartingPoint'] == null &&
+                  jsonMap['data']['EndingPoint'] == null) {
+                (scaffoldMessengerKey.currentContext!)
+                    .read<LocationProvider>()
+                    .trackBus(busLocation, null, null);
+              }
+              //var eve = location.fromJson(jsonDecode(jsonDataForLocation));
+              /*print("type ::::");
+              print(jsonDataForLocation[0]);
+              print(jsonDataForLocation["data"]["Location"]);*/
+              /* LatLng busLocation = LatLng(eve.data!.location!.latitude!,
+                  eve.data!.location!.longitude!);
+              if (eve.data!.startingPoint != null &&
+                  eve.data!.startingPoint!.latitude != null &&
+                  eve.data!.startingPoint!.longitude != null &&
+                  eve.data!.endingPoint != null &&
+                  eve.data!.endingPoint!.latitude != null &&
+                  eve.data!.endingPoint!.longitude != null) {
+                LatLng? startingPoint = LatLng(
+                    eve.data!.startingPoint!.latitude!,
+                    eve.data!.startingPoint!.longitude!);
+                LatLng? endingPoint = LatLng(eve.data!.endingPoint!.latitude!,
+                    eve.data!.endingPoint!.longitude!);
+
+                LocationProvider()
+                    .trackBus(busLocation, startingPoint, endingPoint);
+              } else {
+                LocationProvider().trackBus(busLocation, null, null);
+              }
+*/
+              print("after ----------------");
+            }
           } catch (e) {
             print("error parsing json $e");
           }

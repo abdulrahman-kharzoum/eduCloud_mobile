@@ -97,9 +97,13 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
         currentLocation = newLoc;
 
         print("Location tracking data:---");
-
-        data =
-            '{"Location": {"latitude": ${currentLocation!.latitude!},"longitude": ${currentLocation!.longitude!},"message": "sucess"}}';
+        if (startingLocation != null && endingLocation != null) {
+          data =
+              '{"data":{"Location": {"latitude": ${currentLocation!.latitude!},"longitude": ${currentLocation!.longitude!},"message": "sucess"},"StartingPoint": {"latitude": ${startingLocation!.latitude},"longitude": ${startingLocation!.longitude!},"message": "sucess"},"EndingPoint": {"latitude": ${endingLocation!.latitude!},"longitude": ${endingLocation!.longitude},"message": "sucess"}}}';
+        } else {
+          data =
+              '{"data":{"Location": {"latitude": ${currentLocation!.latitude!},"longitude": ${currentLocation!.longitude!},"message": "sucess","StartingPoint": {},"EndingPoint": {} }}}';
+        }
 
         var encodedString = jsonEncode(data);
         print("data before sending");

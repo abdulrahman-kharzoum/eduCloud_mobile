@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/providers/Model_provider.dart';
 import 'package:educloud_mobile/providers/base_provider.dart';
+import 'package:educloud_mobile/providers/location_provider.dart';
 import 'package:educloud_mobile/providers/notification_provider.dart';
 import 'package:educloud_mobile/providers/onboarding_proivder.dart';
 import 'package:educloud_mobile/providers/user_provider.dart';
@@ -15,6 +16,7 @@ import 'package:provider/provider.dart';
 
 GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
+
 // PusherChannel pusher = PusherChannel();
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -54,6 +56,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<UserProvider>(create: (_) => UserProvider()),
         ChangeNotifierProvider<NotificationProvider>(
             create: (_) => NotificationProvider()),
+        ChangeNotifierProvider<LocationProvider>(
+            create: (_) => LocationProvider()),
       ],
       child: MaterialApp(
         scaffoldMessengerKey: scaffoldMessengerKey,

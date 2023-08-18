@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:ui' as ui;
 import 'package:easy_localization/easy_localization.dart';
+import 'package:educloud_mobile/providers/location_provider.dart';
 import 'package:educloud_mobile/services/pusherLocation.dart';
 
 import 'package:educloud_mobile/styles/app_colors.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/services.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:provider/provider.dart';
 
 class TrackingBus extends StatefulWidget {
   const TrackingBus({Key? key}) : super(key: key);
@@ -35,10 +37,11 @@ class TrackingBusState extends State<TrackingBus> {
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor destinationIcon = BitmapDescriptor.defaultMarker;
   BitmapDescriptor currentLocationIcon = BitmapDescriptor.defaultMarker;
+  BitmapDescriptor busIcon = BitmapDescriptor.defaultMarker;
   StreamSubscription<LocationData>? locationSubscription;
   bool receivingLocationUpdates = false;
   PusherLocationService _pusherLocationService = PusherLocationService();
-
+  LatLng? busLocation, startingPoint, endingPoint;
   Timer? _timer;
   Future<void> checkLocationServices() async {
     Location location = Location();
@@ -90,7 +93,7 @@ class TrackingBusState extends State<TrackingBus> {
     sourceIcon = BitmapDescriptor.fromBytes(markerSourceIcon);
     destinationIcon = BitmapDescriptor.fromBytes(markerDestinationIcon);
     currentLocationIcon = BitmapDescriptor.fromBytes(markerCurrentLocationIcon);
-    currentLocationIcon = BitmapDescriptor.fromBytes(markerBusIcon);
+    busIcon = BitmapDescriptor.fromBytes(markerBusIcon);
   }
 
   void getCurrentLocation() async {
@@ -168,46 +171,43 @@ class TrackingBusState extends State<TrackingBus> {
               children: [
                 Expanded(
                   flex: 5,
-                  child: GoogleMap(
-                    onTap: (LatLng tappedLatLng) {
-                      setState(() {
-                        if (markingStartLocation) {
-                          startingLocation = tappedLatLng;
-                          markingStartLocation = false;
-                        } else if (markingEndLocation) {
-                          endingLocation = tappedLatLng;
-                          markingEndLocation = false;
-                        }
-                      });
-                    },
-                    initialCameraPosition: CameraPosition(
-                      target: LatLng(currentLocation!.latitude!,
-                          currentLocation!.longitude!),
-                      zoom: 13.5,
-                    ),
-                    markers: {
-                      Marker(
-                        markerId: const MarkerId("currentLocation"),
-                        icon: currentLocationIcon,
-                        position: LatLng(currentLocation!.latitude!,
+                  child: Consumer<LocationProvider>(
+                    builder: (context, value, child) => GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(currentLocation!.latitude!,
                             currentLocation!.longitude!),
+                        zoom: 13.5,
                       ),
-                      if (startingLocation != null)
+                      markers: {
                         Marker(
-                          markerId: MarkerId("startingLocation"),
-                          position: startingLocation!,
-                          icon: sourceIcon,
+                          markerId: const MarkerId("currentLocation"),
+                          icon: currentLocationIcon,
+                          position: LatLng(currentLocation!.latitude!,
+                              currentLocation!.longitude!),
                         ),
-                      if (endingLocation != null)
-                        Marker(
-                          markerId: MarkerId("endingLocation"),
-                          position: endingLocation!,
-                          icon: destinationIcon,
-                        ),
-                    },
-                    onMapCreated: (mapController) {
-                      _controller.complete(mapController);
-                    },
+                        if (value.busLocation != null)
+                          Marker(
+                            markerId: const MarkerId("BusLocation"),
+                            icon: busIcon,
+                            position: value.busLocation!,
+                          ),
+                        if (value.startingPoint != null)
+                          Marker(
+                            markerId: MarkerId("startingLocation"),
+                            position: value.startingPoint!,
+                            icon: sourceIcon,
+                          ),
+                        if (value.endingPoint != null)
+                          Marker(
+                            markerId: MarkerId("endingLocation"),
+                            position: value.endingPoint!,
+                            icon: destinationIcon,
+                          ),
+                      },
+                      onMapCreated: (mapController) {
+                        _controller.complete(mapController);
+                      },
+                    ),
                   ),
                 ),
               ],
