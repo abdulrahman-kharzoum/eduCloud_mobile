@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:educloud_mobile/constants/configration.dart';
 import 'package:educloud_mobile/constants/sharedPreferences.dart';
 import 'package:educloud_mobile/models/student.dart';
 import 'package:educloud_mobile/models/user.dart';
@@ -29,13 +30,15 @@ class UserServices {
   Future<bool> loginApi(String username, String password) async {
     final SharedPreferences _preferences =
         await SharedPreferences.getInstance();
+    List<String> roles = [];
     try {
       var body = {
         "user_name": username,
         "password": password,
       };
       var bodyJson = jsonEncode(body);
-      Uri uri = Uri.parse('http://localhost:8000/V1.0/auth/login');
+      Uri uri = Uri.parse(
+          'https://d19a-46-213-101-192.ngrok-free.app/V1.0/auth/login');
 
       Response response = await dio.postUri(uri, data: body);
       print("response:");
@@ -51,19 +54,12 @@ class UserServices {
         var list = response.data["data"]["roles"] as List<dynamic>;
 
         if (response.data != null) {
-          for (var i = 0; i < list.length; i++) {
-            if (response.data["message"] == "logged in successfully" &&
-                list[i] == "student") {
-              _preferences.setString(role, list.first);
-              user.roles![i] = list[i];
-              return true;
-            } else if (response.data["message"] == "logged in successfully" &&
-                list[i] == "busSupervisor") {
-              _preferences.setString(role, list.first);
-              // user.roles![i] = list[i];
-
-              return true;
+          if (response.data["message"] == "logged in successfully") {
+            for (var i = 0; i < list.length; i++) {
+              roles.add(list[i] as String);
             }
+            _preferences.setStringList(role, roles);
+            return true;
           }
           return false;
         }

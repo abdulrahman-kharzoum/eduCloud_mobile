@@ -104,10 +104,10 @@ class PusherLocationService {
         authEndpoint: "http://127.0.0.1:8000/broadcasting/auth",
         onAuthorizer: onAuthorizer,
       );
-      // await pusher.subscribe(
-      //   channelName: channelName,
-      // );
-      // await pusher.connect();
+      await pusher.subscribe(
+        channelName: channelName,
+      );
+      await pusher.connect();
     } catch (e) {
       print("ERROR: $e");
     }

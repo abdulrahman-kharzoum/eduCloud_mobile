@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:ui' as ui;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/services/pusherLocation.dart';
-import 'package:educloud_mobile/sever/apis.dart';
+
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
@@ -99,7 +99,7 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
         print("Location tracking data:---");
 
         data =
-            '{"Location": {"user-id": ${Apis.studentData['data']['id']},"latitude": ${currentLocation!.latitude!},"longitude": ${currentLocation!.longitude!},"message": "sucess"}}';
+            '{"Location": {"latitude": ${currentLocation!.latitude!},"longitude": ${currentLocation!.longitude!},"message": "sucess"}}';
 
         var encodedString = jsonEncode(data);
         print("data before sending");

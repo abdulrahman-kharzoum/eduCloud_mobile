@@ -557,13 +557,14 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                           final SharedPreferences _preferences =
                                               await SharedPreferences
                                                   .getInstance();
-                                          if (_preferences.getString(role) ==
-                                              'student') {
+                                          if (_preferences
+                                              .getStringList(role)!
+                                              .contains("student")) {
                                             Navigator.pushNamed(
                                                 context, AppRouter.homeScreen);
                                           } else if (_preferences
-                                                  .getString(role) ==
-                                              'busSupervisor') {
+                                              .getStringList(role)!
+                                              .contains("busSupervisor")) {
                                             Navigator.pushNamed(context,
                                                 AppRouter.homeScreenSup);
                                           }

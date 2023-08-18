@@ -1,7 +1,8 @@
-const baseUrl = "http://127.0.0.1:8000/V1.0";
-const baseUrl2 = "http://localhost:8000/V1.0";
-const baseUrl3 = "http://10.0.2.2:8000";
-const baseUrl4 = "http:/172.16.1.15:8000";
+const baseUrl2 = "http://127.0.0.1:8000/V1.0";
+// const baseUrl = "http://localhost:8000/V1.0";
+const baseUrl = "https://d19a-46-213-101-192.ngrok-free.app/V1.0";
+// const baseUrl3 = "http://10.0.2.2:8000";
+// const baseUrl4 = "http:/172.16.1.15:8000";
 // const apikey = "f9b5460ffac69edfefb3";
 // const cluster = "eu";
 // const apikey = '669937dceb19e6086cd4';

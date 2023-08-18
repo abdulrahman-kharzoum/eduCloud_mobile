@@ -36,7 +36,8 @@ class _SplashScreenState extends State<SplashScreen> {
       context.read<OnboardingProvider>().getTextsList();
       if (_perf.containsKey(token) &&
           _perf.getString(token)!.isNotEmpty &&
-          _perf.containsKey(role) == "student") {
+          _perf.containsKey(role) &&
+          _perf.getStringList(role)!.contains("student")) {
         Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
 
         /* Navigator.push(context, MaterialPageRoute(
@@ -46,7 +47,8 @@ class _SplashScreenState extends State<SplashScreen> {
         ));*/
       } else if (_perf.containsKey(token) &&
           _perf.getString(token)!.isNotEmpty &&
-          _perf.containsKey(role) == "busSupervisor") {
+          _perf.containsKey(role) &&
+          _perf.getStringList(role)!.contains("busSupervisor")) {
         Navigator.pushReplacementNamed(context, AppRouter.homeScreenSup);
       } else {
         Navigator.pushReplacementNamed(context, AppRouter.onBoardingScreen);
