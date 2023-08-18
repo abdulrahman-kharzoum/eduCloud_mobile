@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:ui' as ui;
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/services/pusherLocation.dart';
-import 'package:educloud_mobile/sever/apis.dart';
+
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
@@ -84,10 +84,13 @@ class TrackingBusState extends State<TrackingBus> {
     final Uint8List markerDestinationIcon =
         await getBytesFromAsset('assets/location/bus-station.png', 100);
     final Uint8List markerCurrentLocationIcon =
+        await getBytesFromAsset('assets/location/location.png', 100);
+    final Uint8List markerBusIcon =
         await getBytesFromAsset('assets/location/bus.png', 100);
     sourceIcon = BitmapDescriptor.fromBytes(markerSourceIcon);
     destinationIcon = BitmapDescriptor.fromBytes(markerDestinationIcon);
     currentLocationIcon = BitmapDescriptor.fromBytes(markerCurrentLocationIcon);
+    currentLocationIcon = BitmapDescriptor.fromBytes(markerBusIcon);
   }
 
   void getCurrentLocation() async {

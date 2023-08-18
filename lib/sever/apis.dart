@@ -37,6 +37,7 @@ class Apis with ChangeNotifier {
       }
     } on DioException catch (e) {
       print(e);
+      print(dio().options.baseUrl);
     } catch (e) {
       print(e);
     }

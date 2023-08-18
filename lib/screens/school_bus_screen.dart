@@ -125,7 +125,7 @@ class _schoolBusScreenState extends State<schoolBusScreen> {
               screenHight: screenHight,
               bottom: InkWell(
                 onTap: () =>
-                    Navigator.of(context).pushNamed(AppRouter.locationScreen),
+                    Navigator.of(context).pushNamed(AppRouter.trackingBus),
                 child: Container(
                   height: screenHight / 20,
                   width: screenWidth / 2.5,

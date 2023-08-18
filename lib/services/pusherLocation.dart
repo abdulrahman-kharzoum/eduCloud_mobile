@@ -89,8 +89,10 @@ class PusherLocationService {
         onEvent: (event) {
           try {
             print("----------------------event--------------------");
-            print(event);
-            print(event.data);
+            var eve = jsonDecode(event.data);
+            print(jsonDecode(event.data));
+            print("Decoded ");
+            print(eve);
             print("after ----------------");
           } catch (e) {
             print("error parsing json $e");
@@ -101,7 +103,7 @@ class PusherLocationService {
         onMemberAdded: onMemberAdded,
         onMemberRemoved: onMemberRemoved,
         onSubscriptionCount: onSubscriptionCount,
-        authEndpoint: "http://127.0.0.1:8000/broadcasting/auth",
+        authEndpoint: "$baseUrl/broadcasting/auth",
         onAuthorizer: onAuthorizer,
       );
       await pusher.subscribe(

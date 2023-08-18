@@ -38,7 +38,7 @@ class UserServices {
       };
       var bodyJson = jsonEncode(body);
       Uri uri = Uri.parse(
-          'https://d19a-46-213-101-192.ngrok-free.app/V1.0/auth/login');
+          '$baseUrl/auth/login');
 
       Response response = await dio.postUri(uri, data: body);
       print("response:");
