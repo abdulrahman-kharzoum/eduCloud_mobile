@@ -9,8 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class PusherChannel {
   PusherChannelsFlutter pusher = PusherChannelsFlutter.getInstance();
-  NotificationProvider notificationProvider = NotificationProvider();
   int id = 0;
+  NotificationProvider notificationProvider = NotificationProvider();
   List<MyNotification> notifi = [];
   void onConnectPressed() async {
     void onConnectionStateChange(dynamic currentState, dynamic previousState) {
@@ -36,14 +36,14 @@ class PusherChannel {
         var title = ev["message"]["title"];
         var body = ev["message"]["body"];
 
-        notificationProvider
-            .addNotification(MyNotification(id: id, title: title, body: body));
-        notifi.add(MyNotification(id: id, title: title, body: body));
+        // notificationProvider
+        //     .addNotification(MyNotification(id: id, title: title, body: body));
+        // notifi.add(MyNotification(id: id, title: title, body: body));
 
-        // Encode and store data in SharedPreferences
-        final String encodedData = MyNotification.encode(notifi);
-        id++;
-        await prefs.setString('notifications_key', encodedData);
+        // // Encode and store data in SharedPreferences
+        // final String encodedData = MyNotification.encode(notifi);
+        // id++;
+        // await prefs.setString('notifications_key', encodedData);
 
         await triggerNotification(title, body);
       } catch (e) {

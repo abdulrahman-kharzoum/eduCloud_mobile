@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -8,6 +10,7 @@ import 'package:dio/dio.dart' as Dio;
 class Apis with ChangeNotifier {
   static Map<String, dynamic> responseMessage = {};
   static List<dynamic> marksDataList = [];
+  static Map<String, dynamic> notifications = {};
   static Map<String, dynamic> studentData = {};
   static Map<String, dynamic> studentExpensesInfo = {};
   static Map<String, dynamic> studentExpensesSchoolInfo = {};
@@ -166,6 +169,33 @@ class Apis with ChangeNotifier {
           '................................get student expenses buss data server ${response.statusCode}');
       print(response.data);
       studentExpensesBusInfo = response.data;
+      notifyListeners();
+      print('................................');
+    } on DioException catch (e) {
+      print(e);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> notificationList() async {
+    final SharedPreferences _preferences =
+        await SharedPreferences.getInstance();
+    try {
+      Dio.Response response = await dio().get(
+        "/student/getNotificationsOfStudent/-1",
+        options: Dio.Options(
+          headers: {
+            'Authorization': 'Bearer ${_preferences.getString('token')}'
+          },
+        ),
+      );
+      print(
+          '................................get student notification ${response.statusCode}');
+      print(response.data);
+
+
+      notifications =response.data;
       notifyListeners();
       print('................................');
     } on DioException catch (e) {
