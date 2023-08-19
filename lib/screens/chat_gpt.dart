@@ -1,201 +1,185 @@
-import 'package:fl_chart/fl_chart.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:educloud_mobile/models/model.dart';
+import 'package:educloud_mobile/screens/supervisor/chat_super_screen.dart';
+import 'package:educloud_mobile/sever/apis.dart';
+import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
-class LineChartSample11 extends StatefulWidget {
-  const LineChartSample11({super.key});
+import '../common_widgets/BackgroundPaint.dart';
+import '../widgets/app_drawer.dart';
+import '../widgets/super_header_widget.dart';
+
+class contactScreen extends StatefulWidget {
+  const contactScreen({
+    super.key,
+  });
 
   @override
-  State<LineChartSample11> createState() => _LineChartSample11State();
+  State<contactScreen> createState() => _contactScreenState();
 }
 
-class _LineChartSample11State extends State<LineChartSample11> {
-  var baselineX = 0.0;
-  var baselineY = 0.0;
+class _contactScreenState extends State<contactScreen> {
+  bool _isLoading = false;
+  Future<void> getData() async {
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      await Provider.of<Apis>(context, listen: false).supervisorContacts();
+      print('hello');
+      setState(() {
+        _isLoading = false;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 1.5,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 18.0,
-          right: 18.0,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Row(
-                children: [
-                  RotatedBox(
-                    quarterTurns: 1,
-                    child: Slider(
-                      value: baselineY,
-                      onChanged: (newValue) {
-                        setState(() {
-                          baselineY = newValue;
-                        });
-                      },
-                      min: -10,
-                      max: 10,
-                    ),
-                  ),
-                  Expanded(
-                    child: _Chart(
-                      baselineX,
-                      (20 - (baselineY + 10)) - 10,
-                    ),
-                  )
-                ],
+    return _isLoading
+        ? Scaffold(
+            body: Stack(
+              children: [
+                CustomPaint(
+                  //this for the background
+                  size: Size(
+                    MediaQuery.of(context).size.width,
+                    MediaQuery.of(context).size.height,
+                    // (screenWidth * 2.1434668500180276)
+                    //     .toDouble()
+                  ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                  painter: Background(),
+                ),
+                Center(
+                  child: Lottie.asset(
+                      width: MediaQuery.of(context).size.width / 3,
+                      'assets/lotties/loading.json'),
+                )
+              ],
+            ),
+          )
+        : Scaffold(
+            extendBodyBehindAppBar: true,
+            drawer: const appDrawer(),
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: Container(
+                margin: context.locale.toString() == 'en'
+                    ? EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width / 100,
+                        bottom: MediaQuery.of(context).size.height / 100)
+                    : EdgeInsets.only(
+                        right: MediaQuery.of(context).size.width / 100,
+                        bottom: MediaQuery.of(context).size.height / 100),
+                child: supervisorHeaderWidget(
+                  titleColor: AppColors.mainColor,
+                  StudentName: 'Supervisor',
+                  classGrade: {'name': 'chat supervisor'},
+                  grade: {'name': ''},
+                ),
               ),
             ),
-            Slider(
-              value: baselineX,
-              onChanged: (newValue) {
-                setState(() {
-                  baselineX = newValue;
-                });
-              },
-              min: -10,
-              max: 10,
+            body: Stack(
+              children: [
+                CustomPaint(
+                  //this for the background
+                  size: Size(
+                    MediaQuery.of(context).size.width,
+                    MediaQuery.of(context).size.height,
+                  ),
+                  painter: Background(),
+                ),
+                ListView.builder(
+                  // padding: EdgeInsets.zero,
+                  itemCount:
+                      Apis.supervisorContactsData['conversations'].length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      child: ListTile(
+                        leading: CircleAvatar(
+                          // You can use an image here as the user's icon
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: AppColors.mainColor, // Border color
+                                width: 1.0, // Border width
+                              ),
+                            ),
+                            child: const Center(child: Icon(Icons.person)),
+                          ),
+                        ),
+                        title: Text(
+                          Apis.supervisorContactsData['conversations'][index]
+                              ['student']['full_name'],
+                          style: TextStyle(
+                            color: AppColors.titleTextColor,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Euclid Circular A',
+                          ),
+                        ),
+                        subtitle: Apis.supervisorContactsData['conversations']
+                                [index]['complaint']
+                            ? Text(
+                                Apis.supervisorContactsData['conversations']
+                                    [index]['body'],
+                                style: const TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Euclid Circular A',
+                                ),
+                              )
+                            : const Text(
+                                'Hi, i am using eduCloud',
+                                style: TextStyle(
+                                  color: Colors.black54,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Euclid Circular A',
+                                ),
+                              ),
+                        trailing: Text(
+                          Apis.supervisorContactsData['conversations'][index]
+                                  ['date_time']
+                              .toString()
+                              .substring(0, 10),
+                          style: const TextStyle(
+                            color: Colors.black54,
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Euclid Circular A',
+                          ),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            Model.StudentId =
+                                Apis.supervisorContactsData['conversations']
+                                    [index]['student_id'];
+                          });
+                          Navigator.of(context).pushNamed(
+                            superChatScreen.routeName,
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _Chart extends StatelessWidget {
-  final double baselineX;
-  final double baselineY;
-
-  const _Chart(this.baselineX, this.baselineY) : super();
-
-  Widget getHorizontalTitles(value, TitleMeta meta) {
-    TextStyle style;
-    if ((value - baselineX).abs() <= 0.1) {
-      style = const TextStyle(
-        color: Colors.white,
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-      );
-    } else {
-      style = const TextStyle(
-        color: Colors.white60,
-        fontSize: 14,
-      );
-    }
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Text(meta.formattedValue, style: style),
-    );
-  }
-
-  Widget getVerticalTitles(value, TitleMeta meta) {
-    TextStyle style;
-    if ((value - baselineY).abs() <= 0.1) {
-      style = const TextStyle(
-        color: Colors.white,
-        fontSize: 18,
-        fontWeight: FontWeight.bold,
-      );
-    } else {
-      style = const TextStyle(
-        color: Colors.white60,
-        fontSize: 14,
-      );
-    }
-
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Text(meta.formattedValue, style: style),
-    );
-  }
-
-  FlLine getHorizontalVerticalLine(double value) {
-    if ((value - baselineY).abs() <= 0.1) {
-      return FlLine(
-        color: Colors.white70,
-        strokeWidth: 1,
-        dashArray: [8, 4],
-      );
-    } else {
-      return FlLine(
-        color: Colors.blueGrey,
-        strokeWidth: 0.4,
-        dashArray: [8, 4],
-      );
-    }
-  }
-
-  FlLine getVerticalVerticalLine(double value) {
-    if ((value - baselineX).abs() <= 0.1) {
-      return FlLine(
-        color: Colors.white70,
-        strokeWidth: 1,
-        dashArray: [8, 4],
-      );
-    } else {
-      return FlLine(
-        color: Colors.blueGrey,
-        strokeWidth: 0.4,
-        dashArray: [8, 4],
-      );
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return LineChart(
-      LineChartData(
-        lineBarsData: [
-          LineChartBarData(
-            spots: [],
-          ),
-        ],
-        titlesData: FlTitlesData(
-          leftTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              getTitlesWidget: getVerticalTitles,
-              reservedSize: 36,
-            ),
-          ),
-          topTitles: AxisTitles(
-            sideTitles: SideTitles(
-                showTitles: true,
-                getTitlesWidget: getHorizontalTitles,
-                reservedSize: 32),
-          ),
-          rightTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              getTitlesWidget: getVerticalTitles,
-              reservedSize: 36,
-            ),
-          ),
-          bottomTitles: AxisTitles(
-            sideTitles: SideTitles(
-                showTitles: true,
-                getTitlesWidget: getHorizontalTitles,
-                reservedSize: 32),
-          ),
-        ),
-        gridData: FlGridData(
-          show: true,
-          drawHorizontalLine: true,
-          drawVerticalLine: true,
-          getDrawingHorizontalLine: getHorizontalVerticalLine,
-          getDrawingVerticalLine: getVerticalVerticalLine,
-        ),
-        minY: -10,
-        maxY: 10,
-        baselineY: baselineY,
-        minX: -10,
-        maxX: 10,
-        baselineX: baselineX,
-      ),
-    );
+          );
   }
 }

@@ -58,7 +58,8 @@ class _HomeScreenState extends State<HomeScreen>
             MarksPoints.dataChart2.add(double.parse(
                 Apis.studentData['data']['marks'][i]['mark'].toString()));
           }
-          if (Apis.studentData['data']['marks'][i]['type_name'] == 'امتحان') {
+          if (Apis.studentData['data']['marks'][i]['type_name'] == 'امتحان' ||
+              Apis.studentData['data']['marks'][i]['type_name'] == 'مذاكرة') {
             MarksPoints.dataChart1.add(double.parse(
                 Apis.studentData['data']['marks'][i]['mark'].toString()));
           }
@@ -177,12 +178,25 @@ class _HomeScreenState extends State<HomeScreen>
                           ),
                         ),
                         GestureDetector(
-                            onTap: () => Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          LineChartSample11()),
-                                ),
+                            // onTap: () => Navigator.push(
+                            //       context,
+                            //       MaterialPageRoute(
+                            //           builder: (context) => LineChartSample11(
+                            //                 contacts: [
+                            //                   Contact('alaa'),
+                            //                   Contact('alaa'),
+                            //                   Contact('alaa'),
+                            //                   Contact('alaa'),
+                            //                   Contact('alaa'),
+                            //                   Contact('alaa'),
+                            //                   Contact('alaa'),
+                            //                   Contact('alaa'),
+                            //                   Contact('alaa'),
+                            //                   Contact('alaa'),
+                            //                 ],
+                            //               )),
+
+                            //     ),
                             child: advertisementesContainerWidget(
                                 screenHight: screenHight)),
                         SizedBox(

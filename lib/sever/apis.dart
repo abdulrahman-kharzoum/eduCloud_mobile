@@ -10,8 +10,10 @@ import 'package:dio/dio.dart' as Dio;
 class Apis with ChangeNotifier {
   static Map<String, dynamic> responseMessage = {};
   static List<dynamic> marksDataList = [];
+  static Map<String, dynamic> supervisorContactsData = {};
   static Map<String, dynamic> notifications = {};
   static Map<String, dynamic> studentData = {};
+  static Map<String, dynamic> supervisorChatData = {};
   static Map<String, dynamic> studentExpensesInfo = {};
   static Map<String, dynamic> studentExpensesSchoolInfo = {};
   static Map<String, dynamic> studentExpensesBusInfo = {};
@@ -23,6 +25,41 @@ class Apis with ChangeNotifier {
     try {
       Dio.Response response = await dio().post(
         "/general/message/-1",
+        data: {
+          'message': message,
+          'date_time': date,
+        },
+        options: Dio.Options(
+          headers: {
+            'Authorization': 'Bearer ${_preferences.getString('token')}'
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        print(
+            '................................send complaint server ${response.statusCode}');
+        print(response.data);
+        responseMessage = response.data;
+        notifyListeners();
+        print('................................');
+      }
+    } on DioException catch (e) {
+      print(e);
+      print(dio().options.baseUrl);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> sendComplaintSup(
+      {required String message,
+      required String date,
+      required String id}) async {
+    final SharedPreferences _preferences =
+        await SharedPreferences.getInstance();
+    try {
+      Dio.Response response = await dio().post(
+        "/general/message/$id",
         data: {
           'message': message,
           'date_time': date,
@@ -169,33 +206,6 @@ class Apis with ChangeNotifier {
           '................................get student expenses buss data server ${response.statusCode}');
       print(response.data);
       studentExpensesBusInfo = response.data;
-      notifyListeners();
-      print('................................');
-    } on DioException catch (e) {
-      print(e);
-    } catch (e) {
-      print(e);
-    }
-  }
-
-  Future<void> notificationList() async {
-    final SharedPreferences _preferences =
-        await SharedPreferences.getInstance();
-    try {
-      Dio.Response response = await dio().get(
-        "/student/getNotificationsOfStudent/-1",
-        options: Dio.Options(
-          headers: {
-            'Authorization': 'Bearer ${_preferences.getString('token')}'
-          },
-        ),
-      );
-      print(
-          '................................get student notification ${response.statusCode}');
-      print(response.data);
-
-
-      notifications =response.data;
       notifyListeners();
       print('................................');
     } on DioException catch (e) {

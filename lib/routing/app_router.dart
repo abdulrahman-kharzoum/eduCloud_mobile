@@ -1,3 +1,4 @@
+import 'package:educloud_mobile/screens/chat_gpt.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/installments_screen.dart';
 import 'package:educloud_mobile/screens/supervisor/busSup_screen.dart';
@@ -33,6 +34,7 @@ class AppRouter {
   static String get mark2Screen => '/mark2-screen';
   static String get mark1Screen => '/mark1-screen';
   static String get suggestionScreen => '/suggestion-screen';
+  static String get supervisorContacts => '/super-screen';
 
   static String get notificationScreen => '/notification-screen';
   static String get settingsScreen => '/settings-screen';
@@ -71,6 +73,8 @@ class AppRouter {
         MaterialPageRoute(builder: (_) => TrackingBus(), settings: s),
     homeScreenSup: (s) =>
         MaterialPageRoute(builder: (_) => HomeScreenSup(), settings: s),
+    supervisorContacts: (s) =>
+        MaterialPageRoute(builder: (_) => contactScreen(), settings: s),
     absencesScreen2: (s) =>
         MaterialPageRoute(builder: (_) => AbsencesScreen2(), settings: s),
     absencesScreen: (s) =>

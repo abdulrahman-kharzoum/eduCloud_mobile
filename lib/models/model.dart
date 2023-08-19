@@ -5,4 +5,5 @@ class Model {
   var passwordController = TextEditingController();
   bool passwordVisibility = false;
   Model();
+  static int StudentId = 0;
 }
