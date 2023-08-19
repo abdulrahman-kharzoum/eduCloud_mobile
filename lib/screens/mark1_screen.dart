@@ -81,134 +81,139 @@ class Mark1Screen extends StatelessWidget {
           ),
         ],
       ),
-      body: CustomPaint(
-        //this for the background
-        size: Size(
-            screenWidth,
-            (screenWidth * 2.1434668500180276)
-                .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-        painter: Background(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            //this head widget for user name and image and grade
-            Stack(
-              children: [
-                CustomPaint(
-                  child: CustomPaint(
-                    size: Size(
-                        screenWidth,
-                        (screenWidth * 0.6521739130434783)
-                            .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-                    painter: RPSCustomPainter(),
-                  ),
-                ),
-                Container(
-                  margin: context.locale.toString() == 'en'
-                      ? EdgeInsets.only(
-                          top: screenHight / 17, left: screenWidth / 5)
-                      : EdgeInsets.only(
-                          top: screenHight / 17, right: screenWidth / 5),
-                  child: headProfileWidget(
-                    icon: Icon(
-                      CupertinoIcons.person,
-                      size: 25,
-                    ),
-                    circleColor: AppColors.secondaryColor,
-                    screenHight: screenHight,
-                    screenWidth: screenWidth,
-                    nameColor: AppColors.secondaryColor,
-                  ),
-                ),
-                Column(
+      body: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          CustomPaint(
+            //this for the background
+            size: Size(
+                screenWidth,
+                (screenWidth * 2.1434668500180276)
+                    .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+            painter: Background(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                //this head widget for user name and image and grade
+                Stack(
                   children: [
-                    SizedBox(
-                      height: 190,
-                    ),
-                    Center(
-                      child: Container(
-                        margin:
-                            EdgeInsets.symmetric(horizontal: screenWidth / 30),
-                        // width: screenWidth - 50,
-                        child: LineChartWidget(
-                            MarksPoints.marksPoints(),
-                            MarksPoints.marksPoints2(),
-                            LocaleKeys.studentSituation.tr(),
-                            2.2),
+                    CustomPaint(
+                      child: CustomPaint(
+                        size: Size(
+                            screenWidth,
+                            (screenWidth * 0.6521739130434783)
+                                .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                        painter: RPSCustomPainter(),
                       ),
                     ),
-                  ],
-                ),
-                Positioned(
-                  top: 120,
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 110, left: 110),
-                    child: Row(
+                    Container(
+                      margin: context.locale.toString() == 'en'
+                          ? EdgeInsets.only(
+                              top: screenHight / 17, left: screenWidth / 5)
+                          : EdgeInsets.only(
+                              top: screenHight / 17, right: screenWidth / 5),
+                      child: headProfileWidget(
+                        icon: Icon(
+                          CupertinoIcons.person,
+                          size: 25,
+                        ),
+                        circleColor: AppColors.secondaryColor,
+                        screenHight: screenHight,
+                        screenWidth: screenWidth,
+                        nameColor: AppColors.secondaryColor,
+                      ),
+                    ),
+                    Column(
                       children: [
-                        Column(
-                          children: [
-                            Text(
-                              "37",
-                              style: AppTextStyles.textTitleStyle
-                                  .copyWith(color: AppColors.secondaryColor),
-                            ),
-                            Text(
-                              "Arrangement",
-                              style: AppTextStyles.miniTitle
-                                  .copyWith(color: AppColors.secondaryColor),
-                            )
-                          ],
-                        ),
                         SizedBox(
-                          width: 60,
+                          height: 190,
                         ),
-                        Column(
-                          children: [
-                            Text(
-                              "3500",
-                              style: AppTextStyles.textTitleStyle
-                                  .copyWith(color: AppColors.secondaryColor),
-                            ),
-                            Text(
-                              "Grand total",
-                              style: AppTextStyles.miniTitle
-                                  .copyWith(color: AppColors.secondaryColor),
-                            )
-                          ],
-                        )
+                        Center(
+                          child: Container(
+                            margin: EdgeInsets.symmetric(
+                                horizontal: screenWidth / 30),
+                            // width: screenWidth - 50,
+                            child: LineChartWidget(
+                                MarksPoints.marksPoints(),
+                                MarksPoints.marksPoints2(),
+                                LocaleKeys.studentSituation.tr(),
+                                2.2),
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                )
+                    Positioned(
+                      top: 120,
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 110, left: 110),
+                        child: Row(
+                          children: [
+                            Column(
+                              children: [
+                                Text(
+                                  "37",
+                                  style: AppTextStyles.textTitleStyle.copyWith(
+                                      color: AppColors.secondaryColor),
+                                ),
+                                Text(
+                                  "Arrangement",
+                                  style: AppTextStyles.miniTitle.copyWith(
+                                      color: AppColors.secondaryColor),
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              width: 60,
+                            ),
+                            Column(
+                              children: [
+                                Text(
+                                  "3500",
+                                  style: AppTextStyles.textTitleStyle.copyWith(
+                                      color: AppColors.secondaryColor),
+                                ),
+                                Text(
+                                  "Grand total",
+                                  style: AppTextStyles.miniTitle.copyWith(
+                                      color: AppColors.secondaryColor),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                GestureDetector(
+                  onTap: () =>
+                      Navigator.of(context).pushNamed(AppRouter.mark2Screen),
+                  child: MarkWidget(
+                      title: LocaleKeys.examsMarks.tr(),
+                      img: "assets/markScreen/examsMarks.jpg",
+                      screenWidth: screenWidth),
+                ),
+
+                GestureDetector(
+                  onTap: () =>
+                      Navigator.of(context).pushNamed(AppRouter.mark2Screen),
+                  child: MarkWidget(
+                      title: LocaleKeys.quizzesMarks.tr(),
+                      img: "assets/markScreen/quizzesMarks.jpg",
+                      screenWidth: screenWidth),
+                ),
+                GestureDetector(
+                  onTap: () =>
+                      Navigator.of(context).pushNamed(AppRouter.mark2Screen),
+                  child: MarkWidget(
+                      title: LocaleKeys.teacherNotes.tr(),
+                      img: "assets/markScreen/teacherNotes.jpg",
+                      screenWidth: screenWidth),
+                ),
               ],
             ),
-            GestureDetector(
-              onTap: () =>
-                  Navigator.of(context).pushNamed(AppRouter.mark2Screen),
-              child: MarkWidget(
-                  title: LocaleKeys.examsMarks.tr(),
-                  img: "assets/markScreen/examsMarks.jpg",
-                  screenWidth: screenWidth),
-            ),
-
-            GestureDetector(
-              onTap: () =>
-                  Navigator.of(context).pushNamed(AppRouter.mark2Screen),
-              child: MarkWidget(
-                  title: LocaleKeys.quizzesMarks.tr(),
-                  img: "assets/markScreen/quizzesMarks.jpg",
-                  screenWidth: screenWidth),
-            ),
-            GestureDetector(
-              onTap: () =>
-                  Navigator.of(context).pushNamed(AppRouter.mark2Screen),
-              child: MarkWidget(
-                  title: LocaleKeys.teacherNotes.tr(),
-                  img: "assets/markScreen/teacherNotes.jpg",
-                  screenWidth: screenWidth),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
