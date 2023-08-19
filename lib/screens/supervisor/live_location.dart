@@ -227,75 +227,78 @@ class OrderTrackingPageState extends State<OrderTrackingPage> {
                     },
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: AppColors.gradientColorsButtom,
-                        ),
-                      ),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
-
-                          elevation: 0, // No shadow
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: AppColors.gradientColorsButtom,
                           ),
                         ),
-                        onPressed: () {
-                          setState(() {
-                            markingStartLocation = true;
-                            markingEndLocation = false;
-                          });
-                        },
-                        child: Text(
-                          LocaleKeys.startingPoint.tr(),
-                          style: AppTextStyles.poppinsTitle
-                              .copyWith(color: AppColors.secondaryColor),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: AppColors.gradientColorsButtom,
-                        ),
-                      ),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.transparent,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
 
-                          elevation: 0, // No shadow
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0),
+                            elevation: 0, // No shadow
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              markingStartLocation = true;
+                              markingEndLocation = false;
+                            });
+                          },
+                          child: Text(
+                            LocaleKeys.startingPoint.tr(),
+                            style: AppTextStyles.poppinsTitle
+                                .copyWith(color: AppColors.secondaryColor),
                           ),
                         ),
-                        onPressed: () {
-                          setState(() {
-                            markingStartLocation = false;
-                            markingEndLocation = true;
-                          });
-                        },
-                        child: Text(
-                          LocaleKeys.endPoint.tr(),
-                          style: AppTextStyles.poppinsTitle
-                              .copyWith(color: AppColors.secondaryColor),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: AppColors.gradientColorsButtom,
+                          ),
+                        ),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.transparent,
+
+                            elevation: 0, // No shadow
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              markingStartLocation = false;
+                              markingEndLocation = true;
+                            });
+                          },
+                          child: Text(
+                            LocaleKeys.endPoint.tr(),
+                            style: AppTextStyles.poppinsTitle
+                                .copyWith(color: AppColors.secondaryColor),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ],
             ),

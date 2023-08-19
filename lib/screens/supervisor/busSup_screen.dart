@@ -1,47 +1,48 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/routing/app_router.dart';
+import 'package:educloud_mobile/screens/supervisor/head_profile_sup.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:educloud_mobile/widgets/app_drawer.dart';
+import 'package:educloud_mobile/widgets/bus_screen_widgets/app_drawerSup.dart';
+import 'package:educloud_mobile/widgets/bus_screen_widgets/bus_screen_container_widget.dart';
+import 'package:educloud_mobile/widgets/bus_screen_widgets/map_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/bus_screen_widgets/bus_screen_container_widget.dart';
-import '../widgets/bus_screen_widgets/map_widget.dart';
-import '../widgets/head_profile_widget.dart';
-
 // ignore: camel_case_types
-class schoolBusScreen extends StatefulWidget {
+class BusSupScreen extends StatefulWidget {
   static const String routeName = '';
-  const schoolBusScreen({super.key});
+  const BusSupScreen({super.key});
 
   @override
-  State<schoolBusScreen> createState() => _schoolBusScreenState();
+  State<BusSupScreen> createState() => _BusSupScreenState();
 }
 
 // ignore: camel_case_types
-class _schoolBusScreenState extends State<schoolBusScreen> {
+class _BusSupScreenState extends State<BusSupScreen> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHight = MediaQuery.of(context).size.height;
     return Scaffold(
-      drawer: const appDrawer(),
+      drawer: const appDrawerSup(),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: 60,
-        actions: [
-          IconButton(
-              icon: Icon(
-                Icons.arrow_forward,
-                color: AppColors.mainColor,
-              ),
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
-              }),
-        ],
+        // actions: [
+        //   IconButton(
+        //       icon: Icon(
+        //         Icons.arrow_forward,
+        //         color: AppColors.mainColor,
+        //       ),
+        //       onPressed: () {
+        //         Navigator.pushReplacementNamed(
+        //             context, AppRouter.homeScreenSup);
+        //       }),
+        // ],
         title: Container(
           margin: context.locale.toString() == 'en'
               ? EdgeInsets.only(left: screenWidth / 100, top: screenHight / 100)
@@ -50,7 +51,9 @@ class _schoolBusScreenState extends State<schoolBusScreen> {
           child: InkWell(
             onTap: () =>
                 Navigator.of(context).pushNamed(AppRouter.profileScreen),
-            child: headProfileWidget(
+            child: headSupWidget(
+              userName: "Ali Ahmed",
+              userRole: "Bus Supervisor",
               icon: const Icon(
                 CupertinoIcons.person,
                 size: 25,
@@ -123,29 +126,60 @@ class _schoolBusScreenState extends State<schoolBusScreen> {
             mapWidget(
               screenWidth: screenWidth,
               screenHight: screenHight,
-              bottom: InkWell(
-                onTap: () =>
-                    Navigator.of(context).pushNamed(AppRouter.trackingBus),
-                child: Container(
-                  height: screenHight / 20,
-                  width: screenWidth / 2.5,
-                  decoration: BoxDecoration(
-                    color: AppColors.mainColor,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(15),
-                    ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      LocaleKeys.follownow.tr(),
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+              bottom: Column(
+                children: [
+                  InkWell(
+                    onTap: () => Navigator.of(context)
+                        .pushNamed(AppRouter.locationScreen),
+                    child: Container(
+                      height: screenHight / 20,
+                      width: screenWidth / 2.5,
+                      decoration: BoxDecoration(
+                        color: AppColors.mainColor,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          LocaleKeys.leavingTrip.tr(),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  InkWell(
+                    onTap: () => Navigator.of(context)
+                        .pushNamed(AppRouter.locationScreen),
+                    child: Container(
+                      height: screenHight / 20,
+                      width: screenWidth / 2.5,
+                      decoration: BoxDecoration(
+                        color: AppColors.mainColor,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          LocaleKeys.returnTrip.tr(),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

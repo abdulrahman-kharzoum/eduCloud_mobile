@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
         onGenerateRoute: AppRouter().generateRoute,
         home: SplashScreen(),
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'EduCloud',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,

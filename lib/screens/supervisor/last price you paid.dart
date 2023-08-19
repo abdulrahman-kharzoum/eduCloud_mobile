@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:educloud_mobile/screens/supervisor/head_profile_sup.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
+import 'package:educloud_mobile/widgets/bus_screen_widgets/app_drawerSup.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +42,7 @@ class PricePaid extends StatelessWidget {
     };
     final Size mediaQuery = Size(screenWidth, screenHight / 1.3);
     return Scaffold(
+      drawer: const appDrawerSup(),
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         leading: IconButton(
@@ -58,13 +61,14 @@ class PricePaid extends StatelessWidget {
                 ? EdgeInsets.only(top: screenHight / 17, left: screenWidth / 5)
                 : EdgeInsets.only(
                     top: screenHight / 17, right: screenWidth / 5),
-            child: headProfileWidget(
-              icon: Icon(
-                CupertinoIcons.bus,
-                color: AppColors.secondaryColor,
+            child: headSupWidget(
+              userName: "Ali Ahmed",
+              userRole: "Bus Supervisor",
+              icon: const Icon(
+                CupertinoIcons.person,
                 size: 25,
               ),
-              circleColor: AppColors.mainColor,
+              circleColor: AppColors.secondaryColor,
               screenHight: screenHight,
               screenWidth: screenWidth,
               nameColor: AppColors.mainColor,
