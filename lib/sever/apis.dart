@@ -214,4 +214,82 @@ class Apis with ChangeNotifier {
       print(e);
     }
   }
+
+  Future<void> supervisorChat(String id) async {
+    final SharedPreferences _preferences =
+        await SharedPreferences.getInstance();
+    print(_preferences.getString('token'));
+    try {
+      Dio.Response response = await dio().get(
+        "/general/complaintChat/$id",
+        options: Dio.Options(
+          headers: {
+            'Authorization': 'Bearer ${_preferences.getString('token')}'
+          },
+        ),
+      );
+      print(
+          '................................get supervisor chat  data server ${response.statusCode}');
+      print(response.data);
+      supervisorChatData = response.data;
+      notifyListeners();
+      print('................................');
+    } on DioException catch (e) {
+      print(e.error);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> supervisorContacts() async {
+    final SharedPreferences _preferences =
+        await SharedPreferences.getInstance();
+    print(_preferences.getString('token'));
+    try {
+      Dio.Response response = await dio().get(
+        "/general/getSupervisorsConversations",
+        options: Dio.Options(
+          headers: {
+            'Authorization': 'Bearer ${_preferences.getString('token')}'
+          },
+        ),
+      );
+      print(
+          '................................get supervisor contacts  data server ${response.statusCode}');
+      print(response.data);
+      supervisorContactsData = response.data;
+      notifyListeners();
+      print('................................');
+    } on DioException catch (e) {
+      print(e.error);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> notificationList() async {
+    final SharedPreferences _preferences =
+        await SharedPreferences.getInstance();
+    try {
+      Dio.Response response = await dio().get(
+        "/student/getNotificationsOfStudent/-1",
+        options: Dio.Options(
+          headers: {
+            'Authorization': 'Bearer ${_preferences.getString('token')}'
+          },
+        ),
+      );
+      print(
+          '................................get student notification ${response.statusCode}');
+      print(response.data);
+
+      notifications = response.data;
+      notifyListeners();
+      print('................................');
+    } on DioException catch (e) {
+      print(e);
+    } catch (e) {
+      print(e);
+    }
+  }
 }
