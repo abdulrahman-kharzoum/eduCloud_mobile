@@ -564,6 +564,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                                 context, AppRouter.homeScreen);
                                           } else if (_preferences
                                               .getStringList(role)!
+                                              .contains("pricipal")) {
+                                            Navigator.pushNamed(context,
+                                                AppRouter.supervisorContacts);
+                                          } else if (_preferences
+                                              .getStringList(role)!
+                                              .contains("supervisor")) {
+                                            Navigator.pushNamed(context,
+                                                AppRouter.supervisorContacts);
+                                          } else if (_preferences
+                                              .getStringList(role)!
                                               .contains("busSupervisor")) {
                                             Navigator.pushNamed(context,
                                                 AppRouter.homeScreenSup);

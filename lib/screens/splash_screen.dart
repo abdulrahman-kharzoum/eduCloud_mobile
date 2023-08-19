@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../routing/app_router.dart';
+import '../screens/chat_gpt.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -39,12 +40,18 @@ class _SplashScreenState extends State<SplashScreen> {
           _perf.containsKey(role) &&
           _perf.getStringList(role)!.contains("student")) {
         Navigator.pushReplacementNamed(context, AppRouter.homeScreen);
-
-        /* Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return homeScreen();
-          },
-        ));*/
+      } else if (_perf.containsKey(token) &&
+          _perf.getString(token)!.isNotEmpty &&
+          _perf.containsKey(role) &&
+          _perf.getStringList(role)!.contains("principal")) {
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacementNamed(context, AppRouter.supervisorContacts);
+      } else if (_perf.containsKey(token) &&
+          _perf.getString(token)!.isNotEmpty &&
+          _perf.containsKey(role) &&
+          _perf.getStringList(role)!.contains("supervisor")) {
+        // ignore: use_build_context_synchronously
+        Navigator.pushReplacementNamed(context, AppRouter.supervisorContacts);
       } else if (_perf.containsKey(token) &&
           _perf.getString(token)!.isNotEmpty &&
           _perf.containsKey(role) &&

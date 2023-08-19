@@ -100,11 +100,11 @@ class installmentsTab extends StatelessWidget {
                       animationDuration: 1000,
                       radius: 34,
                       lineWidth: 8,
-                      percent: 1 / totalPrice,
+                      percent: paied / totalPrice,
                       progressColor: AppColors.blueNormal,
                       circularStrokeCap: CircularStrokeCap.round,
                       center: Text(
-                        '${((paied * 100) / totalPrice)}%',
+                        '${((paied * 100) / totalPrice).toStringAsFixed(2)}%',
                         style: const TextStyle(
                             fontSize: 12, fontWeight: FontWeight.bold),
                       ),

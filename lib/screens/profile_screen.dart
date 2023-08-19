@@ -12,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:ui' as ui;
 
-import '../models/user.dart';
 import '../routing/app_router.dart';
 import '../sever/apis.dart';
 

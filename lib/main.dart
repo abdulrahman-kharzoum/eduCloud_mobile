@@ -7,6 +7,7 @@ import 'package:educloud_mobile/providers/onboarding_proivder.dart';
 import 'package:educloud_mobile/providers/user_provider.dart';
 import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/screens/splash_screen.dart';
+import 'package:educloud_mobile/screens/supervisor/chat_super_screen.dart';
 import 'package:educloud_mobile/sever/apis.dart';
 import 'package:educloud_mobile/services/notification_services.dart';
 import 'package:educloud_mobile/services/pusher_services.dart';
@@ -72,6 +73,7 @@ class MyApp extends StatelessWidget {
         supportedLocales: context.supportedLocales,
         localizationsDelegates: context.localizationDelegates,
         locale: context.locale,
+        routes: {superChatScreen.routeName: (context) => superChatScreen()},
       ),
     );
   }
