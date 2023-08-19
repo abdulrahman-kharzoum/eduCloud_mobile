@@ -1,6 +1,7 @@
 import 'package:educloud_mobile/screens/chat_gpt.dart';
 import 'package:educloud_mobile/screens/home_screen.dart';
 import 'package:educloud_mobile/screens/installments_screen.dart';
+import 'package:educloud_mobile/screens/supervisor/busSup_screen.dart';
 import 'package:educloud_mobile/screens/supervisor/live_location.dart';
 import 'package:educloud_mobile/screens/mark1_screen.dart';
 import 'package:educloud_mobile/screens/notification_screen.dart';
@@ -47,6 +48,7 @@ class AppRouter {
   static String get absencesScreen2 => '/absencesScreen2-screen';
   static String get homeScreenSup => '/homeScreenSup-screen';
   static String get trackingBus => '/trackingBus-screen';
+  static String get busSupScreen => '/busSup-screen';
 
   Route<dynamic> generateRoute(RouteSettings settings) {
     try {
@@ -65,6 +67,8 @@ class AppRouter {
   });
 
   Map<String, MaterialPageRoute Function(RouteSettings)> routesMap = {
+    busSupScreen: (s) =>
+        MaterialPageRoute(builder: (_) => BusSupScreen(), settings: s),
     trackingBus: (s) =>
         MaterialPageRoute(builder: (_) => TrackingBus(), settings: s),
     homeScreenSup: (s) =>

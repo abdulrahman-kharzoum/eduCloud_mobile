@@ -12,9 +12,7 @@ class Common_Button extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 5, bottom: 5),
       child: GestureDetector(
-        onTap: () {
-          // Handle button press here
-        },
+        onTap: onTap,
         child: Container(
           margin: EdgeInsets.symmetric(horizontal: 70),
           // padding: EdgeInsets.only(right: 16, left: 16),

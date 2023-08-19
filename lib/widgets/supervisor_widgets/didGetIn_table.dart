@@ -13,6 +13,7 @@ class TripTable extends StatefulWidget {
       required this.button_text,
       required this.data,
       required this.icon,
+       this.onTap,
       this.icon2,
       super.key});
   final Size mediaQuery;
@@ -21,6 +22,7 @@ class TripTable extends StatefulWidget {
   Icon icon;
   final Icon? icon2;
   final Map<String, dynamic> data;
+  final VoidCallback? onTap;
 
   @override
   State<TripTable> createState() => _TripTableState();
@@ -147,10 +149,12 @@ class _TripTableState extends State<TripTable> {
             ],
           ),
           SizedBox(height: widget.mediaQuery.height / 3.1),
-          Common_Button(
-            text: widget.button_text,
-            onTap: () {},
-          ),
+
+         Common_Button(
+              text: widget.button_text,
+              onTap:widget.onTap,
+            ),
+
         ],
       ),
     );
