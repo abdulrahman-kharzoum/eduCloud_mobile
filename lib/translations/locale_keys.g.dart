@@ -84,4 +84,5 @@ abstract class LocaleKeys {
   static const endPoint = 'endPoint';
   static const maps = 'maps';
   static const grade = 'grade';
+  static const sorrymony = 'sorrymony';
 }

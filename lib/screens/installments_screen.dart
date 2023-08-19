@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:educloud_mobile/sever/apis.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -144,9 +145,9 @@ class _InstallmentsScreenState extends State<InstallmentsScreen>
                 Tab(
                   text: LocaleKeys.school.tr(),
                 ),
-                Tab(
-                  text: LocaleKeys.donations.tr(),
-                ),
+                // Tab(
+                //   text: LocaleKeys.donations.tr(),
+                // ),
               ],
             ),
             SizedBox(
@@ -225,9 +226,41 @@ class SlidesForTabs extends StatelessWidget {
       child: TabBarView(
         controller: controller,
         children: [
-          installmentsTab(mediaQuery: mediaQuery, data: data),
-          installmentsTab(mediaQuery: mediaQuery, data: data),
-          installmentsTab(mediaQuery: mediaQuery, data: data),
+          //bus
+          Apis.studentExpensesInfo['data']['busBill'] != null
+              ? installmentsTab(
+                  mediaQuery: mediaQuery,
+                  data: Apis.studentExpensesBusInfo['data'],
+                  paied: Apis.studentExpensesInfo['data']['paidForBusBill'],
+                  totalPrice: Apis.studentExpensesInfo['data']['busBill']
+                      ['value'],
+                  haveToPay: Apis.studentExpensesInfo['data']['busBill']
+                          ['value'] -
+                      Apis.studentExpensesInfo['data']['paidForBusBill'])
+              : installmentsTab(
+                  mediaQuery: mediaQuery,
+                  data: [],
+                  paied: Apis.studentExpensesInfo['data']['paidForBusBill'],
+                  totalPrice: -1,
+                  haveToPay: -1),
+          //school
+          Apis.studentExpensesInfo['data']['schoolBill'] != null
+              ? installmentsTab(
+                  mediaQuery: mediaQuery,
+                  data: Apis.studentExpensesSchoolInfo['data'],
+                  paied: Apis.studentExpensesInfo['data']['paidForSchoolBill'],
+                  totalPrice: Apis.studentExpensesInfo['data']['schoolBill']
+                      ['value'],
+                  haveToPay: Apis.studentExpensesInfo['data']['schoolBill']
+                          ['value'] -
+                      Apis.studentExpensesInfo['data']['paidForSchoolBill'])
+              : installmentsTab(
+                  mediaQuery: mediaQuery,
+                  data: [],
+                  paied: Apis.studentExpensesInfo['data']['paidForSchoolBill'],
+                  totalPrice: -1,
+                  haveToPay: -1),
+          // installmentsTab(mediaQuery: mediaQuery, data: data),
         ],
       ),
     );

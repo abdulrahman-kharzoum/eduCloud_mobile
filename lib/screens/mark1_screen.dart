@@ -127,9 +127,14 @@ class Mark1Screen extends StatelessWidget {
                     ),
                     Center(
                       child: Container(
-                        width: screenWidth - 50,
+                        margin:
+                            EdgeInsets.symmetric(horizontal: screenWidth / 30),
+                        // width: screenWidth - 50,
                         child: LineChartWidget(
-                            marksPoints, LocaleKeys.studentSituation.tr(), 2.2),
+                            MarksPoints.marksPoints(),
+                            MarksPoints.marksPoints2(),
+                            LocaleKeys.studentSituation.tr(),
+                            2.2),
                       ),
                     ),
                   ],

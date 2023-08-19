@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:educloud_mobile/common_widgets/backgroundPaint.dart';
+import 'package:educloud_mobile/models/marksPoints.dart';
 import 'package:educloud_mobile/routing/app_router.dart';
 import 'package:educloud_mobile/screens/suggestions_screen.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
@@ -10,12 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 import '../sever/apis.dart';
 import '../translations/locale_keys.g.dart';
 import '../widgets/advertisemen_container_widget.dart';
 import '../widgets/head_profile_widget.dart';
 import '../widgets/home_screen_widgets/topic_widget.dart';
+import 'chat_gpt.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatefulWidget {
@@ -26,7 +29,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   //this get the language of the app
   Locale appLocale = window.locale;
   bool _isLoading = false;
@@ -43,7 +47,25 @@ class _HomeScreenState extends State<HomeScreen> {
     });
     try {
       await Apis().studentInfo();
+      await Provider.of<Apis>(context, listen: false).studentExpenses();
+      await Provider.of<Apis>(context, listen: false).studentExpensesSchool();
+      await Provider.of<Apis>(context, listen: false).studentExpensesBuss();
       setState(() {
+        for (int i = 0; i < Apis.studentData['data']['marks'].length; i++) {
+          print('hello');
+          if (Apis.studentData['data']['marks'][i]['type_name'] == 'سبر') {
+            print('hi');
+            MarksPoints.dataChart2.add(double.parse(
+                Apis.studentData['data']['marks'][i]['mark'].toString()));
+          }
+          if (Apis.studentData['data']['marks'][i]['type_name'] == 'امتحان') {
+            MarksPoints.dataChart1.add(double.parse(
+                Apis.studentData['data']['marks'][i]['mark'].toString()));
+          }
+        }
+        print('----1----------------213------------------');
+        print(MarksPoints.dataChart1);
+        print(MarksPoints.dataChart2);
         _isLoading = false;
       });
     } catch (e) {
@@ -155,7 +177,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         GestureDetector(
-                            onTap: () => print(context.locale),
+                            onTap: () => Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          LineChartSample11()),
+                                ),
                             child: advertisementesContainerWidget(
                                 screenHight: screenHight)),
                         SizedBox(
