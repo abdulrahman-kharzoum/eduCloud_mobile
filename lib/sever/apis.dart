@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -9,6 +11,7 @@ class Apis with ChangeNotifier {
   static Map<String, dynamic> responseMessage = {};
   static List<dynamic> marksDataList = [];
   static Map<String, dynamic> supervisorContactsData = {};
+  static Map<String, dynamic> notifications = {};
   static Map<String, dynamic> studentData = {};
   static Map<String, dynamic> supervisorChatData = {};
   static Map<String, dynamic> studentExpensesInfo = {};
@@ -212,6 +215,32 @@ class Apis with ChangeNotifier {
     }
   }
 
+  Future<void> supervisorChat(String id) async {
+    final SharedPreferences _preferences =
+        await SharedPreferences.getInstance();
+    print(_preferences.getString('token'));
+    try {
+      Dio.Response response = await dio().get(
+        "/general/complaintChat/$id",
+        options: Dio.Options(
+          headers: {
+            'Authorization': 'Bearer ${_preferences.getString('token')}'
+          },
+        ),
+      );
+      print(
+          '................................get supervisor chat  data server ${response.statusCode}');
+      print(response.data);
+      supervisorChatData = response.data;
+      notifyListeners();
+      print('................................');
+    } on DioException catch (e) {
+      print(e.error);
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<void> supervisorContacts() async {
     final SharedPreferences _preferences =
         await SharedPreferences.getInstance();
@@ -238,13 +267,12 @@ class Apis with ChangeNotifier {
     }
   }
 
-  Future<void> supervisorChat(String id) async {
+  Future<void> notificationList() async {
     final SharedPreferences _preferences =
         await SharedPreferences.getInstance();
-    print(_preferences.getString('token'));
     try {
       Dio.Response response = await dio().get(
-        "/general/complaintChat/$id",
+        "/student/getNotificationsOfStudent/-1",
         options: Dio.Options(
           headers: {
             'Authorization': 'Bearer ${_preferences.getString('token')}'
@@ -252,13 +280,14 @@ class Apis with ChangeNotifier {
         ),
       );
       print(
-          '................................get supervisor chat  data server ${response.statusCode}');
+          '................................get student notification ${response.statusCode}');
       print(response.data);
-      supervisorChatData = response.data;
+
+      notifications = response.data;
       notifyListeners();
       print('................................');
     } on DioException catch (e) {
-      print(e.error);
+      print(e);
     } catch (e) {
       print(e);
     }

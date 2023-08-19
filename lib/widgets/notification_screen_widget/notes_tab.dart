@@ -1,5 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/providers/notification_provider.dart';
+import 'package:educloud_mobile/routing/app_router.dart';
+import 'package:educloud_mobile/screens/notification_body.dart';
 
 import 'package:educloud_mobile/styles/app_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -30,32 +32,41 @@ class _NotesTabState extends State<NotesTab> {
                 shadowColor: Colors.white,
                 color: AppColors.InfoCardColor,
                 child: (value.notifications[index].isRead == false)
-                    ? Badge(
-                        child: Card(
-                          child: ListTile(
-                            leading: Icon(Icons.location_on_rounded),
-                            title: Text(value.notifications[index].title),
-                            trailing: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  DateFormat.MMMMd().format(
-                                      value.notifications[index].dateTime),
-                                  style: AppTextStyles.miniTitle,
-                                ),
-                                Text(
-                                  DateFormat.jm().format(
-                                      value.notifications[index].dateTime),
-                                  style: AppTextStyles.miniTitle,
-                                ),
-                              ],
+                    ? GestureDetector(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => NotificationBody(
+                                id: value.notifications[index].id),
+                          ),
+                        ),
+                        child: Badge(
+                          child: Card(
+                            child: ListTile(
+                              leading: Icon(Icons.notifications),
+                              title: Text(value.notifications[index].title),
+                              trailing: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    DateFormat.MMMMd().format(
+                                        value.notifications[index].dateTime),
+                                    style: AppTextStyles.miniTitle,
+                                  ),
+                                  Text(
+                                    DateFormat.jm().format(
+                                        value.notifications[index].dateTime),
+                                    style: AppTextStyles.miniTitle,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       )
                     : Card(
                         child: ListTile(
-                          leading: Icon(Icons.location_on_rounded),
+                          leading: Icon(Icons.notifications),
                           title: Text(value.notifications[index].title),
                           trailing: Column(
                             mainAxisAlignment: MainAxisAlignment.center,

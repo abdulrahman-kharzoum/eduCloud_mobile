@@ -1,9 +1,14 @@
 // ignore_for_file: unused_local_variable
 
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:educloud_mobile/common_widgets/BackgroundPaint.dart';
+import 'package:educloud_mobile/main.dart';
+import 'package:educloud_mobile/models/Notification.dart';
 import 'package:educloud_mobile/providers/notification_provider.dart';
 import 'package:educloud_mobile/routing/app_router.dart';
+import 'package:educloud_mobile/sever/apis.dart';
 import 'package:educloud_mobile/styles/app_colors.dart';
 import 'package:educloud_mobile/translations/locale_keys.g.dart';
 import 'package:educloud_mobile/widgets/notification_screen_widget/absences_tab.dart';
@@ -11,6 +16,7 @@ import 'package:educloud_mobile/widgets/notification_screen_widget/general_tab.d
 import 'package:educloud_mobile/widgets/notification_screen_widget/homeworks_tab.dart';
 import 'package:educloud_mobile/widgets/notification_screen_widget/notes_tab.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import 'package:provider/provider.dart';
 
@@ -23,7 +29,56 @@ class NotificationScreen extends StatefulWidget {
 }
 
 // ignore: camel_case_types
-class _NotificationScreenState extends State<NotificationScreen> {
+class _NotificationScreenState extends State<NotificationScreen>
+    with SingleTickerProviderStateMixin {
+  bool _isLoading = false;
+  NotificationProvider notificationProvider = NotificationProvider();
+  List<MyNotification> notifi = [];
+  @override
+  void initState() {
+    super.initState();
+    getNotificationData();
+    // Initialization tasks can be done here
+  }
+
+  Future<void> getNotificationData() async {
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      await Apis().notificationList();
+      print(Apis.notifications);
+      print(Apis.notifications['data']);
+      //  List<dynamic> notificationss =
+      //       Apis.notifications['data'] as List;
+      List<dynamic> notificationss = Apis.notifications['data'];
+      print(notificationss);
+      if (notificationss.isNotEmpty && notificationss != null) {
+        for (var notifications in notificationss) {
+          // notificationProvider.addNotification(MyNotification(
+          //     id: notifications['id'],
+          //     title: notifications['title'],
+          //     body: notifications['body']));
+          notifi.add(MyNotification(
+            id: notifications['id'],
+            title: notifications['title'],
+            body: notifications['body'],
+            dateTime: DateTime.parse(notifications["date"]),
+          ));
+        }
+        (scaffoldMessengerKey.currentContext!)
+            .read<NotificationProvider>()
+            .setNotifications(notifi);
+      }
+
+      setState(() {
+        _isLoading = false;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   TabBar get _tabBar => TabBar(
         unselectedLabelColor: Colors.grey,
         indicatorColor: AppColors.mainColor,
@@ -133,104 +188,129 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return SafeArea(
       child: DefaultTabController(
         length: 7,
-        child: Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-
-            toolbarHeight: 5,
-            // centerTitle: true,
-            bottom: PreferredSize(
-              preferredSize: _tabBar.preferredSize,
-              child: Material(
-                color: AppColors.mainColor, //<-- SEE HERE
-                child: _tabBar,
-              ),
-            ),
-            backgroundColor: AppColors.mainColor,
-          ),
-          body: CustomPaint(
-            size: Size(
-                screenWidth,
-                (screenWidth * 2.1434668500180276)
-                    .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
-            painter: Background(),
-            child: Column(
-              children: [
-                Expanded(
-                  child: TabBarView(
-                    children: [
-                      NotesTab(),
-                      AbsencesTab(),
-                      HomeworksTab(),
-                      GeneralTab(),
-                      Container(
-                        child: Center(
-                          child: Text("data1"),
-                        ),
-                      ),
-                      Container(
-                        child: Center(
-                          child: Text("data2"),
-                        ),
-                      ),
-                      Container(
-                        child: Center(
-                          child: Text("data3"),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: Stack(
-            children: [
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  width: screenWidth,
-                  height: 120,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: [
-                      Colors.grey.shade500.withOpacity(0.8),
-                      Colors.white70.withOpacity(0.5)
-                    ], begin: Alignment.bottomCenter, end: Alignment.topCenter),
-                  ),
+        child: (_isLoading)
+            ? Scaffold(
+                body: Stack(
+                  children: [
+                    CustomPaint(
+                      //this for the background
+                      size: Size(
+                        screenWidth,
+                        screenHight,
+                        // (screenWidth * 2.1434668500180276)
+                        //     .toDouble()
+                      ), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                      painter: Background(),
+                    ),
+                    Center(
+                      child: Lottie.asset(
+                          width: screenWidth / 3,
+                          'assets/lotties/loading.json'),
+                    )
+                  ],
                 ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: SizedBox(
-                      height: 70,
-                      width: screenWidth,
-                      child: FloatingActionButton(
-                        shape: CircleBorder(eccentricity: 0),
-                        backgroundColor: AppColors.mainColor,
-                        child: Icon(
-                          Icons.home,
-                          size: 35,
-                          color: AppColors.secondaryColor,
-                        ),
-                        onPressed: () => Navigator.of(context)
-                            .pushNamedAndRemoveUntil(AppRouter.homeScreen,
-                                (Route<dynamic> route) => false),
-                      ),
+              )
+            : Scaffold(
+                appBar: AppBar(
+                  automaticallyImplyLeading: false,
+
+                  toolbarHeight: 5,
+                  // centerTitle: true,
+                  bottom: PreferredSize(
+                    preferredSize: _tabBar.preferredSize,
+                    child: Material(
+                      color: AppColors.mainColor, //<-- SEE HERE
+                      child: _tabBar,
                     ),
                   ),
-                  SizedBox(
-                    height: 15,
+                  backgroundColor: AppColors.mainColor,
+                ),
+                body: CustomPaint(
+                  size: Size(
+                      screenWidth,
+                      (screenWidth * 2.1434668500180276)
+                          .toDouble()), //You can Replace [WIDTH] with your desired width for Custom Paint and height will be calculated automatically
+                  painter: Background(),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: TabBarView(
+                          children: [
+                            NotesTab(),
+                            AbsencesTab(),
+                            HomeworksTab(),
+                            GeneralTab(),
+                            Container(
+                              child: Center(
+                                child: Text("data1"),
+                              ),
+                            ),
+                            Container(
+                              child: Center(
+                                child: Text("data2"),
+                              ),
+                            ),
+                            Container(
+                              child: Center(
+                                child: Text("data3"),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                ],
+                ),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerDocked,
+                floatingActionButton: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        width: screenWidth,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [
+                                Colors.grey.shade500.withOpacity(0.8),
+                                Colors.white70.withOpacity(0.5)
+                              ],
+                              begin: Alignment.bottomCenter,
+                              end: Alignment.topCenter),
+                        ),
+                      ),
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: SizedBox(
+                            height: 70,
+                            width: screenWidth,
+                            child: FloatingActionButton(
+                              shape: CircleBorder(eccentricity: 0),
+                              backgroundColor: AppColors.mainColor,
+                              child: Icon(
+                                Icons.home,
+                                size: 35,
+                                color: AppColors.secondaryColor,
+                              ),
+                              onPressed: () => Navigator.of(context)
+                                  .pushNamedAndRemoveUntil(AppRouter.homeScreen,
+                                      (Route<dynamic> route) => false),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
       ),
     );
   }

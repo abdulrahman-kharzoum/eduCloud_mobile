@@ -4,13 +4,13 @@ class MyNotification {
   final int id;
   final String title, body;
   bool isRead = false;
-
-  DateTime dateTime = DateTime.now();
+  DateTime dateTime;
 
   MyNotification({
     required this.id,
     required this.title,
     required this.body,
+    required this.dateTime,
   });
 
   factory MyNotification.fromJson(Map<String, dynamic> jsonData) {
@@ -18,6 +18,7 @@ class MyNotification {
       id: jsonData['id'],
       title: jsonData['title'],
       body: jsonData['body'],
+      dateTime: jsonData['dateTime'],
     );
   }
 
