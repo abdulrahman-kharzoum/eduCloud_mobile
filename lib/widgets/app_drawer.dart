@@ -391,72 +391,72 @@ class _appDrawerState extends State<appDrawer> {
 }
 
 // ignore: camel_case_types
-class circleIconWidget extends StatelessWidget {
-  const circleIconWidget({
-    super.key,
-    required this.color,
-    required this.widget,
-  });
+  class circleIconWidget extends StatelessWidget {
+    const circleIconWidget({
+      super.key,
+      required this.color,
+      required this.widget,
+    });
 
-  final Color color;
-  final Widget widget;
+    final Color color;
+    final Widget widget;
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: color,
-      ),
-      child: Center(child: widget),
-    );
+    @override
+    Widget build(BuildContext context) {
+      return Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: color,
+        ),
+        child: Center(child: widget),
+      );
+    }
   }
-}
 
-// ignore: camel_case_types
-class circleIconWidget2 extends StatelessWidget {
-  const circleIconWidget2({
-    super.key,
-    required this.color,
-    required this.widget,
-    required this.mediaQuery,
-    required this.iconName,
-  });
+  // ignore: camel_case_types
+  class circleIconWidget2 extends StatelessWidget {
+    const circleIconWidget2({
+      super.key,
+      required this.color,
+      required this.widget,
+      required this.mediaQuery,
+      required this.iconName,
+    });
 
-  final Color color;
-  final Widget widget;
-  final Size mediaQuery;
-  final String iconName;
+    final Color color;
+    final Widget widget;
+    final Size mediaQuery;
+    final String iconName;
 
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Colors.transparent,
-      elevation: 0,
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: color,
+    @override
+    Widget build(BuildContext context) {
+      return Card(
+        color: Colors.transparent,
+        elevation: 0,
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: color,
+              ),
+              child: Center(child: widget),
             ),
-            child: Center(child: widget),
-          ),
-          SizedBox(
-            width: mediaQuery.width / 20,
-          ),
-          Text(
-            iconName,
-            style: const TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Euclid Circular A'),
-          )
-        ],
-      ),
-    );
+            SizedBox(
+              width: mediaQuery.width / 20,
+            ),
+            Text(
+              iconName,
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Euclid Circular A'),
+            )
+          ],
+        ),
+      );
+    }
   }
-}

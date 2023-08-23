@@ -13,6 +13,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
+import '../models/mark.dart';
 import '../sever/apis.dart';
 import '../translations/locale_keys.g.dart';
 import '../widgets/advertisemen_container_widget.dart';
@@ -51,22 +52,37 @@ class _HomeScreenState extends State<HomeScreen>
       await Provider.of<Apis>(context, listen: false).studentExpensesSchool();
       await Provider.of<Apis>(context, listen: false).studentExpensesBuss();
       setState(() {
+        MarksPoints.dataChart1.clear();
         for (int i = 0; i < Apis.studentData['data']['marks'].length; i++) {
-          print('hello');
-          if (Apis.studentData['data']['marks'][i]['type_name'] == 'سبر') {
-            print('hi');
-            MarksPoints.dataChart2.add(double.parse(
-                Apis.studentData['data']['marks'][i]['mark'].toString()));
-          }
-          if (Apis.studentData['data']['marks'][i]['type_name'] == 'امتحان' ||
-              Apis.studentData['data']['marks'][i]['type_name'] == 'مذاكرة') {
-            MarksPoints.dataChart1.add(double.parse(
-                Apis.studentData['data']['marks'][i]['mark'].toString()));
-          }
+          MarksPoints.dataChart1.add(
+            double.parse(
+              Apis.studentData['data']['marks'][i]['mark'].toString(),
+            ),
+          );
         }
         print('----1----------------213------------------');
         print(MarksPoints.dataChart1);
-        print(MarksPoints.dataChart2);
+      });
+
+      await Provider.of<Apis>(context, listen: false).marksOfStudent();
+      Set<String> type = {LocaleKeys.all.tr()};
+      Set<String> subject = {LocaleKeys.all.tr()};
+      for (int i = 0; i < Apis.marksDataList.length; i++) {
+        type.add(Apis.marksDataList[i]['type_name']);
+        subject.add(Apis.marksDataList[i]['subject_name']);
+      }
+      setState(() {
+        Marks.marksType = type.toList();
+        Marks.subjectsName = subject.toList();
+        Marks.data = Apis.marksDataList;
+        Marks.marks = Apis.marksDataList;
+      });
+      print('.........................................hello');
+      print(Marks.marksType);
+      print(Marks.subjectsName);
+
+      print('${Marks.data} data');
+      setState(() {
         _isLoading = false;
       });
     } catch (e) {

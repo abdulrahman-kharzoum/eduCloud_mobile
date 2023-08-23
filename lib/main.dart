@@ -18,12 +18,12 @@ import 'package:provider/provider.dart';
 GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
 
-// PusherChannel pusher = PusherChannel();
+PusherChannel pusher = PusherChannel();
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await NotificationService.intializeNotification();
-  // pusher.onConnectPressed();
+  pusher.onConnectPressed();
 
   runApp(
     await EasyLocalization(

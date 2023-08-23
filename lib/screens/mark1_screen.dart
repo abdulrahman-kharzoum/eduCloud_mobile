@@ -22,8 +22,14 @@ import '../styles/app_colors.dart';
 import '../widgets/head_profile_widget.dart';
 
 // ignore: must_be_immutable
-class Mark1Screen extends StatelessWidget {
+class Mark1Screen extends StatefulWidget {
   Mark1Screen({super.key});
+
+  @override
+  State<Mark1Screen> createState() => _Mark1ScreenState();
+}
+
+class _Mark1ScreenState extends State<Mark1Screen> {
   //this get the language of the app
   Locale appLocale = window.locale;
 
@@ -133,11 +139,8 @@ class Mark1Screen extends StatelessWidget {
                             margin: EdgeInsets.symmetric(
                                 horizontal: screenWidth / 30),
                             // width: screenWidth - 50,
-                            child: LineChartWidget(
-                                MarksPoints.marksPoints(),
-                                MarksPoints.marksPoints2(),
-                                LocaleKeys.studentSituation.tr(),
-                                2.2),
+                            child: LineChartWidget(MarksPoints.marksPoints(),
+                                LocaleKeys.studentSituation.tr(), 2.2),
                           ),
                         ),
                       ],

@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:educloud_mobile/models/mark.dart';
 
 class MarksPoints {
   final double x;
@@ -6,21 +7,11 @@ class MarksPoints {
   MarksPoints({required this.x, required this.y});
 
   static List<double> dataChart1 = [];
-  static List<double> dataChart2 = [];
 
   static List<MarksPoints> marksPoints() {
-    List<double> data = dataChart1;
-    return data
-        .mapIndexed((((index, element) =>
-            MarksPoints(x: index.toDouble(), y: element))))
-        .toList();
-  }
-
-  static List<MarksPoints> marksPoints2() {
-    List<double> data = dataChart2;
-    return data
-        .mapIndexed((((index, element) =>
-            MarksPoints(x: index.toDouble(), y: element))))
+    return Marks.marks
+        .mapIndexed((((index, element) => MarksPoints(
+            x: index.toDouble(), y: double.parse(element['mark'].toString())))))
         .toList();
   }
 }

@@ -60,7 +60,7 @@ class ProfileScreen extends StatelessWidget {
                               .copyWith(fontSize: 14)),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Center(
@@ -72,11 +72,8 @@ class ProfileScreen extends StatelessWidget {
                         color: AppColors.secondaryColor,
                         borderRadius: BorderRadius.circular(25),
                       ),
-                      child: LineChartWidget(
-                          MarksPoints.marksPoints(),
-                          MarksPoints.marksPoints2(),
-                          LocaleKeys.studentSituation.tr(),
-                          2.7)),
+                      child: LineChartWidget(MarksPoints.marksPoints(),
+                          LocaleKeys.studentSituation.tr(), 2.7)),
                 ),
               ),
               Container(
